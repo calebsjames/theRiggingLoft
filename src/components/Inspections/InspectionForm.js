@@ -35,6 +35,7 @@ export const InspectionForm = () => {
       reserveSeamFabric: "",
       reserveSlider: "",
       reserveNotes: "",
+      reserveId: "",
       mainDBag: "",
       mainLinks: "",
       mainSuspensionLines: "",
@@ -43,11 +44,12 @@ export const InspectionForm = () => {
       mainSeamFabric: "",
       mainSlider: "",
       mainNotes: "",
+      mainParachuteId: "",
       aadInstallation: "",
       aadCables: "",
       aadInService: "",
       aadNotes: "",
-      inspectionNotes: ""
+      aadId: "",
       
     });
     console.log(sessionStorage.getItem("app_user_id"))
@@ -81,7 +83,7 @@ export const InspectionForm = () => {
         //invoke addInspection passing inspection as an argument.
         //once complete, change the url and display the inspection list
         addInspection(inspection)
-        .then(() => history.push("/newcontainer"))
+        .then(() => history.push("/"))
       
     }
     
@@ -364,9 +366,9 @@ export const InspectionForm = () => {
                 <p>Main</p>
             </article>
         </section>
-        {/* <button className="btn btn-primary"
-            onClick={handleClickSaveOwner}>
-            Save Owner
-        </button> */}
+        <button className="btn btn-primary"
+            onClick={handleClickSaveInspection}>
+            Save Inspection
+        </button>
     </>
 }
