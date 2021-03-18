@@ -5,57 +5,56 @@ export const CustomerContext = createContext()
 
 // This component establishes what data can be used.
 export const CustomerProvider = (props) => {
-    const [Customers, setCustomers] = useState([])
+    const [customers, setCustomers] = useState([])
 
     const getCustomers = () => {
-        return fetch("http://localhost:8088/Customers")
+        return fetch("http://localhost:8088/customers")
         .then(res => res.json())
         .then(setCustomers)
     }
 
-    const addCustomer = CustomerObj => {
-        return fetch("http://localhost:8088/Customers", {
+    const addCustomer = customerObj => {
+        return fetch("http://localhost:8088/customers", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(CustomerObj)
+            body: JSON.stringify(customerObj)
         })
         .then(getCustomers)
     }
 
-    //function to get Customer by ID
+    //function to get customer by ID
     const getCustomerById = (id) => {
-        return fetch(`http://localhost:8088/Customers/${id}`)
+        return fetch(`http://localhost:8088/customers/${id}`)
             .then(res => res.json())
     }
 
-    //function to delete an Customer
-    const deleteCustomer = CustomerId => {
-        return fetch(`http://localhost:8088/Customers/${CustomerId}`, {
+    //function to delete an customer
+    const deleteCustomer = customerId => {
+        return fetch(`http://localhost:8088/customers/${customerId}`, {
             method: "DELETE"
         })
             .then(getCustomers)
     }
 
-    const editCustomer = Customer => {
-        return fetch(`http://localhost:8088/Customers/${Customer.id}`, {
+    const editCustomer = customer => {
+        return fetch(`http://localhost:8088/customers/${customer.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(Customer)
+          body: JSON.stringify(customer)
         })
           .then(getCustomers)
       }
 
-   
 
       const [ searchTerms, setSearchTerms ] = useState("")
 
     return (
         <CustomerContext.Provider value={{
-            Customers, getCustomers, addCustomer, getCustomerById, deleteCustomer, editCustomer, searchTerms, setSearchTerms
+            customers, getCustomers, addCustomer, getCustomerById, deleteCustomer, editCustomer, searchTerms, setSearchTerms
         }}>
             {props.children}
         </CustomerContext.Provider>
