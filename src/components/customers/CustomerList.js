@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from "react"
 import { CustomerContext } from "./CustomerProvider"
-// import { CustomerCard } from "./CustomerCard"
-// import "./Customer.css"
-// import "../rigs/Rig.css"
+import { CustomerCard } from "./CustomerCard"
+
 
 import { useHistory } from "react-router-dom"
 // import { CustomerSearch } from "./CustomerSearch"
@@ -17,10 +16,8 @@ export const CustomerList = () => {
     const history = useHistory()
 
    // Initialization effect hook -> Go get customer data 
-    useEffect(()=>{
+    useEffect(() => {
       getCustomers()
-      
-      
     }, [])
   
     useEffect(() => {
@@ -43,18 +40,17 @@ export const CustomerList = () => {
                 New Customer
             </button>
             {/* <CustomerSearch /> */}
-            {/* <div className="customers">
+            <div className="customers">
                 {
                   
                   filteredCustomers.map(customerObject => {
-                    const customerRig = rigs.filter(rig => parseInt(rig.customerId) === parseInt(customerObject.id))
+                    
                         return <CustomerCard key={customerObject.id} 
                         customerInstance={customerObject}
-                        customerRig = {customerRig}
                         />
                     })
                 }
-            </div> */}
+            </div> 
         </>
     )
 }
