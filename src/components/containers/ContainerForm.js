@@ -13,7 +13,6 @@ export const ContainerForm = () => {
 
     //Define the intial state of the form inputs with useState()
     const [container, setContainer] = useState({
-      ownerId: "",
       Manufacturer: "",
       Model: "",
       Size: "",

@@ -10,10 +10,11 @@ export const CustomerForm = () => {
     const [customer, setCustomer] = useState({
       name: "",
       phone: "",
-      customerNotes: ""
+      customerNotes: "",
+      userId: sessionStorage.getItem("app_user_id")
       
     });
-
+    console.log(sessionStorage.getItem("app_user_id"))
     const history = useHistory();
 
     //when some changes, save it
