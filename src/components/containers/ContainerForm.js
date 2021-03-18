@@ -13,18 +13,14 @@ export const ContainerForm = () => {
 
     //Define the intial state of the form inputs with useState()
     const [container, setContainer] = useState({
-      ownerId: "",
-      Manufacturer: "",
-      Model: "",
-      Size: "",
-      Serial: "",
-      Color: "",
-      DOM: "",
-      Notes: "",
-      userId: ""
-
-
-      
+      manufacturer: "",
+      model: "",
+      size: "",
+      serialNumber: "",
+      color: "",
+      dom: "",
+      notes: "",
+      userId: sessionStorage.getItem("app_user_id")      
     });
 
 
@@ -73,31 +69,31 @@ export const ContainerForm = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="containerManufacturer">Manufacturer:</label>
-                    <input type="text" id="containerManufacturer" onChange={handleControlledInputChange} autoFocus className="form-control" placeholder="Manufacturer" value={container.manufacturer}/>
+                    <input type="text" id="manufacturer" onChange={handleControlledInputChange} autoFocus className="form-control" placeholder="Manufacturer" value={container.manufacturer}/>
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="containerModel">Model:</label>
-                    <input type="text" id="containerModel" onChange={handleControlledInputChange} className="form-control" placeholder="Model" value={container.model}/>
+                    <input type="text" id="model" onChange={handleControlledInputChange} className="form-control" placeholder="Model" value={container.model}/>
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="containerSize">Size:</label>
-                    <input type="text" id="containerSize" onChange={handleControlledInputChange} className="form-control" placeholder="Size" value={container.size}/>
+                    <input type="text" id="size" onChange={handleControlledInputChange} className="form-control" placeholder="Size" value={container.size}/>
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="containerSerial">Serial:</label>
-                    <input type="text" id="containerSerial" onChange={handleControlledInputChange} className="form-control" placeholder="Serial #" value={container.serial}/>
+                    <input type="text" id="serialNumber" onChange={handleControlledInputChange} className="form-control" placeholder="Serial #" value={container.serialNumber}/>
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="containerColor">Color:</label>
-                    <input type="text" id="containerColor" onChange={handleControlledInputChange} className="form-control" placeholder="Color" value={container.color}/>
+                    <input type="text" id="color" onChange={handleControlledInputChange} className="form-control" placeholder="Color" value={container.color}/>
                 </div>
             </fieldset>
             <fieldset>
@@ -109,7 +105,7 @@ export const ContainerForm = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="containerNotes">Notes:</label>
-                    <input type="text" id="containerNotes" onChange={handleControlledInputChange} className="form-control" placeholder="Notes" value={container.notes}/>
+                    <input type="text" id="notes" onChange={handleControlledInputChange} className="form-control" placeholder="Notes" value={container.notes}/>
                 </div>
             </fieldset>
             </div>

@@ -1,12 +1,11 @@
 import React, { useState, useContext, useEffect } from "react"
 import { CustomerContext } from "./CustomerProvider"
-import { CustomerCard } from "./CustomerCard"
-import "./Customer.css"
-import "../rigs/Rig.css"
+// import { CustomerCard } from "./CustomerCard"
+// import "./Customer.css"
+// import "../rigs/Rig.css"
 
 import { useHistory } from "react-router-dom"
-import { CustomerSearch } from "./CustomerSearch"
-import { RigContext } from "../rigs/RigProvider"
+// import { CustomerSearch } from "./CustomerSearch"
 
 
 
@@ -14,19 +13,14 @@ export const CustomerList = () => {
     const { getCustomers, customers, searchTerms } = useContext(CustomerContext)
     // Since you are no longer ALWAYS displaying all of the customers
     const [ filteredCustomers, setFiltered ] = useState([])
-    const { getRigs, rigs } = useContext(RigContext)
+
     const history = useHistory()
-    const x = rigs.filter(r => r.id === 1)
-    console.log(x)
-  
-    // Initialization effect hook -> Go get customer data
-    let allrigs = {}
+
+   // Initialization effect hook -> Go get customer data 
     useEffect(()=>{
-      getRigs()
-      .then(getCustomers)
+      getCustomers()
       
-      .then(res => allrigs = res)
-      .then(console.log(allrigs))
+      
     }, [])
   
     useEffect(() => {
@@ -41,8 +35,6 @@ export const CustomerList = () => {
         }
       }, [searchTerms, customers])
 
-      console.log("rigs", rigs)
-
 
       return (
         <>
@@ -51,7 +43,7 @@ export const CustomerList = () => {
                 New Customer
             </button>
             {/* <CustomerSearch /> */}
-            <div className="customers">
+            {/* <div className="customers">
                 {
                   
                   filteredCustomers.map(customerObject => {
@@ -62,7 +54,7 @@ export const CustomerList = () => {
                         />
                     })
                 }
-            </div>
+            </div> */}
         </>
     )
 }
