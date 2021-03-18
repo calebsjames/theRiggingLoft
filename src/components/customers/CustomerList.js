@@ -1,10 +1,9 @@
 import React, { useState, useContext, useEffect } from "react"
 import { CustomerContext } from "./CustomerProvider"
 import { CustomerCard } from "./CustomerCard"
-
-
 import { useHistory } from "react-router-dom"
-// import { CustomerSearch } from "./CustomerSearch"
+import { CustomerSearch } from "./CustomerSearch"
+
 
 
 
@@ -39,7 +38,7 @@ export const CustomerList = () => {
             <button onClick={() => history.push("/newcustomer")}>
                 New Customer
             </button>
-            {/* <CustomerSearch /> */}
+            <CustomerSearch />
             <div className="customers">
                 {
                   
