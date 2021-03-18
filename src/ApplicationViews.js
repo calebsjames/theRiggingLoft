@@ -8,6 +8,7 @@ import { CustomerForm } from "./components/customers/CustomerForm"
 import { CustomerList } from "./components/customers/CustomerList"
 import { CustomerProvider } from "./components/customers/CustomerProvider"
 import { Home } from "./components/Home"
+import { InspectionForm } from "./components/Inspections/InspectionForm"
 import { InspectionProvider } from "./components/Inspections/InspectionProvider"
 import { MainParachuteForm } from "./components/mainparachutes/MainParachuteForm"
 import { MainParachuteProvider } from "./components/mainparachutes/MainParachuteProvider"
@@ -88,6 +89,18 @@ export const ApplicationViews = () => {
                         <MainParachuteProvider>
                             <InspectionProvider>
                                 <MainParachuteForm />
+                            </InspectionProvider>    
+                        </MainParachuteProvider>
+                    
+                </CustomerProvider>
+            </Route>
+            
+            <Route exact path="/newinspection">
+                <CustomerProvider>
+                    
+                        <MainParachuteProvider>
+                            <InspectionProvider>
+                                <InspectionForm />
                             </InspectionProvider>    
                         </MainParachuteProvider>
                     
