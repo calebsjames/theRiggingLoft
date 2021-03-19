@@ -44,9 +44,9 @@ export const CustomerList = () => {
                   
                   filteredCustomers.map(customerObject => {
                     
-                        return <CustomerCard key={customerObject.id} 
-                        customerInstance={customerObject}
-                        />
+                      return <CustomerCard key={customerObject.id} 
+                      customerInstance={customerObject}
+                      />
                     })
                 }
             </div> 
