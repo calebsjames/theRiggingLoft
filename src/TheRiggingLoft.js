@@ -4,6 +4,7 @@ import { Register } from "./components/auth/Register"
 import { userStorageKey } from "./components/auth/authSettings"
 import { Home } from "./components/Home"
 import { ApplicationViews } from "./ApplicationViews"
+import { Header } from "./components/Header"
 
 
 export const TheRiggingLoft = () => (
@@ -12,6 +13,7 @@ export const TheRiggingLoft = () => (
     if (sessionStorage.getItem(userStorageKey)) {
       return (
         <>
+          <Header />
           <ApplicationViews />
         </>
       )

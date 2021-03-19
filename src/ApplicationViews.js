@@ -9,6 +9,7 @@ import { CustomerList } from "./components/customers/CustomerList"
 import { CustomerProvider } from "./components/customers/CustomerProvider"
 import { Home } from "./components/Home"
 import { InspectionForm } from "./components/Inspections/InspectionForm"
+import { InspectionList } from "./components/Inspections/InspectionList"
 import { InspectionProvider } from "./components/Inspections/InspectionProvider"
 import { MainParachuteForm } from "./components/mainparachutes/MainParachuteForm"
 import { MainParachuteProvider } from "./components/mainparachutes/MainParachuteProvider"
@@ -24,8 +25,10 @@ export const ApplicationViews = () => {
             {/* Render the home page */}
             
                 <Route path="/">
-                    <Home />
-                    
+                    <InspectionProvider>
+                        <Home />
+
+                    </InspectionProvider>
                 </Route>
             
 

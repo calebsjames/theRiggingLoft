@@ -11,7 +11,7 @@ export const CustomerSearch = () => {
       <input type="text"
         className="input--wide"
         onKeyUp={(event) => setSearchTerms(event.target.value)}
-        placeholder="Search for an customer... " />
+        placeholder="Customers... " />
     </>
   )
 }

@@ -21,5 +21,3 @@ export const CustomerCard = ({ customerInstance }) => {
 }
 
 
-// {customerRig.forEach(element => {
-//   return(customerRig.id)
