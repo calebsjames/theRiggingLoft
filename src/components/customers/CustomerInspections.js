@@ -20,6 +20,8 @@ export const CustomerInspections = () => {
     const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
     const { inspections, getInspections } = useContext(InspectionContext)
 
+    const { customerId } = useParams();
+
     useEffect(() => {
         getContainers()
         .then(getCustomers)
@@ -29,8 +31,8 @@ export const CustomerInspections = () => {
         .then(getInspections)
     }, [])
   
-    // const filteredInspections = inspections.filter(
-    //     parseInt(insp.customerId) === parseInt())
+    const filteredInspections = inspections.filter(insp => 
+        parseInt(insp.customerId) === parseInt(customerId))
   
   
  
@@ -38,7 +40,7 @@ export const CustomerInspections = () => {
   return (
     <>
     <div className="inspections">
-      {inspections.map(inspectionObject => {
+      {filteredInspections.map(inspectionObject => {
           const customer = customers.find(c => parseInt(c.id) === parseInt(inspectionObject.customerId))
           const container = containers.find(cont => parseInt(cont.id) === parseInt(inspectionObject.containerId))
           const reserve = reserves.find(r => parseInt(r.id) === parseInt(inspectionObject.reserveId))
