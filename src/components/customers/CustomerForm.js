@@ -14,7 +14,7 @@ export const CustomerForm = () => {
       userId: sessionStorage.getItem("app_user_id")
       
     });
-    console.log(sessionStorage.getItem("app_user_id"))
+    
     const history = useHistory();
 
     //when some changes, save it

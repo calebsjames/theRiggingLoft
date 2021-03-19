@@ -2,13 +2,15 @@
 import React, { useContext, useState } from "react"
 import { useHistory } from 'react-router-dom';
 import { ContainerContext } from "../containers/ContainerProvider";
+import { CustomerContext } from "../customers/CustomerProvider";
 
 
 //export function to display form for new container
 export const ContainerForm = () => {
     
     const { addContainer } = useContext(ContainerContext)
-    
+    const { customerId } = useContext(CustomerContext)
+    console.log(customerId)
    
 
     //Define the intial state of the form inputs with useState()

@@ -58,25 +58,25 @@ export const ApplicationViews = () => {
                 </ContainerProvider>  
             </Route>
 
+
+                <CustomerProvider>
             <Route exact path="/newcustomer">
                 
-                    <CustomerProvider>
+                    
                         <CustomerForm />
-                    </CustomerProvider>
+                    
                    
             </Route>
-
-            <Route exact path="/newcontainer">
-                <CustomerProvider>
                     
                         <ContainerProvider>
                             <InspectionProvider>
+            <Route exact path="/newcontainer">
                                 <ContainerForm />
+            </Route>
                             </InspectionProvider>    
                         </ContainerProvider>
                     
                 </CustomerProvider>
-            </Route>
 
             <Route exact path="/newreserve">
                 <CustomerProvider>

@@ -7,6 +7,8 @@ export const CustomerContext = createContext()
 export const CustomerProvider = (props) => {
     const [customers, setCustomers] = useState([])
 
+    const [customerId, setCustomerId] = useState(0)
+
     const getCustomers = () => {
         return fetch("http://localhost:8088/customers")
         .then(res => res.json())
@@ -20,6 +22,12 @@ export const CustomerProvider = (props) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(customerObj)
+        })
+        .then(res => res.json())
+        .then(customerObject => {
+            setCustomerId(customerObject.id)
+            console.log("!", customerObject.id)
+            
         })
         .then(getCustomers)
     }
@@ -54,10 +62,10 @@ export const CustomerProvider = (props) => {
 
     return (
         <CustomerContext.Provider value={{
-            customers, getCustomers, addCustomer, getCustomerById, deleteCustomer, editCustomer, searchTerms, setSearchTerms
+            customers, getCustomers, addCustomer, getCustomerById, deleteCustomer, editCustomer, searchTerms, setSearchTerms, customerId
         }}>
             {props.children}
         </CustomerContext.Provider>
     )
 
-}
+    }
