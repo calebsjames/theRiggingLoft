@@ -23,22 +23,18 @@ export const InspectionList = () => {
         .then(getReserves)
         .then(getAADs)
         .then(getMainParachutes)
+        .then(getInspections)
     }, [])
   
   // This state changes when `getInspections()` is invoked below
   const { inspections, getInspections } = useContext(InspectionContext)
-
-  //useEffect - reach out to the world for something
-  useEffect(() => {
-    getInspections()
-   
-  }, [])
+ 
 
   return (
     <>
     <div className="inspections">
       {inspections.map(inspectionObject => {
-          const customer = customers.find(c => parseInt(c.id) === parseInt(inspectionObject.customerId).name)
+          const customer = customers.find(c => parseInt(c.id) === parseInt(inspectionObject.customerId))
 
           return <InspectionCard key={inspectionObject.id} 
           inspectionInstance={inspectionObject} 

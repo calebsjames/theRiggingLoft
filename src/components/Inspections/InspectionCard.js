@@ -33,16 +33,16 @@ export const InspectionCard = ({ inspectionInstance, customerInstance }) => {
     const container = inspectionInstance.containerId
     const reserve = inspectionInstance.reserveId
     const aad = inspectionInstance.aadId
-    const main = inspectionInstance.mainId
+    const main = inspectionInstance.mainParachuteId
     const customer = inspectionInstance.containerId
 
   
-    console.log("!!", customerInstance)
+    console.log("customerInstance!", customerInstance.name)
 
     return(<section className="inspectionCard">
         <h3 className="inspection">
           
-            { inspectionInstance.id }
+            { customerInstance.name }
           
         </h3>
         <p>Cutomer Id: { customer }</p>
