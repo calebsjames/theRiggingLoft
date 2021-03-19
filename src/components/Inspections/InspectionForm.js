@@ -13,7 +13,7 @@ export const InspectionForm = () => {
     const [inspection, setInspection] = useState({
         
       userId: sessionStorage.getItem("app_user_id"),
-      customerId: customerId,
+      customerId: sessionStorage.getItem("newCustomerId"),
       date: new Date,
       containerId: "",
       containerMainTray: false,
@@ -36,7 +36,7 @@ export const InspectionForm = () => {
       reserveSeamFabric: false,
       reserveSlider: false,
       reserveNotes: "",
-      reserveId: false,
+      reserveId: "",
       mainDBag: false,
       mainLinks: false,
       mainSuspensionLines: false,
@@ -45,12 +45,12 @@ export const InspectionForm = () => {
       mainSeamFabric: false,
       mainSlider: false,
       mainNotes: "",
-      mainParachuteId: false,
+      mainParachuteId: "",
       aadInstallation: false,
       aadCables: false,
       aadInService: false,
       aadNotes: "",
-      aadId: false,
+      aadId: "",
       
     });
     console.log(sessionStorage.getItem("app_user_id"))

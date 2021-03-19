@@ -59,70 +59,57 @@ export const ApplicationViews = () => {
             </Route>
 
 
-                <CustomerProvider>
-            <Route exact path="/newcustomer">
-                
-                    
-                        <CustomerForm />
-                    
-                   
-            </Route>
-                    
-                        <ContainerProvider>
-                            <InspectionProvider>
-            <Route exact path="/newcontainer">
-                                <ContainerForm />
-            </Route>
-                            </InspectionProvider>    
-                        </ContainerProvider>
-                    
-                </CustomerProvider>
+            <CustomerProvider>
+                <Route exact path="/newcustomer">
+                    <CustomerForm />
+                </Route>
+
+                <ContainerProvider>
+                    <InspectionProvider>
+                        <Route exact path="/newcontainer">
+                            <ContainerForm />
+                        </Route>
+                    </InspectionProvider>    
+                </ContainerProvider>
+            </CustomerProvider>
 
             <Route exact path="/newreserve">
-                <CustomerProvider>
-                    
-                        <ReserveProvider>
-                            <InspectionProvider>
-                                <ReserveForm />
-                            </InspectionProvider>    
-                        </ReserveProvider>
-                    
+                <CustomerProvider>   
+                    <ReserveProvider>
+                        <InspectionProvider>
+                            <ReserveForm />
+                        </InspectionProvider>    
+                    </ReserveProvider>                   
                 </CustomerProvider>
             </Route>
 
             <Route exact path="/newaad">
-                <CustomerProvider>
-                    
+                <CustomerProvider>                    
                         <AADProvider>
                             <InspectionProvider>
                                 <AADForm />
                             </InspectionProvider>    
-                        </AADProvider>
-                    
+                        </AADProvider>                   
                 </CustomerProvider>
             </Route>
 
             <Route exact path="/newmainparachute">
-                <CustomerProvider>
-                    
+                <CustomerProvider>                    
                         <MainParachuteProvider>
                             <InspectionProvider>
                                 <MainParachuteForm />
                             </InspectionProvider>    
-                        </MainParachuteProvider>
-                    
+                        </MainParachuteProvider>                    
                 </CustomerProvider>
             </Route>
             
             <Route exact path="/newinspection">
-                <CustomerProvider>
-                    
+                <CustomerProvider>                  
                         <MainParachuteProvider>
                             <InspectionProvider>
                                 <InspectionForm />
                             </InspectionProvider>    
-                        </MainParachuteProvider>
-                    
+                        </MainParachuteProvider>                  
                 </CustomerProvider>
             </Route>
 
