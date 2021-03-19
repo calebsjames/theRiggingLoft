@@ -2,9 +2,9 @@ import { Route, Redirect } from "react-router-dom"
 import { Login } from "./components/auth/Login"
 import { Register } from "./components/auth/Register"
 import { userStorageKey } from "./components/auth/authSettings"
-import { Home } from "./components/Home"
 import { ApplicationViews } from "./ApplicationViews"
 import { Header } from "./components/Header"
+import { NavBar } from "./components/navbar/NavBar"
 
 
 export const TheRiggingLoft = () => (
@@ -14,6 +14,7 @@ export const TheRiggingLoft = () => (
       return (
         <>
           <Header />
+          <NavBar />
           <ApplicationViews />
         </>
       )
