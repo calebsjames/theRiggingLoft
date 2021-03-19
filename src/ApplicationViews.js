@@ -5,6 +5,7 @@ import { AADProvider } from "./components/aads/AADProvider"
 import { ContainerForm } from "./components/containers/ContainerForm"
 import { ContainerProvider } from "./components/containers/ContainerProvider"
 import { CustomerForm } from "./components/customers/CustomerForm"
+import { CustomerInspections } from "./components/customers/CustomerInspections"
 import { CustomerList } from "./components/customers/CustomerList"
 import { CustomerProvider } from "./components/customers/CustomerProvider"
 import { Home } from "./components/Home"
@@ -59,6 +60,21 @@ export const ApplicationViews = () => {
                 </ContainerProvider>  
             </Route>
 
+            <Route exact path="/customers/detail/:customerId(\d+)">
+            <CustomerProvider>
+                        <ContainerProvider>
+                            <AADProvider>
+                                <ReserveProvider>
+                                    <MainParachuteProvider>
+                                        <InspectionProvider>
+                                            <CustomerInspections />
+                                        </InspectionProvider>
+                                    </MainParachuteProvider>
+                                </ReserveProvider>
+                            </AADProvider>
+                        </ContainerProvider>
+                    </CustomerProvider>
+            </Route>
 
             <CustomerProvider>
                 <Route exact path="/newcustomer">
