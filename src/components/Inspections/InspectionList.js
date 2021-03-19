@@ -15,7 +15,7 @@ export const InspectionList = () => {
     const { reserves, getReserves } = useContext(ReserveContext)
     const { containers, getContainers } = useContext(ContainerContext)
     const { aads, getAADs } = useContext(AADContext)
-    const { mainParachute, getMainParachutes } = useContext(MainParachuteContext)
+    const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
 
     useEffect(() => {
         getContainers()
@@ -37,12 +37,16 @@ export const InspectionList = () => {
           const customer = customers.find(c => parseInt(c.id) === parseInt(inspectionObject.customerId))
           const container = containers.find(cont => parseInt(cont.id) === parseInt(inspectionObject.containerId))
           const reserve = reserves.find(r => parseInt(r.id) === parseInt(inspectionObject.reserveId))
-            {console.log(container)}
+          const main = mainParachutes.find(mp => parseInt(mp.id) === parseInt(inspectionObject.mainParachuteId))
+          const aad = aads.find(a => parseInt(a.id) === parseInt(inspectionObject.aadId))
+            
           return <InspectionCard key={inspectionObject.id} 
           inspectionInstance={inspectionObject} 
           customerInstance={customer}
           containerInstance={container}
           reserveInstance={reserve}
+          mainParachuteInstance={main}
+          aadInstance={aad}
           />
         })
     }
