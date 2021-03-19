@@ -7,6 +7,8 @@ export const ContainerContext = createContext()
 export const ContainerProvider = (props) => {
     const [containers, setContainers] = useState([])
 
+    const [containerId, setContainerId] = useState(0)
+
     const getContainers = () => {
         return fetch("http://localhost:8088/containers")
         .then(res => res.json())
@@ -20,6 +22,11 @@ export const ContainerProvider = (props) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(containerObj)
+        })
+        .then(res => res.json())
+        .then(containerObject => {
+            setContainerId(containerObject.id)
+            sessionStorage.setItem("newContainerId", containerObject.id)
         })
         .then(getContainers)
     }
@@ -57,7 +64,7 @@ export const ContainerProvider = (props) => {
     */
     return (
         <ContainerContext.Provider value={{
-            containers, getContainers, addContainer, getContainerById, deleteContainer, editContainer
+            containers, getContainers, addContainer, getContainerById, deleteContainer, editContainer, containerId
         }}>
             {props.children}
         </ContainerContext.Provider>

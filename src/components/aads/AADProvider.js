@@ -7,6 +7,8 @@ export const AADContext = createContext()
 export const AADProvider = (props) => {
     const [aads, setAADs] = useState([])
 
+    const [aadId, setAADId] = useState(0)
+
     const getAADs = () => {
         return fetch("http://localhost:8088/aads")
         .then(res => res.json())
@@ -20,6 +22,11 @@ export const AADProvider = (props) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(aadObj)
+        })
+        .then(res => res.json())
+        .then(aadObject => {
+            setAADId(aadObject.id)
+            sessionStorage.setItem("newAADId", aadObject.id)
         })
         .then(getAADs)
     }
@@ -57,7 +64,7 @@ export const AADProvider = (props) => {
     */
     return (
         <AADContext.Provider value={{
-            aads, getAADs, addAAD, getAADById, deleteAAD, editAAD
+            aads, getAADs, addAAD, getAADById, deleteAAD, editAAD, aadId
         }}>
             {props.children}
         </AADContext.Provider>

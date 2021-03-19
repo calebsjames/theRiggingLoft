@@ -7,6 +7,8 @@ export const MainParachuteContext = createContext()
 export const MainParachuteProvider = (props) => {
     const [mainParachutes, setMainParachutes] = useState([])
 
+    const [mainParachuteId, setMainParachuteId] = useState(0)
+
     const getMainParachutes = () => {
         return fetch("http://localhost:8088/mainParachutes")
         .then(res => res.json())
@@ -20,6 +22,11 @@ export const MainParachuteProvider = (props) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(mainParachuteObj)
+        })
+        .then(res => res.json())
+        .then(mainParachuteObject => {
+            setMainParachuteId(mainParachuteObject.id)
+            sessionStorage.setItem("newMainParachuteId", mainParachuteObject.id)
         })
         .then(getMainParachutes)
     }
@@ -57,7 +64,7 @@ export const MainParachuteProvider = (props) => {
     */
     return (
         <MainParachuteContext.Provider value={{
-            mainParachutes, getMainParachutes, addMainParachute, getMainParachuteById, deleteMainParachute, editMainParachute
+            mainParachutes, getMainParachutes, addMainParachute, getMainParachuteById, deleteMainParachute, editMainParachute, mainParachuteId
         }}>
             {props.children}
         </MainParachuteContext.Provider>
