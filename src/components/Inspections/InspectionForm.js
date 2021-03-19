@@ -1,18 +1,19 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory } from "react-router-dom";
+import { CustomerContext } from "../customers/CustomerProvider";
 import { InspectionContext } from "./InspectionProvider";
 
 
 
 export const InspectionForm = () => {
     const { addInspection } = useContext(InspectionContext)
-   
+    const { customerId } = useContext(CustomerContext)
 
     //Define the intial state of the form inputs with useState()
     const [inspection, setInspection] = useState({
         
       userId: sessionStorage.getItem("app_user_id"),
-      customerId: "",
+      customerId: customerId,
       date: new Date,
       containerId: "",
       containerMainTray: false,

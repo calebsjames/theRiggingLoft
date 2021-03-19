@@ -26,9 +26,10 @@ export const InspectionList = () => {
         .then(getInspections)
     }, [])
   
-  // This state changes when `getInspections()` is invoked below
+  
   const { inspections, getInspections } = useContext(InspectionContext)
-    console.log(containers)
+  
+ 
 
   return (
     <>
