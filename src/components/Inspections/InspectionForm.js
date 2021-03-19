@@ -83,6 +83,11 @@ export const InspectionForm = () => {
         //invoke addInspection passing inspection as an argument.
         //once complete, change the url and display the inspection list
         addInspection(inspection)
+        .then(sessionStorage.removeItem("newMainParachuteId"))
+        .then(sessionStorage.removeItem("newAADId"))
+        .then(sessionStorage.removeItem("newReserveId"))
+        .then(sessionStorage.removeItem("newContainerId"))
+        .then(sessionStorage.removeItem("newCustomerId"))
         .then(() => history.push("/home"))
       
     }
