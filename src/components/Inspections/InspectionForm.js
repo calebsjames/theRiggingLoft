@@ -13,7 +13,7 @@ export const InspectionForm = () => {
         
       userId: sessionStorage.getItem("app_user_id"),
       customerId: "",
-      date: "",
+      date: new Date,
       containerId: "",
       containerMainTray: false,
       containerReserveTray: false,
