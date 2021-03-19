@@ -10,7 +10,7 @@ import { ReserveContext } from "../reserves/ReserveProvider"
 
 
 
-export const InspectionCard = ({ inspectionInstance, customerInstance }) => {
+export const InspectionCard = ({ inspectionInstance, customerInstance, containerInstance, reserveInstance }) => {
     
     const { customers, getCustomers } = useContext(CustomerContext)
     const { reserves, getReserves } = useContext(ReserveContext)
@@ -38,16 +38,15 @@ export const InspectionCard = ({ inspectionInstance, customerInstance }) => {
 
   
     console.log("customerInstance!", customerInstance.name)
-
+    console.log("ReserveInstance!", reserveInstance.model)
     return(<section className="inspectionCard">
         <h3 className="inspection">
           
             { customerInstance.name }
           
         </h3>
-        <p>Cutomer Id: { customer }</p>
-        <p>Container Id: { container }</p>
-        <p>Reserve Id: { reserve }</p>
+        <p>Container: { containerInstance.manufacturer }</p>
+        <p>Reserve: { reserveInstance.model }</p>
         <p>AAD Id: { aad }</p>
         <p>Main Id: { main }</p>
         

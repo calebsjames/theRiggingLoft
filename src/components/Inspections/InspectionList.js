@@ -28,17 +28,21 @@ export const InspectionList = () => {
   
   // This state changes when `getInspections()` is invoked below
   const { inspections, getInspections } = useContext(InspectionContext)
- 
+    console.log(containers)
 
   return (
     <>
     <div className="inspections">
       {inspections.map(inspectionObject => {
           const customer = customers.find(c => parseInt(c.id) === parseInt(inspectionObject.customerId))
-
+          const container = containers.find(cont => parseInt(cont.id) === parseInt(inspectionObject.containerId))
+          const reserve = reserves.find(r => parseInt(r.id) === parseInt(inspectionObject.reserveId))
+            {console.log(container)}
           return <InspectionCard key={inspectionObject.id} 
           inspectionInstance={inspectionObject} 
           customerInstance={customer}
+          containerInstance={container}
+          reserveInstance={reserve}
           />
         })
     }
