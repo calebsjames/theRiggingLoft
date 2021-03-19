@@ -7,6 +7,8 @@ export const ReserveContext = createContext()
 export const ReserveProvider = (props) => {
     const [reserves, setReserves] = useState([])
 
+    const [reserveId, setReserveId] = useState(0)
+
     const getReserves = () => {
         return fetch("http://localhost:8088/reserves")
         .then(res => res.json())
@@ -20,6 +22,11 @@ export const ReserveProvider = (props) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(reserveObj)
+        })
+        .then(res => res.json())
+        .then(reserveObject => {
+            setReserveId(reserveObject.id)
+            sessionStorage.setItem("newReserveId", reserveObject.id)
         })
         .then(getReserves)
     }
@@ -52,7 +59,7 @@ export const ReserveProvider = (props) => {
   
     return (
         <ReserveContext.Provider value={{
-            reserves, getReserves, addReserve, getReserveById, deleteReserve, editReserve
+            reserves, getReserves, addReserve, getReserveById, deleteReserve, editReserve, reserveId
         }}>
             {props.children}
         </ReserveContext.Provider>

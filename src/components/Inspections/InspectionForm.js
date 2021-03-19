@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory } from "react-router-dom";
-import { CustomerContext } from "../customers/CustomerProvider";
 import { InspectionContext } from "./InspectionProvider";
 
 
 
 export const InspectionForm = () => {
     const { addInspection } = useContext(InspectionContext)
-    const { customerId } = useContext(CustomerContext)
+    
 
     //Define the intial state of the form inputs with useState()
     const [inspection, setInspection] = useState({
@@ -15,7 +14,7 @@ export const InspectionForm = () => {
       userId: sessionStorage.getItem("app_user_id"),
       customerId: sessionStorage.getItem("newCustomerId"),
       date: new Date,
-      containerId: "",
+      containerId: sessionStorage.getItem("newContainerId"),
       containerMainTray: false,
       containerReserveTray: false,
       containerHardware: false,
@@ -36,7 +35,7 @@ export const InspectionForm = () => {
       reserveSeamFabric: false,
       reserveSlider: false,
       reserveNotes: "",
-      reserveId: "",
+      reserveId: sessionStorage.getItem("newReserveId"),
       mainDBag: false,
       mainLinks: false,
       mainSuspensionLines: false,
@@ -45,12 +44,12 @@ export const InspectionForm = () => {
       mainSeamFabric: false,
       mainSlider: false,
       mainNotes: "",
-      mainParachuteId: "",
+      mainParachuteId: sessionStorage.getItem("newMainParachuteId"),
       aadInstallation: false,
       aadCables: false,
       aadInService: false,
       aadNotes: "",
-      aadId: "",
+      aadId: sessionStorage.getItem("newAADId"),
       
     });
     console.log(sessionStorage.getItem("app_user_id"))
@@ -84,6 +83,11 @@ export const InspectionForm = () => {
         //invoke addInspection passing inspection as an argument.
         //once complete, change the url and display the inspection list
         addInspection(inspection)
+        .then(sessionStorage.removeItem("newMainParachuteId"))
+        .then(sessionStorage.removeItem("newAADId"))
+        .then(sessionStorage.removeItem("newReserveId"))
+        .then(sessionStorage.removeItem("newContainerId"))
+        .then(sessionStorage.removeItem("newCustomerId"))
         .then(() => history.push("/home"))
       
     }

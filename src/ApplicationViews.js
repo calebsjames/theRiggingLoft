@@ -10,6 +10,7 @@ import { CustomerProvider } from "./components/customers/CustomerProvider"
 import { Home } from "./components/Home"
 import { InspectionForm } from "./components/Inspections/InspectionForm"
 import { InspectionList } from "./components/Inspections/InspectionList"
+import { InspectionListHome } from "./components/Inspections/InspectionListHome"
 import { InspectionProvider } from "./components/Inspections/InspectionProvider"
 import { MainParachuteForm } from "./components/mainparachutes/MainParachuteForm"
 import { MainParachuteProvider } from "./components/mainparachutes/MainParachuteProvider"
@@ -38,7 +39,7 @@ export const ApplicationViews = () => {
                                 <ReserveProvider>
                                     <MainParachuteProvider>
                                         <InspectionProvider>
-                                            <InspectionList />
+                                            <InspectionListHome />
                                         </InspectionProvider>
                                     </MainParachuteProvider>
                                 </ReserveProvider>
@@ -112,6 +113,22 @@ export const ApplicationViews = () => {
                         </MainParachuteProvider>                  
                 </CustomerProvider>
             </Route>
+
+            <Route exact path="/inspections">
+                    <CustomerProvider>
+                        <ContainerProvider>
+                            <AADProvider>
+                                <ReserveProvider>
+                                    <MainParachuteProvider>
+                                        <InspectionProvider>
+                                            <InspectionList />
+                                        </InspectionProvider>
+                                    </MainParachuteProvider>
+                                </ReserveProvider>
+                            </AADProvider>
+                        </ContainerProvider>
+                    </CustomerProvider>
+                </Route>
 
             
         </>

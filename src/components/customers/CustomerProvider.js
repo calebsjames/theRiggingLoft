@@ -26,7 +26,6 @@ export const CustomerProvider = (props) => {
         .then(res => res.json())
         .then(customerObject => {
             setCustomerId(customerObject.id)
-            console.log("!", customerObject.id)
             sessionStorage.setItem("newCustomerId", customerObject.id)
         })
         .then(getCustomers)
