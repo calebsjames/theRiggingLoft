@@ -1,18 +1,43 @@
-import React from "react"
+import React, { useContext, useEffect } from "react"
+import { AADContext } from "../aads/AADProvider"
+import { ContainerContext } from "../containers/ContainerProvider"
+import { CustomerContext } from "../customers/CustomerProvider"
+import { MainParachuteContext } from "../mainparachutes/MainParachuteProvider"
+import { ReserveContext } from "../reserves/ReserveProvider"
 
 
 
 
 
 
-export const InspectionCard = ({ inspectionInstance }) => {
-  
-    const customer = inspectionInstance.customerId
+export const InspectionCard = ({ inspectionInstance, customerInstance }) => {
+    
+    const { customers, getCustomers } = useContext(CustomerContext)
+    const { reserves, getReserves } = useContext(ReserveContext)
+    const { containers, getContainers } = useContext(ContainerContext)
+    const { aads, getAADs } = useContext(AADContext)
+    const { mainParachute, getMainParachutes } = useContext(MainParachuteContext)
+
+    useEffect(() => {
+        getContainers()
+        .then(getCustomers)
+        .then(getReserves)
+        .then(getAADs)
+        .then(getMainParachutes)
+    }, [])
+    
+    
+    // debugger
+    // const customer = customers.find(c => parseInt(c.id) === parseInt(inspectionInstance.customerId))
+    // console.log(customer)
     const container = inspectionInstance.containerId
     const reserve = inspectionInstance.reserveId
     const aad = inspectionInstance.aadId
-    const mainParachute = inspectionInstance.mainId
+    const main = inspectionInstance.mainId
+    const customer = inspectionInstance.containerId
 
+  
+    console.log("!!", customerInstance)
 
     return(<section className="inspectionCard">
         <h3 className="inspection">
@@ -20,11 +45,11 @@ export const InspectionCard = ({ inspectionInstance }) => {
             { inspectionInstance.id }
           
         </h3>
-        <p>{ customer }</p>
-        <p>{ container }</p>
-        <p>{ reserve }</p>
-        <p>{ aad }</p>
-        <p>{ mainParachute }</p>
+        <p>Cutomer Id: { customer }</p>
+        <p>Container Id: { container }</p>
+        <p>Reserve Id: { reserve }</p>
+        <p>AAD Id: { aad }</p>
+        <p>Main Id: { main }</p>
         
       
     </section>

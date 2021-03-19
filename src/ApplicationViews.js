@@ -26,9 +26,25 @@ export const ApplicationViews = () => {
             
                 <Route path="/">
                     <InspectionProvider>
-                        <Home />
+                        
 
                     </InspectionProvider>
+                </Route>
+                
+                <Route exact path="/home">
+                    <CustomerProvider>
+                        <ContainerProvider>
+                            <AADProvider>
+                                <ReserveProvider>
+                                    <MainParachuteProvider>
+                                        <InspectionProvider>
+                                            <InspectionList />
+                                        </InspectionProvider>
+                                    </MainParachuteProvider>
+                                </ReserveProvider>
+                            </AADProvider>
+                        </ContainerProvider>
+                    </CustomerProvider>
                 </Route>
             
 
