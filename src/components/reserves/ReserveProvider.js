@@ -26,7 +26,7 @@ export const ReserveProvider = (props) => {
         .then(res => res.json())
         .then(reserveObject => {
             setReserveId(reserveObject.id)
-            sessionStorage.setItem("newReserveId", reserveObject.id)
+            sessionStorage.setItem("reserveId", reserveObject.id)
         })
         .then(getReserves)
     }

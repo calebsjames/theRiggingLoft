@@ -6,12 +6,13 @@ import { MainParachuteContext } from "../mainparachutes/MainParachuteProvider"
 import { ReserveContext } from "../reserves/ReserveProvider"
 import { InspectionCard } from "../Inspections/InspectionCard.js"
 import { InspectionContext } from "../Inspections/InspectionProvider"
-import { useParams } from "react-router-dom"
-
+import { useHistory, useParams } from "react-router-dom"
 
 
 
 export const CustomerInspections = () => {
+    
+    const history = useHistory()
 
     const { customers, getCustomers } = useContext(CustomerContext)
     const { reserves, getReserves } = useContext(ReserveContext)
@@ -34,12 +35,17 @@ export const CustomerInspections = () => {
     const filteredInspections = inspections.filter(insp => 
         parseInt(insp.customerId) === parseInt(customerId))
   
-  
+    const handleNewGear = (event) => {
+        event.preventDefault();
+        history.push("/newreserve")
+    }
  
 
   return (
     <>
     <div className="inspections">
+        <h2>Inspections</h2>
+        <button onClick={handleNewGear}>New gear and inspection</button>
       {filteredInspections.map(inspectionObject => {
           const customer = customers.find(c => parseInt(c.id) === parseInt(inspectionObject.customerId))
           const container = containers.find(cont => parseInt(cont.id) === parseInt(inspectionObject.containerId))

@@ -9,6 +9,10 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
 
     const { getInspections, deleteInspection } = useContext(InspectionContext)
 
+    const handleDetails = () => {
+
+    }
+
     const handleDelete = () => {
         deleteInspection(inspectionInstance.id)
           .then(getInspections)
@@ -29,6 +33,9 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
         <p>AAD: { aadInstance.manufacturer }</p>
         <p>Main: { mainParachuteInstance.model }</p>
         
+        <button onClick={(handleDetails)}>
+                Details
+            </button>
         <button onClick={(handleDelete)}>
                 Delete
             </button>
