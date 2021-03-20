@@ -9,6 +9,7 @@ import { CustomerInspections } from "./components/customers/CustomerInspections"
 import { CustomerList } from "./components/customers/CustomerList"
 import { CustomerProvider } from "./components/customers/CustomerProvider"
 import { Home } from "./components/Home"
+import { InspectionDetails } from "./components/Inspections/InspectionDetails"
 import { InspectionForm } from "./components/Inspections/InspectionForm"
 import { InspectionList } from "./components/Inspections/InspectionList"
 import { InspectionListHome } from "./components/Inspections/InspectionListHome"
@@ -146,7 +147,21 @@ export const ApplicationViews = () => {
                     </CustomerProvider>
                 </Route>
 
-            
+                <Route exact path="/inspections/detail/:inspectionId(\d+)">
+                    <CustomerProvider>
+                        <ContainerProvider>
+                            <AADProvider>
+                                <ReserveProvider>
+                                    <MainParachuteProvider>
+                                        <InspectionProvider>
+                                            <InspectionDetails />
+                                        </InspectionProvider>
+                                    </MainParachuteProvider>
+                                </ReserveProvider>
+                            </AADProvider>
+                        </ContainerProvider>
+                    </CustomerProvider>
+            </Route>
         </>
     )
 }

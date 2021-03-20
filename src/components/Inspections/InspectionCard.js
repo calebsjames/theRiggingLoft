@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import { InspectionContext } from "./InspectionProvider"
 import "./Inspection.css"
 
@@ -10,8 +10,9 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
     const { getInspections, deleteInspection } = useContext(InspectionContext)
 
     const handleDetails = () => {
-
+        history.push(`/inspection/detail/${inspectionInstance.id}`) 
     }
+    const { inspectionId } = useParams()
 
     const handleDelete = () => {
         deleteInspection(inspectionInstance.id)
