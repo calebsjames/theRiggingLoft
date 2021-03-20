@@ -6,6 +6,7 @@ import { ContainerContext } from "../containers/ContainerProvider"
 import { CustomerContext } from "../customers/CustomerProvider"
 import { MainParachuteContext } from "../mainparachutes/MainParachuteProvider"
 import { ReserveContext } from "../reserves/ReserveProvider"
+import "./Inspection.css"
 
 
 
