@@ -26,7 +26,7 @@ export const MainParachuteProvider = (props) => {
         .then(res => res.json())
         .then(mainParachuteObject => {
             setMainParachuteId(mainParachuteObject.id)
-            sessionStorage.setItem("newMainParachuteId", mainParachuteObject.id)
+            sessionStorage.setItem("mainParachuteId", mainParachuteObject.id)
         })
         .then(getMainParachutes)
     }

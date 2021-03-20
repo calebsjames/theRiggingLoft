@@ -26,7 +26,7 @@ export const AADProvider = (props) => {
         .then(res => res.json())
         .then(aadObject => {
             setAADId(aadObject.id)
-            sessionStorage.setItem("newAADId", aadObject.id)
+            sessionStorage.setItem("aadId", aadObject.id)
         })
         .then(getAADs)
     }

@@ -12,9 +12,9 @@ export const InspectionForm = () => {
     const [inspection, setInspection] = useState({
         
       userId: sessionStorage.getItem("app_user_id"),
-      customerId: sessionStorage.getItem("newCustomerId"),
+      customerId: sessionStorage.getItem("customerId"),
       date: new Date,
-      containerId: sessionStorage.getItem("newContainerId"),
+      containerId: sessionStorage.getItem("containerId"),
       containerMainTray: false,
       containerReserveTray: false,
       containerHardware: false,
@@ -35,7 +35,7 @@ export const InspectionForm = () => {
       reserveSeamFabric: false,
       reserveSlider: false,
       reserveNotes: "",
-      reserveId: sessionStorage.getItem("newReserveId"),
+      reserveId: sessionStorage.getItem("reserveId"),
       mainDBag: false,
       mainLinks: false,
       mainSuspensionLines: false,
@@ -44,12 +44,12 @@ export const InspectionForm = () => {
       mainSeamFabric: false,
       mainSlider: false,
       mainNotes: "",
-      mainParachuteId: sessionStorage.getItem("newMainParachuteId"),
+      mainParachuteId: sessionStorage.getItem("mainParachuteId"),
       aadInstallation: false,
       aadCables: false,
       aadInService: false,
       aadNotes: "",
-      aadId: sessionStorage.getItem("newAADId"),
+      aadId: sessionStorage.getItem("aadId"),
       
     });
     console.log(sessionStorage.getItem("app_user_id"))

@@ -26,7 +26,7 @@ export const CustomerProvider = (props) => {
         .then(res => res.json())
         .then(customerObject => {
             setCustomerId(customerObject.id)
-            sessionStorage.setItem("newCustomerId", customerObject.id)
+            sessionStorage.setItem("customerId", customerObject.id)
         })
         .then(getCustomers)
     }
