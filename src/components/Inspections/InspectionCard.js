@@ -20,13 +20,10 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
             history.push("/inspections")
           })
       }
-
+      
     return(<section className="inspectionCard" id={`inspectionId--${inspectionInstance.id}`}>
         <h3 className="inspection">
-          
-            { customerInstance.name }
             { inspectionInstance.date }
-          
         </h3>
         <p>Container: { containerInstance.manufacturer }</p>
         <p>Reserve: { reserveInstance.model }</p>
