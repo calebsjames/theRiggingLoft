@@ -14,7 +14,7 @@ export const CustomerInspections = () => {
     
     const history = useHistory()
 
-    const { customers, getCustomers } = useContext(CustomerContext)
+    const { customers, getCustomers, getCustomerById } = useContext(CustomerContext)
     const { reserves, getReserves } = useContext(ReserveContext)
     const { containers, getContainers } = useContext(ContainerContext)
     const { aads, getAADs } = useContext(AADContext)
@@ -37,15 +37,19 @@ export const CustomerInspections = () => {
   
     const handleNewGear = (event) => {
         event.preventDefault();
+        sessionStorage.setItem("customerId", customerId);
         history.push("/newreserve")
     }
- 
-
+    
+    const customerObject = customers.find(c => parseInt(c.id) === parseInt(customerId))
+    console.log(customerObject)
   return (
     <>
     <div className="inspections">
-        <h2>Inspections</h2>
+        <h2>{customerObject ? customerObject.name : "No Name"}</h2>
+        
         <button onClick={handleNewGear}>New gear and inspection</button>
+        <h3>Inspections</h3>
       {filteredInspections.map(inspectionObject => {
           const customer = customers.find(c => parseInt(c.id) === parseInt(inspectionObject.customerId))
           const container = containers.find(cont => parseInt(cont.id) === parseInt(inspectionObject.containerId))
