@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react"
 import { useHistory } from 'react-router-dom';
 import { CustomerContext } from "./CustomerProvider";
 
+
 export const CustomerForm = () => {
     const { addCustomer } = useContext(CustomerContext)
    

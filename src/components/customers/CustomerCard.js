@@ -1,6 +1,7 @@
 import React, { useContext } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { CustomerContext } from "./CustomerProvider"
+import "./Customer.css"
 
 
 
@@ -26,7 +27,7 @@ export const CustomerCard = ({ customerInstance }) => {
           </Link>
         </h3>
         <p>{ customerInstance.phone }</p>
-        <button onClick={(handleDelete)}>
+        <button className="deleteButton" onClick={(handleDelete)}>
                 Delete
             </button>
         

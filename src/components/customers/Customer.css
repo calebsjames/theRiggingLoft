@@ -1,0 +1,7 @@
+.customer {
+    display: flex;
+}
+
+.deleteButton {
+    max-height: 30px;
+}
