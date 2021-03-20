@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory } from "react-router-dom";
 import { InspectionContext } from "./InspectionProvider";
+import "./Inspection.css"
 
 
 
@@ -243,6 +244,36 @@ export const InspectionForm = () => {
                     </fieldset>
                     </article>
                     <article className="inspectionBox">
+                    <h3>AAD</h3>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="aadInstallation">Installation:</label>
+                            <input type="checkbox" id="aadInstallation" onChange={handleControlledInputChange} required className="form-control" placeholder="AAD Installation" value={inspection.aadInstallation}/>
+                        </div>
+                    </fieldset> 
+
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="aadCables">Cables:</label>
+                            <input type="checkbox" id="aadCables" onChange={handleControlledInputChange} required className="form-control" placeholder="Cables" value={inspection.aadCables}/>
+                        </div>
+                    </fieldset> 
+
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="aadInService">In Service:</label>
+                            <input type="checkbox" id="aadInService" onChange={handleControlledInputChange} required className="form-control" placeholder="In Service" value={inspection.aadInService}/>
+                        </div>
+                    </fieldset> 
+
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="aadNotes">Notes:</label>
+                            <input type="text" id="aadNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.aadNotes}/>
+                        </div>
+                    </fieldset>
+                    </article>
+                    <article className="inspectionBox">
                     <h3>Main Parachute</h3>
                     <fieldset>
                         <div className="form-group">
@@ -297,64 +328,6 @@ export const InspectionForm = () => {
                         <div className="form-group">
                             <label htmlFor="mainNotes">Notes:</label>
                             <input type="text" id="mainNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.mainNotes}/>
-                        </div>
-                    </fieldset>
-                    </article>
-                    <article className="inspectionBox">
-                    <h3>AAD</h3>
-                    <fieldset>
-                        <div className="form-group">
-                            <label htmlFor="aadInstallation">Installation:</label>
-                            <input type="checkbox" id="aadInstallation" onChange={handleControlledInputChange} required className="form-control" placeholder="AAD Installation" value={inspection.aadInstallation}/>
-                        </div>
-                    </fieldset> 
-
-                    <fieldset>
-                        <div className="form-group">
-                            <label htmlFor="aadCables">Cables:</label>
-                            <input type="checkbox" id="aadCables" onChange={handleControlledInputChange} required className="form-control" placeholder="Cables" value={inspection.aadCables}/>
-                        </div>
-                    </fieldset> 
-
-                    <fieldset>
-                        <div className="form-group">
-                            <label htmlFor="aadInService">In Service:</label>
-                            <input type="checkbox" id="aadInService" onChange={handleControlledInputChange} required className="form-control" placeholder="In Service" value={inspection.aadInService}/>
-                        </div>
-                    </fieldset> 
-
-                    <fieldset>
-                        <div className="form-group">
-                            <label htmlFor="mainBridlePilotchute">Bridle and Pilotchute:</label>
-                            <input type="checkbox" id="mainBridlePilotchute" onChange={handleControlledInputChange} required className="form-control" placeholder="Bridle and Pilotchute" value={inspection.mainBridlePilotchute}/>
-                        </div>
-                    </fieldset> 
-
-                    <fieldset>
-                        <div className="form-group">
-                            <label htmlFor="mainCrossports">Crossports:</label>
-                            <input type="checkbox" id="mainCrossports" onChange={handleControlledInputChange} required className="form-control" placeholder="Crossports" value={inspection.mainCrossports}/>
-                        </div>
-                    </fieldset> 
-
-                    <fieldset>
-                        <div className="form-group">
-                            <label htmlFor="mainSeamFabric">Seams and Fabric:</label>
-                            <input type="checkbox" id="mainSeamFabric" onChange={handleControlledInputChange} required className="form-control" placeholder="Seams and Fabric" value={inspection.mainSeamFabric}/>
-                        </div>
-                    </fieldset> 
-
-                    <fieldset>
-                        <div className="form-group">
-                            <label htmlFor="mainSlider">Slider:</label>
-                            <input type="checkbox" id="mainSlider" onChange={handleControlledInputChange} required className="form-control" placeholder="Slider" value={inspection.mainSlider}/>
-                        </div>
-                    </fieldset> 
-                    
-                    <fieldset>
-                        <div className="form-group">
-                            <label htmlFor="aadNotes">Notes:</label>
-                            <input type="text" id="aadNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.aadNotes}/>
                         </div>
                     </fieldset>
                     </article>

@@ -1,0 +1,9 @@
+.containerInspectionForm{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.inspectionBox {
+    flex: 48%;
+}
