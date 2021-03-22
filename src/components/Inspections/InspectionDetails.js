@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useState, Component } from "react"
 import { useHistory, useParams } from "react-router-dom";
 import { InspectionContext } from "./InspectionProvider";
 import "./Inspection.css"
@@ -7,6 +7,7 @@ import { ReserveContext } from "../reserves/ReserveProvider";
 import { ContainerContext } from "../containers/ContainerProvider";
 import { AADContext } from "../aads/AADProvider";
 import { MainParachuteContext } from "../mainparachutes/MainParachuteProvider";
+
 
 
 
@@ -49,7 +50,6 @@ export const InspectionDetails = () => {
         
       userId: sessionStorage.getItem("app_user_id"),
       customerId: sessionStorage.getItem("customerId"),
-      date: new Date,
       containerMainTray: "",
       containerReserveTray: "",
       containerHardware: "",
@@ -87,6 +87,13 @@ export const InspectionDetails = () => {
    
   
 
+    const handleCheckBoxChange = changeEvent => {
+      const newInspection = { ...inspection }
+      let selectedVal = changeEvent.target
+      newInspection[changeEvent.target.id] = selectedVal
+      setInspection(newInspection)
+    }
+
     //when some changes, save it
     const handleControlledInputChange = (event) => {
         /* When changing a state object or array,
@@ -112,7 +119,7 @@ export const InspectionDetails = () => {
        
        if (inspectionId) {
            editInspection(inspection)
-           .then(history.push/"/inspections")
+           .then(history.push("/inspections"))
        } else {
        
         //invoke addInspection passing inspection as an argument.
