@@ -1,12 +1,12 @@
-import React, { useContext, useState } from "react"
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react"
+import { useHistory, useParams } from 'react-router-dom';
 import { CustomerContext } from "./CustomerProvider";
 
 
 export const CustomerForm = () => {
-    const { addCustomer } = useContext(CustomerContext)
-   
-
+    const { addCustomer, getCustomerById, editCustomer, getCustomers } = useContext(CustomerContext)    
+    const { customerId } = useParams()
+    const [ isLoading, setIsLoading ] = useState(true);
     //Define the intial state of the form inputs with useState()
     const [customer, setCustomer] = useState({
       name: "",
@@ -38,24 +38,44 @@ export const CustomerForm = () => {
 
 
     const handleClickSaveCustomer = (event) => {
-       event.preventDefault() //Prevents the browser from submitting the form
-       
-       
-       
-       
+        
+       //Prevents the browser from submitting the form
+         
+        if (customerId) {
+            editCustomer(customer)
+            .then(history.push("/customers"))
+        } else {
         //invoke addCustomer passing customer as an argument.
-        //once complete, change the url and display the customer list
         addCustomer(customer)
+        //change the url and display the customer list
         .then(() => history.push("/newcontainer"))
-      
+        }
     }
+
+         // Get Customers. If CustomerId is in the URL, getCustomerById
+    useEffect(() => {
+        getCustomers().then(() => {
+
+            // if there is data
+        if (customerId) {
+            getCustomerById(customerId)
+            .then(Customer => {
+                setCustomer(Customer)
+                setIsLoading(false)
+            })
+        } else {
+            // else there is no data
+            setIsLoading(false)
+        }
+        })
+    }, [])
 
     return (
         <>
         <section className="main">
         <article className="containerRight">
         <form className="customerForm">
-            <h2 className="customerForm__title">New Customer</h2>
+            <h2 className="customerForm__title">{customerId ? "Edit Customer" : "New Customer"}</h2>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="name">Customer name:</label>
@@ -75,12 +95,31 @@ export const CustomerForm = () => {
                 </div>
             </fieldset>
             
-            
-            
+
+
+
+
+
             <button className="btn btn-primary"
+          disabled={isLoading}
+          onClick={event => {
+            event.preventDefault() // Prevent browser from submitting the form and refreshing the page
+            handleClickSaveCustomer()
+          }}>
+
+
+        {customerId ? "Save" : "Add"}</button>
+            
+
+
+
+
+            {/* <button className="btn btn-primary"
                 onClick={handleClickSaveCustomer}>
                 Save Customer
-            </button>
+            </button> */}
+        
+        
         </form>
         </article>
         </section>

@@ -10,7 +10,7 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
     const { getInspections, deleteInspection } = useContext(InspectionContext)
 
     const handleDetails = () => {
-        history.push(`/inspection/detail/${inspectionInstance.id}`) 
+        history.push(`/inspections/detail/${inspectionInstance.id}`) 
     }
     const { inspectionId } = useParams()
 

@@ -45,7 +45,7 @@ export const CustomerProvider = (props) => {
             .then(getCustomers)
     }
 
-    const editCustomer = customer => {
+    const editCustomer = (customer) => {
         return fetch(`http://localhost:8088/customers/${customer.id}`, {
           method: "PUT",
           headers: {

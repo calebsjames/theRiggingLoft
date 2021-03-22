@@ -123,11 +123,17 @@ export const ApplicationViews = () => {
             
             <Route exact path="/newinspection">
                 <CustomerProvider>                  
-                        <MainParachuteProvider>
-                            <InspectionProvider>
-                                <InspectionForm />
-                            </InspectionProvider>    
-                        </MainParachuteProvider>                  
+                        <ContainerProvider>
+                            <ReserveProvider>
+                                <AADProvider>
+                                    <MainParachuteProvider>
+                                        <InspectionProvider>
+                                            <InspectionForm />
+                                        </InspectionProvider>    
+                                    </MainParachuteProvider>
+                                </AADProvider>
+                            </ReserveProvider>
+                        </ContainerProvider>                  
                 </CustomerProvider>
             </Route>
 
@@ -154,13 +160,31 @@ export const ApplicationViews = () => {
                                 <ReserveProvider>
                                     <MainParachuteProvider>
                                         <InspectionProvider>
-                                            <InspectionDetails />
+                                            <InspectionForm />
                                         </InspectionProvider>
                                     </MainParachuteProvider>
                                 </ReserveProvider>
                             </AADProvider>
                         </ContainerProvider>
                     </CustomerProvider>
+            </Route>
+
+            <Route exact path="/customers/edit/:customerId(\d+)">
+                <CustomerProvider>
+                    <CustomerForm />
+                </CustomerProvider>
+            </Route>
+
+            <Route exact path="/container/edit/:containerId(\d+)">
+                <ContainerProvider>
+                    <ContainerForm />
+                </ContainerProvider>
+            </Route>
+
+            <Route exact path="/reserve/edit/:reserveId(\d+)">
+                <ReserveProvider>
+                    <ReserveForm />
+                </ReserveProvider>
             </Route>
         </>
     )
