@@ -50,7 +50,6 @@ export const InspectionDetails = () => {
       userId: sessionStorage.getItem("app_user_id"),
       customerId: sessionStorage.getItem("customerId"),
       date: new Date,
-      containerId: sessionStorage.getItem("containerId"),
       containerMainTray: "",
       containerReserveTray: "",
       containerHardware: "",
@@ -71,7 +70,6 @@ export const InspectionDetails = () => {
       reserveSeamFabric: "",
       reserveSlider: "",
       reserveNotes: "",
-      reserveId: sessionStorage.getItem("reserveId"),
       mainDBag: "",
       mainLinks: "",
       mainSuspensionLines: "",
@@ -80,12 +78,10 @@ export const InspectionDetails = () => {
       mainSeamFabric: "",
       mainSlider: "",
       mainNotes: "",
-      mainParachuteId: sessionStorage.getItem("mainParachuteId"),
       aadInstallation: "",
       aadCables: "",
       aadInService: "",
-      aadNotes: "",
-      aadId: sessionStorage.getItem("aadId"),
+      aadNotes: ""
       
     });
    
