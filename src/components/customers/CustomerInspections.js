@@ -47,6 +47,7 @@ export const CustomerInspections = () => {
     <>
     <div className="inspections">
         <h2>{customerObject ? customerObject.name : "No Name"}</h2>
+        <button onClick={() => {history.push(`/customers/edit/${customerObject.id}`)}}>Edit</button>
         
         <button onClick={handleNewGear}>New gear and inspection</button>
         <h3>Inspections</h3>

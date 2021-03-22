@@ -7,3 +7,28 @@
 .inspectionBox {
     flex: 48%;
 }
+
+.inspectionDetails{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.inspectionDetailsBox {
+    flex: 48%;
+    display: flex;
+}
+
+.componentDetails {
+}
+
+.checkbox {
+    width: fit-content;
+    border: white solid 0px;
+}
+
+.componentBox {
+    display: flex;
+    width: 500px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

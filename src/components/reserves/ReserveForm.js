@@ -1,14 +1,15 @@
 //import statements
-import React, { useContext, useState } from "react"
-import { useHistory } from 'react-router-dom';
-
+import React, { useContext, useEffect, useState } from "react"
+import { useHistory, useParams } from 'react-router-dom';
 import { ReserveContext } from "../reserves/ReserveProvider";
 
 
 //export function to display form for new reserve
 export const ReserveForm = () => {
     
-    const { addReserve } = useContext(ReserveContext)
+    const { addReserve, getReserveById, editReserve, getReserves } = useContext(ReserveContext)
+    const { reserveId } = useParams()
+    const [ isLoading, setIsLoading ] = useState(true);
     
    
 
@@ -54,14 +55,35 @@ export const ReserveForm = () => {
     const handleClickSaveReserve = (event) => {
        event.preventDefault() //Prevents the browser from submitting the form
        
-       
+       if (reserveId) {
+        editReserve(reserve)
+        .then(history.push("/inspections/"))
+        } else {
        
         //invoke addReserve passing reserve as an argument.
         //once complete, change the url and display the reserve list
         addReserve(reserve)
         .then(() => history.push("/newaad"))
       
-    }
+    }}
+
+     // Get Reserves. If CustomerId is in the URL, getReserveById
+     useEffect(() => {
+        getReserves().then(() => {
+
+            // if there is data
+        if (reserveId) {
+            getReserveById(reserveId)
+            .then(Reserve => {
+                setReserve(Reserve)
+                setIsLoading(false)
+            })
+        } else {
+            // else there is no data
+            setIsLoading(false)
+        }
+        })
+    }, [])
 
     return (
         <>
@@ -73,32 +95,38 @@ export const ReserveForm = () => {
             <div className="intakeBox" id="reserve">
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="reserveManufacturer">Manufacturer:</label>
+                    <label htmlFor="Manufacturer">Manufacturer:</label>
                     <input type="text" id="manufacturer" onChange={handleControlledInputChange} autoFocus className="form-control" placeholder="Manufacturer" value={reserve.manufacturer}/>
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="reserveModel">Model:</label>
+                    <label htmlFor="Model">Model:</label>
                     <input type="text" id="model" onChange={handleControlledInputChange} className="form-control" placeholder="Model" value={reserve.model}/>
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="reserveSize">Size:</label>
+                    <label htmlFor="Size">Size:</label>
                     <input type="text" id="size" onChange={handleControlledInputChange} className="form-control" placeholder="Size" value={reserve.size}/>
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="reserveSerial">Serial:</label>
+                    <label htmlFor="Serial">Serial:</label>
                     <input type="text" id="serialNumber" onChange={handleControlledInputChange} className="form-control" placeholder="Serial #" value={reserve.serial}/>
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="reserveColor">Color:</label>
+                    <label htmlFor="Color">Color:</label>
                     <input type="text" id="color" onChange={handleControlledInputChange} className="form-control" placeholder="Color" value={reserve.color}/>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="dom">DOM:</label>
+                    <input type="text" id="dom" onChange={handleControlledInputChange} className="form-control" placeholder="Color" value={reserve.color}/>
                 </div>
             </fieldset>
             <fieldset>
@@ -111,9 +139,9 @@ export const ReserveForm = () => {
             
             
             <button className="btn btn-primary"
+                disabled={isLoading}
                 onClick={handleClickSaveReserve}>
-                Save Reserve
-            </button>
+                {reserveId ? "Save" : "Add"}</button>
         </form>
         </article>
         </section>

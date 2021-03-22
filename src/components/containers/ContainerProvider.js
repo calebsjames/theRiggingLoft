@@ -26,7 +26,7 @@ export const ContainerProvider = (props) => {
         .then(res => res.json())
         .then(containerObject => {
             setContainerId(containerObject.id)
-            sessionStorage.setItem("newContainerId", containerObject.id)
+            sessionStorage.setItem("ContainerId", containerObject.id)
         })
         .then(getContainers)
     }

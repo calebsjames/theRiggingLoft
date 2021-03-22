@@ -1,16 +1,16 @@
 //import statements
-import React, { useContext, useState } from "react"
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react"
+import { useHistory, useParams } from 'react-router-dom';
 import { ContainerContext } from "../containers/ContainerProvider";
-import { CustomerContext } from "../customers/CustomerProvider";
 
 
 //export function to display form for new container
 export const ContainerForm = () => {
     
-    const { addContainer } = useContext(ContainerContext)
-    const { customerId } = useContext(CustomerContext)
-    console.log(customerId)
+    const { addContainer, getContainerById, editContainer, getContainers } = useContext(ContainerContext)
+    const { containerId } = useParams()
+    const [ isLoading, setIsLoading ] = useState(true);
+    
    
 
     //Define the intial state of the form inputs with useState()
@@ -52,6 +52,10 @@ export const ContainerForm = () => {
     const handleClickSaveContainer = (event) => {
        event.preventDefault() //Prevents the browser from submitting the form
        
+       if (containerId) {
+        editContainer(container)
+        .then(history.push("/inspections/"))
+        } else {
        
        
         //invoke addContainer passing container as an argument.
@@ -59,7 +63,26 @@ export const ContainerForm = () => {
         addContainer(container)
         .then(() => history.push("/newreserve"))
       
-    }
+    }}
+
+
+     // Get Containers. If CustomerId is in the URL, getContainerById
+    useEffect(() => {
+        getContainers().then(() => {
+
+            // if there is data
+        if (containerId) {
+            getContainerById(containerId)
+            .then(Container => {
+                setContainer(Container)
+                setIsLoading(false)
+            })
+        } else {
+            // else there is no data
+            setIsLoading(false)
+        }
+        })
+    }, [])
 
     return (
         <>
@@ -114,9 +137,10 @@ export const ContainerForm = () => {
             
             
             <button className="btn btn-primary"
+                disabled={isLoading}
                 onClick={handleClickSaveContainer}>
-                Save Container
-            </button>
+                {containerId ? "Save" : "Add"}</button>
+            
         </form>
 
         </section>
