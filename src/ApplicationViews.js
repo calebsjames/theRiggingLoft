@@ -160,7 +160,7 @@ export const ApplicationViews = () => {
                                 <ReserveProvider>
                                     <MainParachuteProvider>
                                         <InspectionProvider>
-                                            <InspectionForm />
+                                            <InspectionDetails />
                                         </InspectionProvider>
                                     </MainParachuteProvider>
                                 </ReserveProvider>
@@ -185,6 +185,18 @@ export const ApplicationViews = () => {
                 <ReserveProvider>
                     <ReserveForm />
                 </ReserveProvider>
+            </Route>
+
+            <Route exact path="/aad/edit/:aadId(\d+)">
+                <AADProvider>
+                    <AADForm />
+                </AADProvider>
+            </Route>
+
+            <Route exact path="/mainparachute/edit/:mainParachuteId(\d+)">
+                <MainParachuteProvider>
+                    <MainParachuteForm />
+                </MainParachuteProvider>
             </Route>
         </>
     )

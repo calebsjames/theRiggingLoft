@@ -11,7 +11,7 @@ import { MainParachuteContext } from "../mainparachutes/MainParachuteProvider";
 
 
 export const InspectionForm = () => {
-    const { addInspection, getInspections, getInspectionById, editInspection } = useContext(InspectionContext)
+    const { addInspection, inspections, getInspections, getInspectionById, editInspection } = useContext(InspectionContext)
     const { customers, getCustomers } = useContext(CustomerContext)
     const { reserves, getReserves } = useContext(ReserveContext)
     const { containers, getContainers } = useContext(ContainerContext)
@@ -19,6 +19,8 @@ export const InspectionForm = () => {
     const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
     const { inspectionId } = useParams()
     const [ isLoading, setIsLoading ] = useState(true);
+
+
 
     useEffect(() => {
         getInspections()
@@ -32,15 +34,21 @@ export const InspectionForm = () => {
     const history = useHistory()
     
     
+
+    // if(inspectionId != null) {
+    //     const currentInspection = inspections.find(insp => parseInt(insp.id) === parseInt(inspectionId))
+    //     const customer = customers.find(c => parseInt(c.id) === parseInt(currentInspection.customerId))
+    //     const container = containers.find(c => parseInt(c.id) === parseInt(currentInspection.containerId))
+    //     const reserve = reserves.find(c => parseInt(c.id) === parseInt(currentInspection.reserveId))
+    //     const aad = aads.find(c => parseInt(c.id) === parseInt(currentInspection.aadId))
+    //     const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(currentInspection.mainParachuteId))
+    // } else {}
     const customer = customers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("customerId")))
     const container = containers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("containerId")))
     const reserve = reserves.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("reserveId")))
     const aad = aads.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("aadId")))
     const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("mainParachuteId")))
-   
     
-    
-    console.log("!!!!!!!", customer)
     //Define the intial state of the form inputs with useState()
     const [inspection, setInspection] = useState({
         
@@ -48,44 +56,44 @@ export const InspectionForm = () => {
       customerId: sessionStorage.getItem("customerId"),
       date: new Date,
       containerId: sessionStorage.getItem("containerId"),
-      containerMainTray: false,
-      containerReserveTray: false,
-      containerHardware: false,
-      containerChestStrap: false,
-      containerLegStraps: false,
-      containerRisers: false,
-      containerStitching: false,
-      containerGrommets: false,
-      containerReserveHandle: false,
-      containerCutawayHandle: false,
-      containerWebbing: false,
+      containerMainTray: "",
+      containerReserveTray: "",
+      containerHardware: "",
+      containerChestStrap: "",
+      containerLegStraps: "",
+      containerRisers: "",
+      containerStitching: "",
+      containerGrommets: "",
+      containerReserveHandle: "",
+      containerCutawayHandle: "",
+      containerWebbing: "",
       containerNotes: "",
-      reserveDBag: false,
-      reserveLinks: false,
-      reserveSuspensionLines: false,
-      reserveBridlePilotchute: false,
-      reserveCrossports: false,
-      reserveSeamFabric: false,
-      reserveSlider: false,
+      reserveDBag: "",
+      reserveLinks: "",
+      reserveSuspensionLines: "",
+      reserveBridlePilotchute: "",
+      reserveCrossports: "",
+      reserveSeamFabric: "",
+      reserveSlider: "",
       reserveNotes: "",
       reserveId: sessionStorage.getItem("reserveId"),
-      mainDBag: false,
-      mainLinks: false,
-      mainSuspensionLines: false,
-      mainBridlePilotchute: false,
-      mainCrossports: false,
-      mainSeamFabric: false,
-      mainSlider: false,
+      mainDBag: "",
+      mainLinks: "",
+      mainSuspensionLines: "",
+      mainBridlePilotchute: "",
+      mainCrossports: "",
+      mainSeamFabric: "",
+      mainSlider: "",
       mainNotes: "",
       mainParachuteId: sessionStorage.getItem("mainParachuteId"),
-      aadInstallation: false,
-      aadCables: false,
-      aadInService: false,
+      aadInstallation: "",
+      aadCables: "",
+      aadInService: "",
       aadNotes: "",
       aadId: sessionStorage.getItem("aadId"),
       
     });
-    console.log(sessionStorage.getItem("app_user_id"))
+   
   
 
     //when some changes, save it
@@ -119,11 +127,11 @@ export const InspectionForm = () => {
         //invoke addInspection passing inspection as an argument.
         //once complete, change the url and display the inspection list
         addInspection(inspection)
-        .then(sessionStorage.removeItem("newMainParachuteId"))
-        .then(sessionStorage.removeItem("newAADId"))
-        .then(sessionStorage.removeItem("newReserveId"))
-        .then(sessionStorage.removeItem("newContainerId"))
-        .then(sessionStorage.removeItem("newCustomerId"))
+        .then(sessionStorage.removeItem("mainParachuteId"))
+        .then(sessionStorage.removeItem("aadId"))
+        .then(sessionStorage.removeItem("reserveId"))
+        .then(sessionStorage.removeItem("containerId"))
+        .then(sessionStorage.removeItem("customerId"))
         .then(() => history.push("/home"))
        }
     }
@@ -146,6 +154,28 @@ export const InspectionForm = () => {
             })
         }, [])
 
+       
+    const handleClickEditContainer = () => {
+        history.push(`/container/edit/${container.id}`)
+    }
+    const handleClickEditReserve = () => {
+        history.push(`/reserve/edit/${reserve.id}`)
+    }
+    const handleClickEditAAD = () => {
+        history.push(`/aad/edit/${aad.id}`)
+    }
+    const handleClickEditMainParachute = () => {
+        history.push(`/mainParachute/edit/${mainParachute.id}`)
+    }
+
+    const checked = (item) => {
+        if (inspection.item =! "") {
+            <input type="checkbox" id="containerMainTray" onChange={handleControlledInputChange} name={item} value="true" required  className="form-control" checked/>
+        } else {
+             <input type="checkbox" id="containerMainTray" onChange={handleControlledInputChange} name={item} value="true" required  className="form-control" />                
+        }
+    }
+        
 
     return<>
         <h2 id="inspectionTitle">
@@ -164,13 +194,18 @@ export const InspectionForm = () => {
                     <p>Color: {container ? container.color : ""} </p>
                     <p>DOM: {container ? container.dom : ""} </p>
                     <p>Notes: {container ? container.notes : ""} </p>
+                    {inspectionId ? <button className="btn btn-primary"
+                        disabled={isLoading}
+                        onClick={handleClickEditContainer}>
+                        Edit</button> : ""}
                 </div>
 
                 <div className="componentBox">
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
                             <label htmlFor="containerMainTray">Main tray:</label>
-                            <input type="checkbox" id="containerMainTray" onChange={handleControlledInputChange} name="containerMainTray" value="checked" required  className="form-control" />
+                            {/* {checked(containerMainTray)} */}
+                            <input type="checkbox" id="containerMainTray" onChange={handleControlledInputChange} name="containerMainTray" value="true" required  className="form-control" />
                         </div>
                     </fieldset>
                     <fieldset className="checkbox">
@@ -259,6 +294,10 @@ export const InspectionForm = () => {
                             <p>Color: {reserve ? reserve.color : ""} </p>
                             <p>DOM: {reserve ? reserve.dom : ""} </p>
                            <p>Notes: {reserve ? reserve.notes : ""} </p>
+                           {inspectionId ? <button className="btn btn-primary"
+                                disabled={isLoading}
+                                onClick={handleClickEditReserve}>
+                                Edit</button> : ""}
                         </div>
                         <div className="componentBox">
                             <fieldset className="checkbox">
@@ -326,6 +365,10 @@ export const InspectionForm = () => {
                         <p>Next Service Date: {aad ? aad.nextServiceDate : ""} </p>
                         <p>DOM: {aad ? aad.dom : ""} </p>
                         <p>Notes: {aad ? aad.notes : ""} </p>
+                        {inspectionId ? <button className="btn btn-primary"
+                        disabled={isLoading}
+                        onClick={handleClickEditAAD}>
+                        Edit</button> : ""}
                     </div>
 
                     <div className="componentBox">
@@ -367,6 +410,10 @@ export const InspectionForm = () => {
                             <p>Color: {mainParachute ? mainParachute.color : ""} </p>
                             <p>DOM: {mainParachute ? mainParachute.dom : ""} </p>
                             <p>Notes: {mainParachute ? mainParachute.notes : ""} </p>
+                            {inspectionId ? <button className="btn btn-primary"
+                            disabled={isLoading}
+                            onClick={handleClickEditMainParachute}>
+                        Edit</button> : ""}
                         </div>
                         <div className="componentBox">
                             <fieldset className="checkbox">
@@ -422,7 +469,7 @@ export const InspectionForm = () => {
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="mainNotes">Notes:</label>
-                                    <input type="text" id="mainNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.mainparachuteNotes}/>
+                                    <input type="text" id="mainNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.mainNotes}/>
                                 </div>
                             </fieldset>
                     </article>
@@ -432,8 +479,8 @@ export const InspectionForm = () => {
 
         </section>
         <button className="btn btn-primary"
+            disabled={isLoading}
             onClick={handleClickSaveInspection}>
-            Save Inspection
-        </button>
+            {inspectionId ? "Save" : "Complete"}</button>
     </>
 }
