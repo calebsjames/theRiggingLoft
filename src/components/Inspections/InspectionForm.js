@@ -35,20 +35,21 @@ export const InspectionForm = () => {
     
     
 
-    // if(inspectionId != null) {
+    // if(inspectionId) {
     //     const currentInspection = inspections.find(insp => parseInt(insp.id) === parseInt(inspectionId))
     //     const customer = customers.find(c => parseInt(c.id) === parseInt(currentInspection.customerId))
     //     const container = containers.find(c => parseInt(c.id) === parseInt(currentInspection.containerId))
     //     const reserve = reserves.find(c => parseInt(c.id) === parseInt(currentInspection.reserveId))
     //     const aad = aads.find(c => parseInt(c.id) === parseInt(currentInspection.aadId))
     //     const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(currentInspection.mainParachuteId))
-    // } else {}
-    const customer = customers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("customerId")))
-    const container = containers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("containerId")))
-    const reserve = reserves.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("reserveId")))
-    const aad = aads.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("aadId")))
-    const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("mainParachuteId")))
+    // } else {
+        const customer = customers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("customerId")))
+        const container = containers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("containerId")))
+        const reserve = reserves.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("reserveId")))
+        const aad = aads.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("aadId")))
+        const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("mainParachuteId")))
     
+
     //Define the intial state of the form inputs with useState()
     const [inspection, setInspection] = useState({
         
@@ -56,40 +57,40 @@ export const InspectionForm = () => {
       customerId: sessionStorage.getItem("customerId"),
       date: new Date,
       containerId: sessionStorage.getItem("containerId"),
-      containerMainTray: "",
-      containerReserveTray: "",
-      containerHardware: "",
-      containerChestStrap: "",
-      containerLegStraps: "",
-      containerRisers: "",
-      containerStitching: "",
-      containerGrommets: "",
-      containerReserveHandle: "",
-      containerCutawayHandle: "",
-      containerWebbing: "",
-      containerNotes: "",
-      reserveDBag: "",
-      reserveLinks: "",
-      reserveSuspensionLines: "",
-      reserveBridlePilotchute: "",
-      reserveCrossports: "",
-      reserveSeamFabric: "",
-      reserveSlider: "",
-      reserveNotes: "",
+      containerMainTray: false,
+      containerReserveTray: false,
+      containerHardware: false,
+      containerChestStrap: false,
+      containerLegStraps: false,
+      containerRisers: false,
+      containerStitching: false,
+      containerGrommets: false,
+      containerReserveHandle: false,
+      containerCutawayHandle: false,
+      containerWebbing: false,
+      containerNotes: false,
+      reserveDBag: false,
+      reserveLinks: false,
+      reserveSuspensionLines: false,
+      reserveBridlePilotchute: false,
+      reserveCrossports: false,
+      reserveSeamFabric: false,
+      reserveSlider: false,
+      reserveNotes: false,
       reserveId: sessionStorage.getItem("reserveId"),
-      mainDBag: "",
-      mainLinks: "",
-      mainSuspensionLines: "",
-      mainBridlePilotchute: "",
-      mainCrossports: "",
-      mainSeamFabric: "",
-      mainSlider: "",
-      mainNotes: "",
+      mainDBag: false,
+      mainLinks: false,
+      mainSuspensionLines: false,
+      mainBridlePilotchute: false,
+      mainCrossports: false,
+      mainSeamFabric: false,
+      mainSlider: false,
+      mainNotes: false,
       mainParachuteId: sessionStorage.getItem("mainParachuteId"),
-      aadInstallation: "",
-      aadCables: "",
-      aadInService: "",
-      aadNotes: "",
+      aadInstallation: false,
+      aadCables: false,
+      aadInService: false,
+      aadNotes: false,
       aadId: sessionStorage.getItem("aadId"),
       
     });
@@ -102,6 +103,23 @@ export const InspectionForm = () => {
         always create a copy, make changes, and then set state.*/
         const newInspection = { ...inspection }
         let selectedVal = event.target.value
+
+
+
+
+        /* Inspection is an object with properties.
+        Set the property to the new value
+        using object bracket notation. */
+        newInspection[event.target.id] = selectedVal
+        // update state
+        setInspection(newInspection)   
+    }
+    //when some changes, save it
+    const handleCheckboxChange = (event) => {
+        /* When changing a state object or array,
+        always create a copy, make changes, and then set state.*/
+        const newInspection = { ...inspection }
+        let selectedVal = event.target.checked
 
 
 
@@ -138,6 +156,7 @@ export const InspectionForm = () => {
     
         // Get Inspections. If InspectionId is in the URL, getInspectionById
         useEffect(() => {
+            
             getInspections().then(() => {
     
                 // if there is data
@@ -205,75 +224,75 @@ export const InspectionForm = () => {
                         <div className="inspection-form-group">
                             <label htmlFor="containerMainTray">Main tray:</label>
                             {/* {checked(containerMainTray)} */}
-                            <input type="checkbox" id="containerMainTray" onChange={handleControlledInputChange} name="containerMainTray" value="true" required  className="form-control" />
+                            <input type="checkbox" id="containerMainTray" onChange={handleCheckboxChange} name="containerMainTray" checked={inspection.containerMainTray} required  className="form-control" />
                         </div>
                     </fieldset>
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
                             <label htmlFor="containerReserveTray">Reserve tray:</label>
-                            <input type="checkbox" id="containerReserveTray" onChange={handleControlledInputChange} value="true" required  className="form-control" />
+                            <input type="checkbox" id="containerReserveTray" onChange={handleCheckboxChange} checked={inspection.containerReserveTray} required  className="form-control" />
                         </div>
                     </fieldset>
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
                             <label htmlFor="containerLegStraps">Leg straps:</label>
-                            <input type="checkbox" id="containerLegStraps" onChange={handleControlledInputChange} value="true" required  className="form-control" />
+                            <input type="checkbox" id="containerLegStraps" onChange={handleCheckboxChange} checked={inspection.containerLegStraps} required  className="form-control" />
                         </div>
                     </fieldset>
 
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
                             <label htmlFor="containerChestStrap">Chest strap:</label>
-                            <input type="checkbox" id="containerChestStrap" onChange={handleControlledInputChange} value="true" required  className="form-control" />
+                            <input type="checkbox" id="containerChestStrap" onChange={handleCheckboxChange} checked={inspection.containerChestStrap} required  className="form-control" />
                         </div>
                     </fieldset>
                     
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
                             <label htmlFor="containerRisers">Risers:</label>
-                            <input type="checkbox" id="containerRisers" onChange={handleControlledInputChange} value="true" required  className="form-control" />
+                            <input type="checkbox" id="containerRisers" onChange={handleCheckboxChange} checked={inspection.containerRisers} required  className="form-control" />
                         </div>
                     </fieldset>
 
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
                             <label htmlFor="containerHardware">Hardware:</label>
-                            <input type="checkbox" id="containerHardware" onChange={handleControlledInputChange} value="true" required  className="form-control" />
+                            <input type="checkbox" id="containerHardware" onChange={handleCheckboxChange} checked={inspection.containerHardware} required  className="form-control" />
                         </div>
                     </fieldset>
 
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
                             <label htmlFor="containerGrommets">Grommets:</label>
-                            <input type="checkbox" id="containerGrommets" onChange={handleControlledInputChange} value="true" required  className="form-control" />
+                            <input type="checkbox" id="containerGrommets" onChange={handleCheckboxChange} checked={inspection.containerGrommets} required  className="form-control" />
                         </div>
                     </fieldset>
 
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
                             <label htmlFor="containerWebbing">Webbing:</label>
-                            <input type="checkbox" id="containerWebbing" onChange={handleControlledInputChange} value="true" required  className="form-control" />
+                            <input type="checkbox" id="containerWebbing" onChange={handleCheckboxChange} checked={inspection.containerWebbing} required  className="form-control" />
                         </div>
                     </fieldset>
 
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
                             <label htmlFor="containerStitching">Stitching:</label>
-                            <input type="checkbox" id="containerStitching" onChange={handleControlledInputChange} value="true" required  className="form-control" />
+                            <input type="checkbox" id="containerStitching" onChange={handleCheckboxChange} checked={inspection.containerStitching} required  className="form-control" />
                         </div>
                     </fieldset>
 
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
                             <label htmlFor="containerCutawayHandle">Cutaway handle:</label>
-                            <input type="checkbox" id="containerCutawayHandle" onChange={handleControlledInputChange} value="true" required  className="form-control" />
+                            <input type="checkbox" id="containerCutawayHandle" onChange={handleCheckboxChange} checked={inspection.containerCutawayHandle} required  className="form-control" />
                         </div>
                     </fieldset>
 
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
                             <label htmlFor="containerReserveHandle">Reserve handle:</label>
-                            <input type="checkbox" id="containerReserveHandle" onChange={handleControlledInputChange} value="true" required  className="form-control" />
+                            <input type="checkbox" id="containerReserveHandle" onChange={handleCheckboxChange} checked={inspection.containerReserveHandle} required  className="form-control" />
                         </div>
                     </fieldset>
                 </div>
@@ -303,49 +322,49 @@ export const InspectionForm = () => {
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="reserveDBag">D-Bag:</label>
-                                    <input type="checkbox" id="reserveDBag" onChange={handleControlledInputChange} required className="form-control" placeholder="D-Bag" value="true"/>
+                                    <input type="checkbox" id="reserveDBag" onChange={handleCheckboxChange} required className="form-control" placeholder="D-Bag" checked={inspection.reserve}/>
                                 </div>
                             </fieldset> 
 
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="reserveLinks">Links:</label>
-                                    <input type="checkbox" id="reserveLinks" onChange={handleControlledInputChange} required className="form-control" placeholder="Links" value="true"/>
+                                    <input type="checkbox" id="reserveLinks" onChange={handleCheckboxChange} required className="form-control" placeholder="Links" checked={inspection.reserve}/>
                                 </div>
                             </fieldset> 
 
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="reserveSuspensionLines">Suspension Lines:</label>
-                                    <input type="checkbox" id="reserveSuspensionLines" onChange={handleControlledInputChange} required className="form-control" placeholder="Suspension Lines" value="true"/>
+                                    <input type="checkbox" id="reserveSuspensionLines" onChange={handleCheckboxChange} required className="form-control" placeholder="Suspension Lines" checked={inspection.reserveSuspensionLines}/>
                                 </div>
                             </fieldset> 
 
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="reserveBridlePilotchute">Bridle and Pilotchute:</label>
-                                    <input type="checkbox" id="reserveBridlePilotchute" onChange={handleControlledInputChange} required className="form-control" placeholder="Bridle and Pilotchute" value="true"/>
+                                    <input type="checkbox" id="reserveBridlePilotchute" onChange={handleCheckboxChange} required className="form-control" placeholder="Bridle and Pilotchute" checked={inspection.reserveBridlePilotchute}/>
                                 </div>
                             </fieldset> 
 
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="reserveCrossports">Crossports:</label>
-                                    <input type="checkbox" id="reserveCrossports" onChange={handleControlledInputChange} required className="form-control" placeholder="Crossports" value="true"/>
+                                    <input type="checkbox" id="reserveCrossports" onChange={handleCheckboxChange} required className="form-control" placeholder="Crossports" checked={inspection.reserveCrossports}/>
                                 </div>
                             </fieldset> 
 
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="reserveSeamFabric">Seams and Fabric:</label>
-                                    <input type="checkbox" id="reserveSeamFabric" onChange={handleControlledInputChange} required className="form-control" placeholder="Seams and Fabric" value="true"/>
+                                    <input type="checkbox" id="reserveSeamFabric" onChange={handleCheckboxChange} required className="form-control" placeholder="Seams and Fabric" checked={inspection.reserveSeamFabric}/>
                                 </div>
                             </fieldset> 
 
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="reserveSlider">Slider:</label>
-                                    <input type="checkbox" id="reserveSlider" onChange={handleControlledInputChange} required className="form-control" placeholder="Slider" value="true"/>
+                                    <input type="checkbox" id="reserveSlider" onChange={handleCheckboxChange} required className="form-control" placeholder="Slider" checked={inspection.reserveSlider}/>
                                 </div>
                             </fieldset> 
                             
@@ -375,21 +394,21 @@ export const InspectionForm = () => {
                     <fieldset className="checkbox">
                         <div className="form-group">
                             <label htmlFor="aadInstallation">Installation:</label>
-                            <input type="checkbox" id="aadInstallation" onChange={handleControlledInputChange} required className="form-control" placeholder="AAD Installation" value="true"/>
+                            <input type="checkbox" id="aadInstallation" onChange={handleCheckboxChange} required className="form-control" placeholder="AAD Installation" checked={inspection.aadInstallation}/>
                         </div>
                     </fieldset> 
 
                     <fieldset className="checkbox">
                         <div className="form-group">
                             <label htmlFor="aadCables">Cables:</label>
-                            <input type="checkbox" id="aadCables" onChange={handleControlledInputChange} required className="form-control" placeholder="Cables" value="true"/>
+                            <input type="checkbox" id="aadCables" onChange={handleCheckboxChange} required className="form-control" placeholder="Cables" checked={inspection.aadCables}/>
                         </div>
                     </fieldset> 
 
                     <fieldset className="checkbox">
                         <div className="form-group">
                             <label htmlFor="aadInService">In Service:</label>
-                            <input type="checkbox" id="aadInService" onChange={handleControlledInputChange} required className="form-control" placeholder="In Service" value="true"/>
+                            <input type="checkbox" id="aadInService" onChange={handleCheckboxChange} required className="form-control" placeholder="In Service" checked={inspection.aadInService}/>
                         </div>
                     </fieldset> 
                     </div>
@@ -419,49 +438,49 @@ export const InspectionForm = () => {
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="mainDBag">D-Bag:</label>
-                                    <input type="checkbox" id="mainDBag" onChange={handleControlledInputChange} required className="form-control" placeholder="D-Bag" value="true"/>
+                                    <input type="checkbox" id="mainDBag" onChange={handleCheckboxChange} required className="form-control" placeholder="D-Bag" checked={inspection.mainDBag}/>
                                 </div>
                             </fieldset> 
 
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="mainLinks">Links:</label>
-                                    <input type="checkbox" id="mainLinks" onChange={handleControlledInputChange} required className="form-control" placeholder="Links" value="true"/>
+                                    <input type="checkbox" id="mainLinks" onChange={handleCheckboxChange} required className="form-control" placeholder="Links" checked={inspection.mainLinks}/>
                                 </div>
                             </fieldset> 
 
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="mainSuspensionLines">Suspension Lines:</label>
-                                    <input type="checkbox" id="mainSuspensionLines" onChange={handleControlledInputChange} required className="form-control" placeholder="Suspension Lines" value="true"/>
+                                    <input type="checkbox" id="mainSuspensionLines" onChange={handleCheckboxChange} required className="form-control" placeholder="Suspension Lines" checked={inspection.mainSuspensionLines}/>
                                 </div>
                             </fieldset> 
 
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="mainBridlePilotchute">Bridle and Pilotchute:</label>
-                                    <input type="checkbox" id="mainBridlePilotchute" onChange={handleControlledInputChange} required className="form-control" placeholder="Bridle and Pilotchute" value="true"/>
+                                    <input type="checkbox" id="mainBridlePilotchute" onChange={handleCheckboxChange} required className="form-control" placeholder="Bridle and Pilotchute" checked={inspection.mainBridlePilotchute}/>
                                 </div>
                             </fieldset> 
 
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="mainCrossports">Crossports:</label>
-                                    <input type="checkbox" id="mainCrossports" onChange={handleControlledInputChange} required className="form-control" placeholder="Crossports" value="true"/>
+                                    <input type="checkbox" id="mainCrossports" onChange={handleCheckboxChange} required className="form-control" placeholder="Crossports" checked={inspection.mainCrossports}/>
                                 </div>
                             </fieldset> 
 
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="mainSeamFabric">Seams and Fabric:</label>
-                                    <input type="checkbox" id="mainSeamFabric" onChange={handleControlledInputChange} required className="form-control" placeholder="Seams and Fabric" value="true"/>
+                                    <input type="checkbox" id="mainSeamFabric" onChange={handleCheckboxChange} required className="form-control" placeholder="Seams and Fabric" checked={inspection.mainSeamFabric}/>
                                 </div>
                             </fieldset> 
 
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="mainSlider">Slider:</label>
-                                    <input type="checkbox" id="mainSlider" onChange={handleControlledInputChange} required className="form-control" placeholder="Slider" value="true"/>
+                                    <input type="checkbox" id="mainSlider" onChange={handleCheckboxChange} required className="form-control" placeholder="Slider" checked={inspection.mainSlider}/>
                                 </div>
                             </fieldset> 
                         </div>
@@ -473,10 +492,8 @@ export const InspectionForm = () => {
                                 </div>
                             </fieldset>
                     </article>
-
                 </form>   
         </article>
-
         </section>
         <button className="btn btn-primary"
             disabled={isLoading}

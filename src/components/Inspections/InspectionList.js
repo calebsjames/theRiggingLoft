@@ -17,6 +17,7 @@ export const InspectionList = () => {
     const { containers, getContainers } = useContext(ContainerContext)
     const { aads, getAADs } = useContext(AADContext)
     const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
+    
 
     useEffect(() => {
         getContainers()

@@ -9,7 +9,6 @@ import { CustomerInspections } from "./components/customers/CustomerInspections"
 import { CustomerList } from "./components/customers/CustomerList"
 import { CustomerProvider } from "./components/customers/CustomerProvider"
 import { Home } from "./components/Home"
-import { InspectionDetails } from "./components/Inspections/InspectionDetails"
 import { InspectionForm } from "./components/Inspections/InspectionForm"
 import { InspectionList } from "./components/Inspections/InspectionList"
 import { InspectionListHome } from "./components/Inspections/InspectionListHome"
@@ -160,7 +159,7 @@ export const ApplicationViews = () => {
                                 <ReserveProvider>
                                     <MainParachuteProvider>
                                         <InspectionProvider>
-                                            <InspectionDetails />
+                                            <InspectionForm />
                                         </InspectionProvider>
                                     </MainParachuteProvider>
                                 </ReserveProvider>
