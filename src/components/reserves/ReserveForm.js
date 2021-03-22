@@ -23,8 +23,6 @@ export const ReserveForm = () => {
       color: "",
       dom: "",
       userId: sessionStorage.getItem("app_user_id")
-
-
       
     });
 
@@ -126,7 +124,7 @@ export const ReserveForm = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="dom">DOM:</label>
-                    <input type="text" id="dom" onChange={handleControlledInputChange} className="form-control" placeholder="Color" value={reserve.color}/>
+                    <input type="text" id="dom" onChange={handleControlledInputChange} className="form-control" placeholder="dom" value={reserve.dom}/>
                 </div>
             </fieldset>
             <fieldset>

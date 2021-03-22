@@ -1,14 +1,15 @@
 //import statements
-import React, { useContext, useState } from "react"
-import { useHistory } from 'react-router-dom';
-
+import React, { useContext, useEffect, useState } from "react"
+import { useHistory, useParams } from 'react-router-dom';
 import { AADContext } from "../aads/AADProvider";
 
 
 //export function to display form for new aad
 export const AADForm = () => {
     
-    const { addAAD } = useContext(AADContext)
+    const { addAAD, getAADById, editAAD, getAADs } = useContext(AADContext)
+    const { aadId } = useParams()
+    const [ isLoading, setIsLoading ] = useState(true);
     
    
 
@@ -50,14 +51,36 @@ export const AADForm = () => {
     const handleClickSaveAAD = (event) => {
        event.preventDefault() //Prevents the browser from submitting the form
        
+       if (aadId) {
+        editAAD(aad)
+        .then(history.push("/inspections/"))
+        } else {
        
-       
+    
         //invoke addAAD passing aad as an argument.
         //once complete, change the url and display the aad list
         addAAD(aad)
         .then(() => history.push("/newmainparachute"))
       
-    }
+    }}
+
+    useEffect(() => {
+        getAADs().then(() => {
+
+            // if there is data
+        if (aadId) {
+            getAADById(aadId)
+            .then(AAD => {
+                setAAD(AAD)
+                setIsLoading(false)
+            })
+        } else {
+            // else there is no data
+            setIsLoading(false)
+        }
+        })
+    }, [])
+
 
     return (
         <>

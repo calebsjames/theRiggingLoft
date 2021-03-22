@@ -27,9 +27,9 @@ export const CustomerCard = ({ customerInstance }) => {
           </Link>
         </h3>
         <p>{ customerInstance.phone }</p>
-        <button className="deleteButton" onClick={(handleDelete)}>
+        {/* <button className="deleteButton" onClick={(handleDelete)}>
                 Delete
-            </button>
+            </button> */}
         
       
     </section>
