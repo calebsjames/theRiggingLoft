@@ -40,7 +40,7 @@ export const ApplicationViews = () => {
                                 <ReserveProvider>
                                     <MainParachuteProvider>
                                         <InspectionProvider>
-                                            <InspectionListHome />
+                                            <InspectionList />
                                         </InspectionProvider>
                                     </MainParachuteProvider>
                                 </ReserveProvider>

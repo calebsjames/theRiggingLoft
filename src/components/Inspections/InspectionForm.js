@@ -35,20 +35,56 @@ export const InspectionForm = () => {
     
     
 
-    // if(inspectionId) {
-    //     const currentInspection = inspections.find(insp => parseInt(insp.id) === parseInt(inspectionId))
-    //     const customer = customers.find(c => parseInt(c.id) === parseInt(currentInspection.customerId))
-    //     const container = containers.find(c => parseInt(c.id) === parseInt(currentInspection.containerId))
-    //     const reserve = reserves.find(c => parseInt(c.id) === parseInt(currentInspection.reserveId))
-    //     const aad = aads.find(c => parseInt(c.id) === parseInt(currentInspection.aadId))
-    //     const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(currentInspection.mainParachuteId))
-    // } else {
-        const customer = customers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("customerId")))
-        const container = containers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("containerId")))
-        const reserve = reserves.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("reserveId")))
-        const aad = aads.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("aadId")))
-        const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("mainParachuteId")))
     
+    const [components, setComponents] = useState({
+        container: {},
+        aad: {},
+        reserve: {},
+        mainParachute: {},
+        customer: {}
+    })
+   
+        
+    useEffect(() => {
+        
+        if(inspectionId) {
+            const newComponents = { ...components }
+            
+            const currentInspection = inspections.find(insp => parseInt(insp.id) === parseInt(inspectionId))
+            const customer = customers.find(c => parseInt(c.id) === parseInt(currentInspection.customerId))
+            const container = containers.find(cont => parseInt(cont.id) === parseInt(currentInspection.containerId))
+            const reserve = reserves.find(c => parseInt(c.id) === parseInt(currentInspection.reserveId))
+            const aad = aads.find(c => parseInt(c.id) === parseInt(currentInspection.aadId))
+            const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(currentInspection.mainParachuteId))
+            
+            newComponents.container = container
+            newComponents.reserve = reserve
+            newComponents.aad = aad
+            newComponents.mainParachute = mainParachute
+            newComponents.customer = customer
+            setComponents(newComponents)    
+       
+        } else {
+            const newComponents = { ...components }
+            const customer = customers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("customerId")))
+            const container = containers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("containerId")))
+            const reserve = reserves.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("reserveId")))
+            const aad = aads.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("aadId")))
+            const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("mainParachuteId")))
+            
+            newComponents.container = container
+            newComponents.reserve = reserve
+            newComponents.aad = aad
+            newComponents.mainParachute = mainParachute
+            newComponents.customer = customer
+
+            setComponents(newComponents)  
+        }  
+        }, [containers])
+    
+
+
+
 
     //Define the intial state of the form inputs with useState()
     const [inspection, setInspection] = useState({
@@ -68,7 +104,7 @@ export const InspectionForm = () => {
       containerReserveHandle: false,
       containerCutawayHandle: false,
       containerWebbing: false,
-      containerNotes: false,
+      containerNotes: "",
       reserveDBag: false,
       reserveLinks: false,
       reserveSuspensionLines: false,
@@ -76,7 +112,7 @@ export const InspectionForm = () => {
       reserveCrossports: false,
       reserveSeamFabric: false,
       reserveSlider: false,
-      reserveNotes: false,
+      reserveNotes: "",
       reserveId: sessionStorage.getItem("reserveId"),
       mainDBag: false,
       mainLinks: false,
@@ -85,12 +121,12 @@ export const InspectionForm = () => {
       mainCrossports: false,
       mainSeamFabric: false,
       mainSlider: false,
-      mainNotes: false,
+      mainNotes: "",
       mainParachuteId: sessionStorage.getItem("mainParachuteId"),
       aadInstallation: false,
       aadCables: false,
       aadInService: false,
-      aadNotes: false,
+      aadNotes: "",
       aadId: sessionStorage.getItem("aadId"),
       
     });
@@ -145,11 +181,11 @@ export const InspectionForm = () => {
         //invoke addInspection passing inspection as an argument.
         //once complete, change the url and display the inspection list
         addInspection(inspection)
-        .then(sessionStorage.removeItem("mainParachuteId"))
-        .then(sessionStorage.removeItem("aadId"))
-        .then(sessionStorage.removeItem("reserveId"))
-        .then(sessionStorage.removeItem("containerId"))
-        .then(sessionStorage.removeItem("customerId"))
+        sessionStorage.removeItem("mainParachuteId")
+        sessionStorage.removeItem("aadId")
+        sessionStorage.removeItem("reserveId")
+        sessionStorage.removeItem("containerId")
+        sessionStorage.removeItem("customerId")
         .then(() => history.push("/home"))
        }
     }
@@ -175,27 +211,19 @@ export const InspectionForm = () => {
 
        
     const handleClickEditContainer = () => {
-        history.push(`/container/edit/${container.id}`)
+        history.push(`/container/edit/${components.container?.id}`)
     }
     const handleClickEditReserve = () => {
-        history.push(`/reserve/edit/${reserve.id}`)
+        history.push(`/reserve/edit/${components.reserve?.id}`)
     }
     const handleClickEditAAD = () => {
-        history.push(`/aad/edit/${aad.id}`)
+        history.push(`/aad/edit/${components.aad?.id}`)
     }
     const handleClickEditMainParachute = () => {
-        history.push(`/mainParachute/edit/${mainParachute.id}`)
+        history.push(`/mainParachute/edit/${components.mainParachute?.id}`)
     }
 
-    const checked = (item) => {
-        if (inspection.item =! "") {
-            <input type="checkbox" id="containerMainTray" onChange={handleControlledInputChange} name={item} value="true" required  className="form-control" checked/>
-        } else {
-             <input type="checkbox" id="containerMainTray" onChange={handleControlledInputChange} name={item} value="true" required  className="form-control" />                
-        }
-    }
-        
-
+    
     return<>
         <h2 id="inspectionTitle">
             {inspectionId ? "Inspection Details" : "New Inspection"}
@@ -207,23 +235,22 @@ export const InspectionForm = () => {
                 <h3>Container</h3>
 
                 <div className="componentDetails">
-                    <p> {container ? container.manufacturer : ""} {container ? container.model : ""}</p>
-                    <p><b>Size: </b>{container ? container.size : ""} </p>
-                    <p>Serial #: {container ? container.serialNumber : ""} </p>
-                    <p>Color: {container ? container.color : ""} </p>
-                    <p>DOM: {container ? container.dom : ""} </p>
-                    <p>Notes: {container ? container.notes : ""} </p>
+                    <p> {components.container?.manufacturer} {components.container?.model}</p>
+                    <p><b>Size: </b>{components.container?.size} </p>
+                    <p>Serial #: {components.container?.serialNumber} </p>
+                    <p>Color: {components.container?.color} </p>
+                    <p>DOM: {components.container?.dom} </p>
+                    <p>Notes: {components.container?.notes} </p>
                     {inspectionId ? <button className="btn btn-primary"
                         disabled={isLoading}
                         onClick={handleClickEditContainer}>
                         Edit</button> : ""}
                 </div>
 
-                <div className="componentBox">
+                <div className="componentBoxInspectionList">
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
                             <label htmlFor="containerMainTray">Main tray:</label>
-                            {/* {checked(containerMainTray)} */}
                             <input type="checkbox" id="containerMainTray" onChange={handleCheckboxChange} name="containerMainTray" checked={inspection.containerMainTray} required  className="form-control" />
                         </div>
                     </fieldset>
@@ -307,18 +334,18 @@ export const InspectionForm = () => {
                     <article className="inspectionBox">
                         <h3>Reserve</h3>
                         <div className="componentDetails">
-                            <p> {reserve ? reserve.manufacturer : ""} {reserve ? reserve.model : ""} </p>
-                            <p><b>Size: </b> {reserve ? reserve.size : ""} </p>
-                            <p>Serial #: {reserve ? reserve.serialNumber : ""} </p>
-                            <p>Color: {reserve ? reserve.color : ""} </p>
-                            <p>DOM: {reserve ? reserve.dom : ""} </p>
-                           <p>Notes: {reserve ? reserve.notes : ""} </p>
+                            <p> {components.reserve?.manufacturer} {components.reserve?.model} </p>
+                            <p><b>Size: </b> {components.reserve?.size} </p>
+                            <p>Serial #: {components.reserve?.serialNumber} </p>
+                            <p>Color: {components.reserve?.color} </p>
+                            <p>DOM: {components.reserve?.dom} </p>
+                           <p>Notes: {components.reserve?.notes} </p>
                            {inspectionId ? <button className="btn btn-primary"
                                 disabled={isLoading}
                                 onClick={handleClickEditReserve}>
                                 Edit</button> : ""}
                         </div>
-                        <div className="componentBox">
+                        <div className="componentBoxInspectionList">
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="reserveDBag">D-Bag:</label>
@@ -379,18 +406,18 @@ export const InspectionForm = () => {
                     <article className="inspectionBox">
                     <h3>AAD</h3>
                     <div className="componentDetails">
-                        <p> {aad ? aad.manufacturer : ""} {aad ? aad.model : ""} </p>
-                        <p>Serial #: {aad ? aad.serialNumber : ""} </p>
-                        <p>Next Service Date: {aad ? aad.nextServiceDate : ""} </p>
-                        <p>DOM: {aad ? aad.dom : ""} </p>
-                        <p>Notes: {aad ? aad.notes : ""} </p>
+                        <p> {components.aad?.manufacturer} {components.aad?.model} </p>
+                        <p>Serial #: {components.aad?.serialNumber} </p>
+                        <p>Next Service Date: {components.aad?.nextServiceDate} </p>
+                        <p>DOM: {components.aad?.dom} </p>
+                        <p>Notes: {components.aad?.notes} </p>
                         {inspectionId ? <button className="btn btn-primary"
                         disabled={isLoading}
                         onClick={handleClickEditAAD}>
                         Edit</button> : ""}
                     </div>
 
-                    <div className="componentBox">
+                    <div className="componentBoxInspectionList">
                     <fieldset className="checkbox">
                         <div className="form-group">
                             <label htmlFor="aadInstallation">Installation:</label>
@@ -423,18 +450,18 @@ export const InspectionForm = () => {
                     <article className="inspectionBox">
                         <h3>Main Parachute</h3>
                         <div className="componentDetails">
-                            <p> {mainParachute ? mainParachute.manufacturer : ""} {mainParachute ? mainParachute.model : ""} </p>
-                            <p><b>Size: </b> {mainParachute ? mainParachute.size : ""} </p>
-                            <p>Serial #: {mainParachute ? mainParachute.serialNumber : ""} </p>
-                            <p>Color: {mainParachute ? mainParachute.color : ""} </p>
-                            <p>DOM: {mainParachute ? mainParachute.dom : ""} </p>
-                            <p>Notes: {mainParachute ? mainParachute.notes : ""} </p>
+                            <p> {components.mainParachute?.manufacturer} {components.mainParachute?.model} </p>
+                            <p><b>Size: </b> {components.mainParachute?.size} </p>
+                            <p>Serial #: {components.mainParachute?.serialNumber} </p>
+                            <p>Color: {components.mainParachute?.color} </p>
+                            <p>DOM: {components.mainParachute?.dom} </p>
+                            <p>Notes: {components.mainParachute?.notes} </p>
                             {inspectionId ? <button className="btn btn-primary"
                             disabled={isLoading}
                             onClick={handleClickEditMainParachute}>
                         Edit</button> : ""}
                         </div>
-                        <div className="componentBox">
+                        <div className="componentBoxInspectionList">
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="mainDBag">D-Bag:</label>

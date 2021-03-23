@@ -31,25 +31,45 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
         history.push("/newinspection")
     }
 
-    return(<section className="inspectionCard" id={`inspectionId--${inspectionInstance.id}`}>
-        <h3 className="inspection">
-            { inspectionInstance.date }
-        </h3>
-        <p>Container: { containerInstance.manufacturer }</p>
-        <p>Reserve: { reserveInstance.model }</p>
-        <p>AAD: { aadInstance.manufacturer }</p>
-        <p>Main: { mainParachuteInstance.model }</p>
-        
-        <button onClick={(handleDetails)}>
+    
+
+    return(
+    <>
+    <h3 className="inspection">
+        { customerInstance.name } { inspectionInstance.date }
+    </h3>
+    <section className="inspectionCard" id={`inspectionId--${inspectionInstance.id}`}>
+        <div className="componentBox">
+            <h3>{ containerInstance.manufacturer } </h3> 
+            <p>{ containerInstance.model }</p>
+            <p>Serial #: { containerInstance.serialNumber }</p>
+        </div>
+        <div className="componentBox">
+            <h3>{ reserveInstance.manufacturer }</h3>
+            <p>{ reserveInstance.model }</p>
+            <p>Serial #: { reserveInstance.serialNumber }</p>
+        </div>
+        <div className="componentBox">
+            <h3>{ aadInstance.manufacturer } </h3>
+            <p>{ aadInstance.model }</p>
+            <p>Serial #: { aadInstance.serialNumber }</p>
+        </div>
+        <div className="componentBox">
+            <h3>{ mainParachuteInstance.manufacturer } </h3>
+            <p>{ mainParachuteInstance.model }</p>
+            <p>Serial #: { mainParachuteInstance.serialNumber }</p>
+        </div>
+        <button className="inspectionButton" onClick={(handleDetails)}>
                 Details
             </button>
-        <button onClick={(handleDelete)}>
+        <button className="inspectionButton" onClick={(handleDelete)}>
                 Delete
             </button>
-        <button onClick={(handleNewInspection)}>
+        <button className="inspectionButton" onClick={(handleNewInspection)}>
                 New Inpection
             </button>
       
     </section>
+    </>
     )
 }

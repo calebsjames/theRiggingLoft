@@ -4,7 +4,7 @@ import { CustomerContext } from "./CustomerProvider";
 
 
 export const CustomerForm = () => {
-    const { addCustomer, getCustomerById, editCustomer, getCustomers } = useContext(CustomerContext)    
+    const { addCustomer, getCustomerById, editCustomer, getCustomers, deleteCustomer } = useContext(CustomerContext)    
     const { customerId } = useParams()
     const [ isLoading, setIsLoading ] = useState(true);
     //Define the intial state of the form inputs with useState()
@@ -36,6 +36,14 @@ export const CustomerForm = () => {
         setCustomer(newCustomer)   
     }
 
+
+    const handleDelete = () => {
+        deleteCustomer(customerId)
+          .then(getCustomers)
+          .then(() => {
+            history.push("/customers")
+          })
+      }
 
     const handleClickSaveCustomer = (event) => {
         
@@ -114,11 +122,9 @@ export const CustomerForm = () => {
 
 
 
-            {/* <button className="btn btn-primary"
-                onClick={handleClickSaveCustomer}>
-                Save Customer
-            </button> */}
-        
+            <button className="deleteButton" onClick={(handleDelete)}>
+                Delete
+            </button>
         
         </form>
         </article>
