@@ -40,17 +40,24 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
     </h3>
     <section className="inspectionCard" id={`inspectionId--${inspectionInstance.id}`}>
         <div className="componentBox">
-            <h3>{ containerInstance.manufacturer } { containerInstance.model }</h3> 
-            <p>Serial #: { containerInstance.serialNumber } Color: { containerInstance.color }</p>
+            <h3>{ containerInstance.manufacturer } </h3> 
+            <p>{ containerInstance.model }</p>
+            <p>Serial #: { containerInstance.serialNumber }</p>
         </div>
         <div className="componentBox">
-            <h3>{ reserveInstance.manufacturer } { reserveInstance.model }</h3>
+            <h3>{ reserveInstance.manufacturer }</h3>
+            <p>{ reserveInstance.model }</p>
+            <p>Serial #: { reserveInstance.serialNumber }</p>
         </div>
         <div className="componentBox">
-            <h3>{ aadInstance.manufacturer } { aadInstance.model }</h3>
+            <h3>{ aadInstance.manufacturer } </h3>
+            <p>{ aadInstance.model }</p>
+            <p>Serial #: { aadInstance.serialNumber }</p>
         </div>
         <div className="componentBox">
-            <h3>{ mainParachuteInstance.manufacturer } { mainParachuteInstance.model }</h3>
+            <h3>{ mainParachuteInstance.manufacturer } </h3>
+            <p>{ mainParachuteInstance.model }</p>
+            <p>Serial #: { mainParachuteInstance.serialNumber }</p>
         </div>
         <button className="inspectionButton" onClick={(handleDetails)}>
                 Details

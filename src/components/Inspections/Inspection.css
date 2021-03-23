@@ -30,14 +30,24 @@
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 10px;
+   
 }
 
 .inspectionCard {
     display: flex;
     margin: 10px;
+    line-height: 1;
 }
 
 .inspectionButton {
     height: 30px;
     margin: 5px;
+    align-self: center;
+}
+
+.componentBoxInspectionList {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 10px;
+    display: flex;
 }

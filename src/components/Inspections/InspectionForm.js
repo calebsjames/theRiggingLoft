@@ -251,7 +251,7 @@ export const InspectionForm = () => {
                         Edit</button> : ""}
                 </div>
 
-                <div className="componentBox">
+                <div className="componentBoxInspectionList">
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
                             <label htmlFor="containerMainTray">Main tray:</label>
@@ -349,7 +349,7 @@ export const InspectionForm = () => {
                                 onClick={handleClickEditReserve}>
                                 Edit</button> : ""}
                         </div>
-                        <div className="componentBox">
+                        <div className="componentBoxInspectionList">
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="reserveDBag">D-Bag:</label>
@@ -421,7 +421,7 @@ export const InspectionForm = () => {
                         Edit</button> : ""}
                     </div>
 
-                    <div className="componentBox">
+                    <div className="componentBoxInspectionList">
                     <fieldset className="checkbox">
                         <div className="form-group">
                             <label htmlFor="aadInstallation">Installation:</label>
@@ -465,7 +465,7 @@ export const InspectionForm = () => {
                             onClick={handleClickEditMainParachute}>
                         Edit</button> : ""}
                         </div>
-                        <div className="componentBox">
+                        <div className="componentBoxInspectionList">
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="mainDBag">D-Bag:</label>
