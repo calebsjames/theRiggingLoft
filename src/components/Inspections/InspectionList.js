@@ -31,12 +31,12 @@ export const InspectionList = () => {
   
   const { inspections, getInspections } = useContext(InspectionContext)
   
- 
+  const userInspections = inspections.filter(insp => parseInt(insp.userId) === parseInt(sessionStorage.getItem("app_user_id")))
 
   return (
     <>
     <div className="inspections">
-      {inspections.map(inspectionObject => {
+      {userInspections.map(inspectionObject => {
           const customer = customers.find(c => parseInt(c.id) === parseInt(inspectionObject.customerId))
           const container = containers.find(cont => parseInt(cont.id) === parseInt(inspectionObject.containerId))
           const reserve = reserves.find(r => parseInt(r.id) === parseInt(inspectionObject.reserveId))

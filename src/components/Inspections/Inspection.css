@@ -27,8 +27,17 @@
 }
 
 .componentBox {
-    display: flex;
-    width: 500px;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin: 10px;
+}
+
+.inspectionCard {
+    display: flex;
+    margin: 10px;
+}
+
+.inspectionButton {
+    height: 30px;
+    margin: 5px;
 }

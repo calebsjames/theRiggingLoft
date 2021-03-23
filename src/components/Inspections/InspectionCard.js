@@ -31,25 +31,38 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
         history.push("/newinspection")
     }
 
-    return(<section className="inspectionCard" id={`inspectionId--${inspectionInstance.id}`}>
-        <h3 className="inspection">
-            { inspectionInstance.date }
-        </h3>
-        <p>Container: { containerInstance.manufacturer }</p>
-        <p>Reserve: { reserveInstance.model }</p>
-        <p>AAD: { aadInstance.manufacturer }</p>
-        <p>Main: { mainParachuteInstance.model }</p>
-        
-        <button onClick={(handleDetails)}>
+    
+
+    return(
+    <>
+    <h3 className="inspection">
+        { customerInstance.name } { inspectionInstance.date }
+    </h3>
+    <section className="inspectionCard" id={`inspectionId--${inspectionInstance.id}`}>
+        <div className="componentBox">
+            <h3>{ containerInstance.manufacturer } { containerInstance.model }</h3> 
+            <p>Serial #: { containerInstance.serialNumber } Color: { containerInstance.color }</p>
+        </div>
+        <div className="componentBox">
+            <h3>{ reserveInstance.manufacturer } { reserveInstance.model }</h3>
+        </div>
+        <div className="componentBox">
+            <h3>{ aadInstance.manufacturer } { aadInstance.model }</h3>
+        </div>
+        <div className="componentBox">
+            <h3>{ mainParachuteInstance.manufacturer } { mainParachuteInstance.model }</h3>
+        </div>
+        <button className="inspectionButton" onClick={(handleDetails)}>
                 Details
             </button>
-        <button onClick={(handleDelete)}>
+        <button className="inspectionButton" onClick={(handleDelete)}>
                 Delete
             </button>
-        <button onClick={(handleNewInspection)}>
+        <button className="inspectionButton" onClick={(handleNewInspection)}>
                 New Inpection
             </button>
       
     </section>
+    </>
     )
 }

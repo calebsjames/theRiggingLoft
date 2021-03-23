@@ -34,21 +34,61 @@ export const InspectionForm = () => {
     const history = useHistory()
     
     
-
-    // if(inspectionId) {
-    //     const currentInspection = inspections.find(insp => parseInt(insp.id) === parseInt(inspectionId))
-    //     const customer = customers.find(c => parseInt(c.id) === parseInt(currentInspection.customerId))
-    //     const container = containers.find(c => parseInt(c.id) === parseInt(currentInspection.containerId))
-    //     const reserve = reserves.find(c => parseInt(c.id) === parseInt(currentInspection.reserveId))
-    //     const aad = aads.find(c => parseInt(c.id) === parseInt(currentInspection.aadId))
-    //     const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(currentInspection.mainParachuteId))
-    // } else {
-        const customer = customers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("customerId")))
-        const container = containers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("containerId")))
-        const reserve = reserves.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("reserveId")))
-        const aad = aads.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("aadId")))
-        const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("mainParachuteId")))
     
+    const details = () => {
+            const currentInspection = inspections.find(insp => parseInt(insp.id) === parseInt(inspectionId))
+            const customer = customers.find(c => parseInt(c.id) === parseInt(currentInspection.customerId))
+            const container = containers.find(cont => parseInt(cont.id) === parseInt(currentInspection.containerId))
+            const reserve = reserves.find(c => parseInt(c.id) === parseInt(currentInspection.reserveId))
+            const aad = aads.find(c => parseInt(c.id) === parseInt(currentInspection.aadId))
+            const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(currentInspection.mainParachuteId))
+
+            return (customer, container, reserve, aad, mainParachute)
+        }
+
+    const newInsp = () => {
+
+    }
+    // }}, [])
+    
+    const [components, setComponents] = useState({
+        container: {},
+        aad: {},
+        reserve: {},
+        mainParachute: {},
+        customer: {}
+    })
+    
+    // const currentInspection = inspections.find(insp => parseInt(insp.id) === parseInt(inspectionId))
+    // const customer = customers.find(c => parseInt(c.id) === parseInt(currentInspection.customerId))
+    // const container = containers.find(c => parseInt(c.id) === parseInt(currentInspection.containerId))
+    // const reserve = reserves.find(c => parseInt(c.id) === parseInt(currentInspection.reserveId))
+    // const aad = aads.find(c => parseInt(c.id) === parseInt(currentInspection.aadId))
+    // const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(currentInspection.mainParachuteId))
+    //when some changes, save it
+    // const componentDataAccess = () => {
+    //     /* When changing a state object or array,
+    //     always create a copy, make changes, and then set state.*/
+    //     const newComponents = { ...components }
+        
+    //         // if(inspectionId) {
+    //         // } else {
+                const customer = customers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("customerId")))
+                const container = containers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("containerId")))
+                const reserve = reserves.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("reserveId")))
+                const aad = aads.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("aadId")))
+                const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("mainParachuteId")))
+
+
+
+    //     /* Components is an object with properties.
+    //     Set the property to the new value
+    //     using object bracket notation. */
+    //     newComponents[event.target.id] = selectedVal
+    //     // update state
+    //     setComponents(newComponents)   
+    // }
+
 
     //Define the intial state of the form inputs with useState()
     const [inspection, setInspection] = useState({
@@ -145,11 +185,11 @@ export const InspectionForm = () => {
         //invoke addInspection passing inspection as an argument.
         //once complete, change the url and display the inspection list
         addInspection(inspection)
-        .then(sessionStorage.removeItem("mainParachuteId"))
-        .then(sessionStorage.removeItem("aadId"))
-        .then(sessionStorage.removeItem("reserveId"))
-        .then(sessionStorage.removeItem("containerId"))
-        .then(sessionStorage.removeItem("customerId"))
+        sessionStorage.removeItem("mainParachuteId")
+        sessionStorage.removeItem("aadId")
+        sessionStorage.removeItem("reserveId")
+        sessionStorage.removeItem("containerId")
+        sessionStorage.removeItem("customerId")
         .then(() => history.push("/home"))
        }
     }
@@ -187,15 +227,7 @@ export const InspectionForm = () => {
         history.push(`/mainParachute/edit/${mainParachute.id}`)
     }
 
-    const checked = (item) => {
-        if (inspection.item =! "") {
-            <input type="checkbox" id="containerMainTray" onChange={handleControlledInputChange} name={item} value="true" required  className="form-control" checked/>
-        } else {
-             <input type="checkbox" id="containerMainTray" onChange={handleControlledInputChange} name={item} value="true" required  className="form-control" />                
-        }
-    }
-        
-
+    
     return<>
         <h2 id="inspectionTitle">
             {inspectionId ? "Inspection Details" : "New Inspection"}
@@ -223,7 +255,6 @@ export const InspectionForm = () => {
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
                             <label htmlFor="containerMainTray">Main tray:</label>
-                            {/* {checked(containerMainTray)} */}
                             <input type="checkbox" id="containerMainTray" onChange={handleCheckboxChange} name="containerMainTray" checked={inspection.containerMainTray} required  className="form-control" />
                         </div>
                     </fieldset>
