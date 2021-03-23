@@ -11,7 +11,7 @@ import { MainParachuteContext } from "../mainparachutes/MainParachuteProvider";
 
 
 export const InspectionForm = () => {
-    const { addInspection, inspections, getInspections, getInspectionById, editInspection } = useContext(InspectionContext)
+    const { addInspection, inspections, getInspections, getInspectionById, editInspection, deleteInspection } = useContext(InspectionContext)
     const { customers, getCustomers } = useContext(CustomerContext)
     const { reserves, getReserves } = useContext(ReserveContext)
     const { containers, getContainers } = useContext(ContainerContext)
@@ -175,7 +175,7 @@ export const InspectionForm = () => {
        
        if (inspectionId) {
            editInspection(inspection)
-           .then(history.push/"/inspections")
+           .then(history.push("/inspections"))
        } else {
        
         //invoke addInspection passing inspection as an argument.
@@ -209,7 +209,14 @@ export const InspectionForm = () => {
             })
         }, [])
 
-       
+    const handleDelete = () => {
+        deleteInspection(inspectionId)
+            .then(getInspections)
+            .then(() => {
+            history.push("/inspections")
+            })
+        } 
+    
     const handleClickEditContainer = () => {
         history.push(`/container/edit/${components.container?.id}`)
     }
@@ -526,5 +533,10 @@ export const InspectionForm = () => {
             disabled={isLoading}
             onClick={handleClickSaveInspection}>
             {inspectionId ? "Save" : "Complete"}</button>
+    
+        <button className="btn btn-primary"
+            disabled={isLoading}
+            onClick={handleDelete}>
+            {inspectionId ? "Delete" : ""}</button>
     </>
 }

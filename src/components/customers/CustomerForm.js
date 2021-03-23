@@ -51,7 +51,7 @@ export const CustomerForm = () => {
          
         if (customerId) {
             editCustomer(customer)
-            .then(history.push("/customers"))
+            .then(history.push(`/customers/detail/${customerId}`))
         } else {
         //invoke addCustomer passing customer as an argument.
         addCustomer(customer)
