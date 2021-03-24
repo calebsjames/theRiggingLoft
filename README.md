@@ -44,7 +44,7 @@ A tool for FAA riggers to record information about customers, their equipment an
     "userId": 1,
     "id": 1
   
-  ### Reserves
+  ### reserves
     "manufacturer": "Performance Designs",
     "model": "PDR",
     "size": "124",
