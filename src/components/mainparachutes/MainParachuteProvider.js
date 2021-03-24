@@ -9,12 +9,14 @@ export const MainParachuteProvider = (props) => {
 
     const [mainParachuteId, setMainParachuteId] = useState(0)
 
+    //function to get all main parachutes
     const getMainParachutes = () => {
         return fetch("http://localhost:8088/mainParachutes")
         .then(res => res.json())
         .then(setMainParachutes)
     }
-
+    
+    //function to add a main parachutesand return the object of the new main parachute with ID
     const addMainParachute = mainParachuteObj => {
         return fetch("http://localhost:8088/mainParachutes", {
             method: "POST",
@@ -23,9 +25,12 @@ export const MainParachuteProvider = (props) => {
             },
             body: JSON.stringify(mainParachuteObj)
         })
+        //get the new object back
         .then(res => res.json())
+        //set useState variable to new object
         .then(mainParachuteObject => {
             setMainParachuteId(mainParachuteObject.id)
+            //put the item id in session storage
             sessionStorage.setItem("mainParachuteId", mainParachuteObject.id)
         })
         .then(getMainParachutes)
@@ -42,9 +47,10 @@ export const MainParachuteProvider = (props) => {
         return fetch(`http://localhost:8088/mainParachutes/${mainParachuteId}`, {
             method: "DELETE"
         })
-            .then(getMainParachutes)
+        .then(getMainParachutes)
     }
-
+    
+    //function to edit a mainParachute
     const editMainParachute = mainParachute => {
         return fetch(`http://localhost:8088/mainParachutes/${mainParachute.id}`, {
           method: "PUT",
@@ -56,12 +62,7 @@ export const MainParachuteProvider = (props) => {
           .then(getMainParachutes)
       }
 
-    /*
-        You return a context provider which has the
-        `mainParachutes` state, `getMainParachutes` function,
-        and the `addMainParachute` function as keys. This
-        allows any child elements to access them.
-    */
+    //return all of the functions available through InspectionContext
     return (
         <MainParachuteContext.Provider value={{
             mainParachutes, getMainParachutes, addMainParachute, getMainParachuteById, deleteMainParachute, editMainParachute, mainParachuteId

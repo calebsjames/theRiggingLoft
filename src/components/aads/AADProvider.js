@@ -15,6 +15,7 @@ export const AADProvider = (props) => {
         .then(setAADs)
     }
 
+    //function to add aad and return the object of the new aad with ID
     const addAAD = aadObj => {
         return fetch("http://localhost:8088/aads", {
             method: "POST",
@@ -23,9 +24,12 @@ export const AADProvider = (props) => {
             },
             body: JSON.stringify(aadObj)
         })
+        //get the new object back
         .then(res => res.json())
+        //set useState variable to new object
         .then(aadObject => {
             setAADId(aadObject.id)
+            //put the item id in session storage
             sessionStorage.setItem("aadId", aadObject.id)
         })
         .then(getAADs)
@@ -42,9 +46,10 @@ export const AADProvider = (props) => {
         return fetch(`http://localhost:8088/aads/${aadId}`, {
             method: "DELETE"
         })
-            .then(getAADs)
+        .then(getAADs)
     }
-
+    
+    //function to edit an aad
     const editAAD = aad => {
         return fetch(`http://localhost:8088/aads/${aad.id}`, {
           method: "PUT",
@@ -56,12 +61,7 @@ export const AADProvider = (props) => {
           .then(getAADs)
       }
 
-    /*
-        You return a context provider which has the
-        `aads` state, `getAADs` function,
-        and the `addAAD` function as keys. This
-        allows any child elements to access them.
-    */
+       //make all of the functions available through AADContext
     return (
         <AADContext.Provider value={{
             aads, getAADs, addAAD, getAADById, deleteAAD, editAAD, aadId

@@ -6,15 +6,16 @@ export const ReserveContext = createContext()
 // This component establishes what data can be used.
 export const ReserveProvider = (props) => {
     const [reserves, setReserves] = useState([])
-
     const [reserveId, setReserveId] = useState(0)
 
+    //function to get all reserves
     const getReserves = () => {
         return fetch("http://localhost:8088/reserves")
         .then(res => res.json())
         .then(setReserves)
     }
-
+    
+    //function to add a reserve
     const addReserve = reserveObj => {
         return fetch("http://localhost:8088/reserves", {
             method: "POST",
@@ -23,9 +24,12 @@ export const ReserveProvider = (props) => {
             },
             body: JSON.stringify(reserveObj)
         })
+        //get the new object back
         .then(res => res.json())
+        //set useState variable to new object
         .then(reserveObject => {
             setReserveId(reserveObject.id)
+            //put the item id in session storage
             sessionStorage.setItem("reserveId", reserveObject.id)
         })
         .then(getReserves)
@@ -42,9 +46,10 @@ export const ReserveProvider = (props) => {
         return fetch(`http://localhost:8088/reserves/${reserveId}`, {
             method: "DELETE"
         })
-            .then(getReserves)
+        .then(getReserves)
     }
-
+    
+    //function to edit an reserve
     const editReserve = reserve => {
         return fetch(`http://localhost:8088/reserves/${reserve.id}`, {
           method: "PUT",
@@ -56,7 +61,7 @@ export const ReserveProvider = (props) => {
           .then(getReserves)
       }
 
-  
+    //return all of the functions available through InspectionContext
     return (
         <ReserveContext.Provider value={{
             reserves, getReserves, addReserve, getReserveById, deleteReserve, editReserve, reserveId
