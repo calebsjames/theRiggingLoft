@@ -174,12 +174,12 @@ export const InspectionForm = () => {
        } else {
         //if inspectionId does not exists, clear session storage and save inspection
         addInspection(inspection)
+        .then(() => history.push("/home"))
         sessionStorage.removeItem("mainParachuteId")
         sessionStorage.removeItem("aadId")
         sessionStorage.removeItem("reserveId")
         sessionStorage.removeItem("containerId")
         sessionStorage.removeItem("customerId")
-        .then(() => history.push("/home"))
        }
     }
     
@@ -456,7 +456,7 @@ export const InspectionForm = () => {
                     </article>
                     <article className="inspectionBox">
 
-                        {/* main portion */}
+                        {/* reserve portion */}
                         <h3>Main Parachute</h3>
                         <div className="componentDetails">
                             <p> {components.mainParachute?.manufacturer} {components.mainParachute?.model} </p>
@@ -536,9 +536,10 @@ export const InspectionForm = () => {
             onClick={handleClickSaveInspection}>
             {inspectionId ? "Save" : "Complete"}</button>
     
+        
         <button className="btn btn-primary"
             disabled={isLoading}
             onClick={handleDelete}>
-            {inspectionId ? "Delete" : ""}</button>
+            {inspectionId ? "Delete" : "Cancel"}</button>'
     </>
 }

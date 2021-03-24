@@ -3,17 +3,20 @@ import { useHistory, useParams } from "react-router-dom"
 import { InspectionContext } from "./InspectionProvider"
 import "./Inspection.css"
 
+//InspectionCard is called in InspectionList.js and CustomerInspections.js
+//This displays basic information about the inspection
 export const InspectionCard = ({ inspectionInstance, customerInstance, containerInstance, reserveInstance, mainParachuteInstance, aadInstance }) => {
 
+    const { getInspections, deleteInspection } = useContext(InspectionContext)
+    
     const history = useHistory()
 
-    const { getInspections, deleteInspection } = useContext(InspectionContext)
-
+    //if user presses "details" button, they will be taken to details page
     const handleDetails = () => {
         history.push(`/inspections/detail/${inspectionInstance.id}`) 
     }
-    const { inspectionId } = useParams()
 
+    //delete button functionality
     const handleDelete = () => {
         deleteInspection(inspectionInstance.id)
           .then(getInspections)
@@ -22,6 +25,8 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
           })
       }
 
+    /*if user presses "New Inspection" button, the IDs of the referenced 
+    inspection are captured and held in sessionStorage until inspection is saved*/
     const handleNewInspection = () => {
         sessionStorage.setItem("customerId", customerInstance.id)
         sessionStorage.setItem("containerId", containerInstance.id)
@@ -36,28 +41,28 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
     return(
     <>
     <h3 className="inspection">
-        { customerInstance.name } { inspectionInstance.date }
+        { customerInstance?.name } { inspectionInstance?.date }
     </h3>
     <section className="inspectionCard" id={`inspectionId--${inspectionInstance.id}`}>
         <div className="componentBox">
-            <h3>{ containerInstance.manufacturer } </h3> 
-            <p>{ containerInstance.model }</p>
-            <p>Serial #: { containerInstance.serialNumber }</p>
+            <h3>{ containerInstance?.manufacturer } </h3> 
+            <p>{ containerInstance?.model }</p>
+            <p>Serial #: { containerInstance?.serialNumber }</p>
         </div>
         <div className="componentBox">
-            <h3>{ reserveInstance.manufacturer }</h3>
-            <p>{ reserveInstance.model }</p>
-            <p>Serial #: { reserveInstance.serialNumber }</p>
+            <h3>{ reserveInstance?.manufacturer }</h3>
+            <p>{ reserveInstance?.model }</p>
+            <p>Serial #: { reserveInstance?.serialNumber }</p>
         </div>
         <div className="componentBox">
-            <h3>{ aadInstance.manufacturer } </h3>
-            <p>{ aadInstance.model }</p>
-            <p>Serial #: { aadInstance.serialNumber }</p>
+            <h3>{ aadInstance?.manufacturer } </h3>
+            <p>{ aadInstance?.model }</p>
+            <p>Serial #: { aadInstance?.serialNumber }</p>
         </div>
         <div className="componentBox">
-            <h3>{ mainParachuteInstance.manufacturer } </h3>
-            <p>{ mainParachuteInstance.model }</p>
-            <p>Serial #: { mainParachuteInstance.serialNumber }</p>
+            <h3>{ mainParachuteInstance?.manufacturer } </h3>
+            <p>{ mainParachuteInstance?.model }</p>
+            <p>Serial #: { mainParachuteInstance?.serialNumber }</p>
         </div>
         <button className="inspectionButton" onClick={(handleDetails)}>
                 Details

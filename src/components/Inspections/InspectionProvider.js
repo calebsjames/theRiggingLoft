@@ -1,18 +1,20 @@
 import React, { useState, createContext } from "react"
 
-// The context is imported and used by individual components that need data. Makes a variable global.
+// The context is imported and used by individual components that need data
 export const InspectionContext = createContext()
 
 // This component establishes what data can be used.
 export const InspectionProvider = (props) => {
     const [inspections, setInspections] = useState([])
 
+    //function to get all inspections
     const getInspections = () => {
         return fetch("http://localhost:8088/inspections")
         .then(res => res.json())
         .then(setInspections)
     }
-
+    
+    //function to add an inspection
     const addInspection = inspectionObj => {
         return fetch("http://localhost:8088/inspections", {
             method: "POST",
@@ -38,6 +40,7 @@ export const InspectionProvider = (props) => {
             .then(getInspections)
     }
 
+    //function to edit an inspection
     const editInspection = inspection => {
         return fetch(`http://localhost:8088/inspections/${inspection.id}`, {
           method: "PUT",
@@ -49,12 +52,8 @@ export const InspectionProvider = (props) => {
           .then(getInspections)
       }
 
-    /*
-        You return a context provider which has the
-        `inspections` state, `getInspections` function,
-        and the `addInspection` function as keys. This
-        allows any child elements to access them.
-    */
+    
+    //make all of the functions available through InspectionContext
     return (
         <InspectionContext.Provider value={{
             inspections, getInspections, addInspection, getInspectionById, deleteInspection, editInspection

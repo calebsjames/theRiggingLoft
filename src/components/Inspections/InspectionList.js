@@ -17,8 +17,8 @@ export const InspectionList = () => {
     const { containers, getContainers } = useContext(ContainerContext)
     const { aads, getAADs } = useContext(AADContext)
     const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
+    const { inspections, getInspections } = useContext(InspectionContext)
     
-
     useEffect(() => {
         getContainers()
         .then(getCustomers)
@@ -27,13 +27,11 @@ export const InspectionList = () => {
         .then(getMainParachutes)
         .then(getInspections)
     }, [])
+    
+    //gets inspections that are specific to the logged in user
+    const userInspections = inspections.filter(insp => parseInt(insp.userId) === parseInt(sessionStorage.getItem("app_user_id")))
   
-  
-  const { inspections, getInspections } = useContext(InspectionContext)
-  
-  const userInspections = inspections.filter(insp => parseInt(insp.userId) === parseInt(sessionStorage.getItem("app_user_id")))
-
-  return (
+    return (
     <>
     <div className="inspections">
       {userInspections.map(inspectionObject => {
