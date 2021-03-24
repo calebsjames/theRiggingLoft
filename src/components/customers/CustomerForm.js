@@ -13,7 +13,7 @@ export const CustomerForm = () => {
       name: "",
       phone: "",
       customerNotes: "",
-      userId: sessionStorage.getItem("app_user_id")
+      userId: parseInt(sessionStorage.getItem("app_user_id"))
       
     });
     

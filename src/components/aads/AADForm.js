@@ -21,7 +21,7 @@ export const AADForm = () => {
         dom: "",
         nextServiceDate: "",
         notes: "",
-        userId: sessionStorage.getItem("app_user_id")      
+        userId: parseInt(sessionStorage.getItem("app_user_id"))      
     });
 
 
@@ -47,7 +47,7 @@ export const AADForm = () => {
         setAAD(newAAD)   
     }
 
-    
+
     const handleClickSaveAAD = (event) => {
        event.preventDefault() //Prevents the browser from submitting the form
        

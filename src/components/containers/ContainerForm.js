@@ -22,7 +22,7 @@ export const ContainerForm = () => {
       color: "",
       dom: "",
       notes: "",
-      userId: sessionStorage.getItem("app_user_id")      
+      userId: parseInt(sessionStorage.getItem("app_user_id"))      
     });
 
 
