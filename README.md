@@ -1,3 +1,3 @@
-# ![theriggingloft](src/logo.svg)
+# ![theriggingloft](src/logo.png)
 
 This is the ReadMe
