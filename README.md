@@ -12,6 +12,16 @@
 4. From theRiggingLoft directory, `npm install`
 5. From theRiggingLoft directory, `npm start`
 
+## Testing
+1. From the landing page, create a new user account and log in.
+2. No information will be available to you as all data is user-specific.
+3. Navigate to customers and click the "New Customer" button.
+4. Follow the prompts to create a new customer and their equipment.
+5. After creating the new customer and equipment, you will be prompted to begin a new inspection on that equipment for that customer.
+6. Upon saving the inspection, you will be brought back to the home page that displays all your previous work.
+7. If you would like to edit or delete the customer or inspection you can click on the customer's name to see and edit details.
+8. If you would like to begin a new inspection on the same gear, you can click "New Inspection" in the customer details page
+
 ### ERD:
 https://dbdiagram.io/d/60243d7b80d742080a3a0cdb
 
