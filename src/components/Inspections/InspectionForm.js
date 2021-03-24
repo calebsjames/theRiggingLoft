@@ -9,7 +9,7 @@ import { AADContext } from "../aads/AADProvider";
 import { MainParachuteContext } from "../mainparachutes/MainParachuteProvider";
 
 
-
+//InspectionForm called to make a new inspection or edit an existing one
 export const InspectionForm = () => {
     const { addInspection, inspections, getInspections, getInspectionById, editInspection, deleteInspection } = useContext(InspectionContext)
     const { customers, getCustomers } = useContext(CustomerContext)
@@ -19,8 +19,6 @@ export const InspectionForm = () => {
     const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
     const { inspectionId } = useParams()
     const [ isLoading, setIsLoading ] = useState(true);
-
-
 
     useEffect(() => {
         getInspections()
@@ -33,9 +31,7 @@ export const InspectionForm = () => {
 
     const history = useHistory()
     
-    
-
-    
+    //useState to return correct objects based on whether user is saving new equipment or editing
     const [components, setComponents] = useState({
         container: {},
         aad: {},
@@ -44,12 +40,13 @@ export const InspectionForm = () => {
         customer: {}
     })
    
-        
+    //useEffect to house if() statement that sets components object based on URL    
     useEffect(() => {
         
         if(inspectionId) {
             const newComponents = { ...components }
             
+            //logic that runs if it's an edit
             const currentInspection = inspections.find(insp => parseInt(insp.id) === parseInt(inspectionId))
             const customer = customers.find(c => parseInt(c.id) === parseInt(currentInspection.customerId))
             const container = containers.find(cont => parseInt(cont.id) === parseInt(currentInspection.containerId))
@@ -66,6 +63,8 @@ export const InspectionForm = () => {
        
         } else {
             const newComponents = { ...components }
+
+            //logic that runs if it's a new form
             const customer = customers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("customerId")))
             const container = containers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("containerId")))
             const reserve = reserves.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("reserveId")))
@@ -80,6 +79,7 @@ export const InspectionForm = () => {
 
             setComponents(newComponents)  
         }  
+        //runs after getContainers updates containers
         }, [containers])
     
 
@@ -133,90 +133,85 @@ export const InspectionForm = () => {
    
   
 
-    //when some changes, save it
+    //handle input change for text
     const handleControlledInputChange = (event) => {
-        /* When changing a state object or array,
-        always create a copy, make changes, and then set state.*/
+        //make a copy of inspection
         const newInspection = { ...inspection }
+
+        //get value of field that was changed
         let selectedVal = event.target.value
-
-
-
-
-        /* Inspection is an object with properties.
-        Set the property to the new value
-        using object bracket notation. */
+        
+        //Set the property to the new value
         newInspection[event.target.id] = selectedVal
+
         // update state
         setInspection(newInspection)   
     }
-    //when some changes, save it
+
+    //handle input changes for checkboxes
     const handleCheckboxChange = (event) => {
-        /* When changing a state object or array,
-        always create a copy, make changes, and then set state.*/
+        //make a copy of inspection
         const newInspection = { ...inspection }
+
+        //get boolean of whether box is checked
         let selectedVal = event.target.checked
 
-
-
-
-        /* Inspection is an object with properties.
-        Set the property to the new value
-        using object bracket notation. */
+        //Set the property to the new boolean value of checked
         newInspection[event.target.id] = selectedVal
         // update state
         setInspection(newInspection)   
     }
 
-
+    //edits inspection if on the edit pages, saves if it's a new inspection
     const handleClickSaveInspection = (event) => {
-       event.preventDefault() //Prevents the browser from submitting the form
+       //Prevents the browser from submitting the form
+        event.preventDefault() 
        
-       
+       //if inspectionId exists, edit
        if (inspectionId) {
            editInspection(inspection)
            .then(history.push("/inspections"))
        } else {
-       
-        //invoke addInspection passing inspection as an argument.
-        //once complete, change the url and display the inspection list
+        //if inspectionId does not exists, clear session storage and save inspection
         addInspection(inspection)
+        .then(() => history.push("/home"))
         sessionStorage.removeItem("mainParachuteId")
         sessionStorage.removeItem("aadId")
         sessionStorage.removeItem("reserveId")
         sessionStorage.removeItem("containerId")
         sessionStorage.removeItem("customerId")
-        .then(() => history.push("/home"))
        }
     }
     
-        // Get Inspections. If InspectionId is in the URL, getInspectionById
-        useEffect(() => {
-            
-            getInspections().then(() => {
+    // Get Inspections. If InspectionId is in the URL, getInspectionById and display edit info
+    useEffect(() => {        
+        getInspections().then(() => {
     
-                // if there is data
-            if (inspectionId) {
-                getInspectionById(inspectionId)
-                .then(Inspection => {
-                    setInspection(Inspection)
-                    setIsLoading(false)
-                })
-            } else {
-                // else there is no data
+        // if there is data
+        if (inspectionId) {
+            getInspectionById(inspectionId)
+            .then(Inspection => {
+                setInspection(Inspection)
                 setIsLoading(false)
-            }
             })
-        }, [])
+        } else {
+            // else there is no data
+            setIsLoading(false)
+        }
+        })
+    }, [])
 
+
+    //delete an inspection by ID then return back to inspections
     const handleDelete = () => {
         deleteInspection(inspectionId)
             .then(getInspections)
             .then(() => {
             history.push("/inspections")
             })
-        } 
-    
+    } 
+
+    //logic for edit buttons that show up on inpsection review
     const handleClickEditContainer = () => {
         history.push(`/container/edit/${components.container?.id}`)
     }
@@ -230,7 +225,7 @@ export const InspectionForm = () => {
         history.push(`/mainParachute/edit/${components.mainParachute?.id}`)
     }
 
-    
+    //return statement
     return<>
         <h2 id="inspectionTitle">
             {inspectionId ? "Inspection Details" : "New Inspection"}
@@ -239,8 +234,9 @@ export const InspectionForm = () => {
             <article className="inspectionBox">
                 <form className="containerInspectionForm">
                 <article className="inspectionBox">
+                
+                {/* container portion */}
                 <h3>Container</h3>
-
                 <div className="componentDetails">
                     <p> {components.container?.manufacturer} {components.container?.model}</p>
                     <p><b>Size: </b>{components.container?.size} </p>
@@ -339,6 +335,8 @@ export const InspectionForm = () => {
                     </fieldset> 
                     </article>
                     <article className="inspectionBox">
+
+                        {/* reserve portion */}
                         <h3>Reserve</h3>
                         <div className="componentDetails">
                             <p> {components.reserve?.manufacturer} {components.reserve?.model} </p>
@@ -411,6 +409,8 @@ export const InspectionForm = () => {
                             </fieldset>
                     </article>
                     <article className="inspectionBox">
+
+                    {/* aad portion */}
                     <h3>AAD</h3>
                     <div className="componentDetails">
                         <p> {components.aad?.manufacturer} {components.aad?.model} </p>
@@ -455,6 +455,8 @@ export const InspectionForm = () => {
                     </fieldset>
                     </article>
                     <article className="inspectionBox">
+
+                        {/* reserve portion */}
                         <h3>Main Parachute</h3>
                         <div className="componentDetails">
                             <p> {components.mainParachute?.manufacturer} {components.mainParachute?.model} </p>
@@ -534,9 +536,10 @@ export const InspectionForm = () => {
             onClick={handleClickSaveInspection}>
             {inspectionId ? "Save" : "Complete"}</button>
     
+        
         <button className="btn btn-primary"
             disabled={isLoading}
             onClick={handleDelete}>
-            {inspectionId ? "Delete" : ""}</button>
+            {inspectionId ? "Delete" : "Cancel"}</button>'
     </>
 }
