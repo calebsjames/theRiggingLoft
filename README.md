@@ -11,6 +11,9 @@ A tool for FAA riggers to record information about customers, their equipment an
 4. From theRiggingLoft directory, `npm install`
 5. From theRiggingLoft directory, `npm start`
 
+### ERD:
+https://dbdiagram.io/d/60243d7b80d742080a3a0cdb
+
 ### users
     "email": "franky@gmail.com",
     "name": "Franky Frankerson",
