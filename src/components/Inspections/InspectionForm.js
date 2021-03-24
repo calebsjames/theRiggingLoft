@@ -19,6 +19,7 @@ export const InspectionForm = () => {
     const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
     const { inspectionId } = useParams()
     const [ isLoading, setIsLoading ] = useState(true);
+    const history = useHistory()
 
     useEffect(() => {
         getInspections()
@@ -29,7 +30,24 @@ export const InspectionForm = () => {
         .then(getContainers)
     }, [])
 
-    const history = useHistory()
+    
+    // Get Inspections. If InspectionId is in the URL, getInspectionById and display edit info
+    useEffect(() => {        
+        getInspections().then(() => {
+    
+        // if there is data
+        if (inspectionId) {
+            getInspectionById(inspectionId)
+            .then(Inspection => {
+                setInspection(Inspection)
+                setIsLoading(false)
+            })
+        } else {
+            // else there is no data
+            setIsLoading(false)
+        }
+        })
+    }, [])
     
     //useState to return correct objects based on whether user is saving new equipment or editing
     const [components, setComponents] = useState({
@@ -183,23 +201,6 @@ export const InspectionForm = () => {
        }
     }
     
-    // Get Inspections. If InspectionId is in the URL, getInspectionById and display edit info
-    useEffect(() => {        
-        getInspections().then(() => {
-    
-        // if there is data
-        if (inspectionId) {
-            getInspectionById(inspectionId)
-            .then(Inspection => {
-                setInspection(Inspection)
-                setIsLoading(false)
-            })
-        } else {
-            // else there is no data
-            setIsLoading(false)
-        }
-        })
-    }, [])
 
 
     //delete an inspection by ID then return back to inspections
