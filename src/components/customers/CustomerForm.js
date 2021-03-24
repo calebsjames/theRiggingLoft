@@ -7,12 +7,13 @@ export const CustomerForm = () => {
     const { addCustomer, getCustomerById, editCustomer, getCustomers, deleteCustomer } = useContext(CustomerContext)    
     const { customerId } = useParams()
     const [ isLoading, setIsLoading ] = useState(true);
-    //Define the intial state of the form inputs with useState()
+    
+    //Define the intial state of the customer form with useState()
     const [customer, setCustomer] = useState({
       name: "",
       phone: "",
       customerNotes: "",
-      userId: sessionStorage.getItem("app_user_id")
+      userId: parseInt(sessionStorage.getItem("app_user_id"))
       
     });
     
@@ -36,7 +37,7 @@ export const CustomerForm = () => {
         setCustomer(newCustomer)   
     }
 
-
+    //handle delete customer
     const handleDelete = () => {
         deleteCustomer(customerId)
           .then(getCustomers)
@@ -46,25 +47,23 @@ export const CustomerForm = () => {
       }
 
     const handleClickSaveCustomer = (event) => {
-        
-       //Prevents the browser from submitting the form
-         
+        //if customerId is Param, edit the customer
         if (customerId) {
             editCustomer(customer)
             .then(history.push(`/customers/detail/${customerId}`))
         } else {
-        //invoke addCustomer passing customer as an argument.
+        //save the customer
         addCustomer(customer)
         //change the url and display the customer list
         .then(() => history.push("/newcontainer"))
         }
     }
 
-         // Get Customers. If CustomerId is in the URL, getCustomerById
+    // Get Customers. If CustomerId is in the URL, getCustomerById
     useEffect(() => {
         getCustomers().then(() => {
 
-            // if there is data
+        // if there is data
         if (customerId) {
             getCustomerById(customerId)
             .then(Customer => {
@@ -111,17 +110,19 @@ export const CustomerForm = () => {
             <button className="btn btn-primary"
           disabled={isLoading}
           onClick={event => {
-            event.preventDefault() // Prevent browser from submitting the form and refreshing the page
+            // Prevent browser from submitting the form and refreshing the page
+            event.preventDefault() 
             handleClickSaveCustomer()
           }}>
 
-
-        {customerId ? "Save" : "Add"}</button>
+        
+        {/* "Save" or "Add" button depending on edit or input   */}
+            {customerId ? "Save" : "Add"}</button>
             
 
 
 
-
+            {/* button to delete customer */}
             <button className="deleteButton" onClick={(handleDelete)}>
                 Delete
             </button>

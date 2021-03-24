@@ -22,7 +22,7 @@ export const ReserveForm = () => {
       serialNumber: "",
       color: "",
       dom: "",
-      userId: sessionStorage.getItem("app_user_id")
+      userId: parseInt(sessionStorage.getItem("app_user_id"))
       
     });
 

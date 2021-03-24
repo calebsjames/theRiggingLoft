@@ -19,6 +19,7 @@ export const InspectionForm = () => {
     const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
     const { inspectionId } = useParams()
     const [ isLoading, setIsLoading ] = useState(true);
+    const history = useHistory()
 
     useEffect(() => {
         getInspections()
@@ -29,7 +30,6 @@ export const InspectionForm = () => {
         .then(getContainers)
     }, [])
 
-    const history = useHistory()
     
     //useState to return correct objects based on whether user is saving new equipment or editing
     const [components, setComponents] = useState({
@@ -39,7 +39,7 @@ export const InspectionForm = () => {
         mainParachute: {},
         customer: {}
     })
-   
+    
     //useEffect to house if() statement that sets components object based on URL    
     useEffect(() => {
         
@@ -60,10 +60,10 @@ export const InspectionForm = () => {
             newComponents.mainParachute = mainParachute
             newComponents.customer = customer
             setComponents(newComponents)    
-       
+            
         } else {
             const newComponents = { ...components }
-
+            
             //logic that runs if it's a new form
             const customer = customers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("customerId")))
             const container = containers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("containerId")))
@@ -76,68 +76,89 @@ export const InspectionForm = () => {
             newComponents.aad = aad
             newComponents.mainParachute = mainParachute
             newComponents.customer = customer
-
+            
             setComponents(newComponents)  
         }  
         //runs after getContainers updates containers
-        }, [containers])
+    }, [containers])
+    
+    
+    //Define the intial state of the form inputs with useState()
+    const [inspection, setInspection] = useState({
+        
+        userId: parseInt(sessionStorage.getItem("app_user_id")),
+        customerId: parseInt(sessionStorage.getItem("customerId")),
+        date: new Date,
+        containerId: parseInt(sessionStorage.getItem("containerId")),
+        containerMainTray: false,
+        containerReserveTray: false,
+        containerHardware: false,
+        containerChestStrap: false,
+        containerLegStraps: false,
+        containerRisers: false,
+        containerStitching: false,
+        containerGrommets: false,
+        containerReserveHandle: false,
+        containerCutawayHandle: false,
+        containerWebbing: false,
+        containerNotes: "",
+        reserveDBag: false,
+        reserveLinks: false,
+        reserveSuspensionLines: false,
+        reserveBridlePilotchute: false,
+        reserveCrossports: false,
+        reserveSeamFabric: false,
+        reserveSlider: false,
+        reserveNotes: "",
+        reserveId: parseInt(sessionStorage.getItem("reserveId")),
+        mainDBag: false,
+        mainLinks: false,
+        mainSuspensionLines: false,
+        mainBridlePilotchute: false,
+        mainCrossports: false,
+        mainSeamFabric: false,
+        mainSlider: false,
+        mainNotes: "",
+        mainParachuteId: parseInt(sessionStorage.getItem("mainParachuteId")),
+        aadInstallation: false,
+        aadCables: false,
+        aadInService: false,
+        aadNotes: "",
+        aadId: parseInt(sessionStorage.getItem("aadId")),
+        
+    });
+    
+    
+    // Get Inspections. If InspectionId is in the URL, getInspectionById and display edit info
+    useEffect(() => {        
+        getInspections().then(() => {
+    
+        // if there is data
+        if (inspectionId) {
+            getInspectionById(inspectionId)
+            .then(Inspection => {
+                setInspection(Inspection)
+                setIsLoading(false)
+            })
+        } else {
+            // else there is no data
+            setIsLoading(false)
+        }
+        })
+    }, [])
+    
+
     
 
 
 
-
-    //Define the intial state of the form inputs with useState()
-    const [inspection, setInspection] = useState({
-        
-      userId: sessionStorage.getItem("app_user_id"),
-      customerId: sessionStorage.getItem("customerId"),
-      date: new Date,
-      containerId: sessionStorage.getItem("containerId"),
-      containerMainTray: false,
-      containerReserveTray: false,
-      containerHardware: false,
-      containerChestStrap: false,
-      containerLegStraps: false,
-      containerRisers: false,
-      containerStitching: false,
-      containerGrommets: false,
-      containerReserveHandle: false,
-      containerCutawayHandle: false,
-      containerWebbing: false,
-      containerNotes: "",
-      reserveDBag: false,
-      reserveLinks: false,
-      reserveSuspensionLines: false,
-      reserveBridlePilotchute: false,
-      reserveCrossports: false,
-      reserveSeamFabric: false,
-      reserveSlider: false,
-      reserveNotes: "",
-      reserveId: sessionStorage.getItem("reserveId"),
-      mainDBag: false,
-      mainLinks: false,
-      mainSuspensionLines: false,
-      mainBridlePilotchute: false,
-      mainCrossports: false,
-      mainSeamFabric: false,
-      mainSlider: false,
-      mainNotes: "",
-      mainParachuteId: sessionStorage.getItem("mainParachuteId"),
-      aadInstallation: false,
-      aadCables: false,
-      aadInService: false,
-      aadNotes: "",
-      aadId: sessionStorage.getItem("aadId"),
-      
-    });
-   
-  
+    //BUTTON CLICKS
 
     //handle input change for text
     const handleControlledInputChange = (event) => {
         //make a copy of inspection
         const newInspection = { ...inspection }
-
+        
         //get value of field that was changed
         let selectedVal = event.target.value
         
@@ -183,25 +204,6 @@ export const InspectionForm = () => {
        }
     }
     
-    // Get Inspections. If InspectionId is in the URL, getInspectionById and display edit info
-    useEffect(() => {        
-        getInspections().then(() => {
-    
-        // if there is data
-        if (inspectionId) {
-            getInspectionById(inspectionId)
-            .then(Inspection => {
-                setInspection(Inspection)
-                setIsLoading(false)
-            })
-        } else {
-            // else there is no data
-            setIsLoading(false)
-        }
-        })
-    }, [])
-
-
     //delete an inspection by ID then return back to inspections
     const handleDelete = () => {
         deleteInspection(inspectionId)
@@ -224,6 +226,9 @@ export const InspectionForm = () => {
     const handleClickEditMainParachute = () => {
         history.push(`/mainParachute/edit/${components.mainParachute?.id}`)
     }
+
+
+
 
     //return statement
     return<>
@@ -336,81 +341,75 @@ export const InspectionForm = () => {
                     </article>
                     <article className="inspectionBox">
 
-                        {/* reserve portion */}
-                        <h3>Reserve</h3>
-                        <div className="componentDetails">
-                            <p> {components.reserve?.manufacturer} {components.reserve?.model} </p>
-                            <p><b>Size: </b> {components.reserve?.size} </p>
-                            <p>Serial #: {components.reserve?.serialNumber} </p>
-                            <p>Color: {components.reserve?.color} </p>
-                            <p>DOM: {components.reserve?.dom} </p>
-                           <p>Notes: {components.reserve?.notes} </p>
-                           {inspectionId ? <button className="btn btn-primary"
-                                disabled={isLoading}
-                                onClick={handleClickEditReserve}>
-                                Edit</button> : ""}
+                    {/* reserve portion */}
+                    <h3>Reserve</h3>
+                    <div className="componentDetails">
+                        <p> {components.reserve?.manufacturer} {components.reserve?.model} </p>
+                        <p><b>Size: </b> {components.reserve?.size} </p>
+                        <p>Serial #: {components.reserve?.serialNumber} </p>
+                        <p>Color: {components.reserve?.color} </p>
+                        <p>DOM: {components.reserve?.dom} </p>
+                        <p>Notes: {components.reserve?.notes} </p>
+                        {inspectionId ? <button className="btn btn-primary"
+                            disabled={isLoading}
+                            onClick={handleClickEditReserve}>
+                            Edit</button> : ""}
+                    </div>
+                    <div className="componentBoxInspectionList">
+                        <fieldset className="checkbox">
+                            <div className="form-group">
+                                <label htmlFor="reserveDBag">D-Bag:</label>
+                                <input type="checkbox" id="reserveDBag" onChange={handleCheckboxChange} required className="form-control" placeholder="D-Bag" checked={inspection.reserve}/>
+                            </div>
+                        </fieldset> 
+                        <fieldset className="checkbox">
+                            <div className="form-group">
+                                <label htmlFor="reserveLinks">Links:</label>
+                                <input type="checkbox" id="reserveLinks" onChange={handleCheckboxChange} required className="form-control" placeholder="Links" checked={inspection.reserve}/>
+                            </div>
+                        </fieldset> 
+                        <fieldset className="checkbox">
+                            <div className="form-group">
+                                <label htmlFor="reserveSuspensionLines">Suspension Lines:</label>
+                                <input type="checkbox" id="reserveSuspensionLines" onChange={handleCheckboxChange} required className="form-control" placeholder="Suspension Lines" checked={inspection.reserveSuspensionLines}/>
+                            </div>
+                        </fieldset> 
+                        <fieldset className="checkbox">
+                             <div className="form-group">
+                                <label htmlFor="reserveBridlePilotchute">Bridle and Pilotchute:</label>
+                                <input type="checkbox" id="reserveBridlePilotchute" onChange={handleCheckboxChange} required className="form-control" placeholder="Bridle and Pilotchute" checked={inspection.reserveBridlePilotchute}/>
+                            </div>
+                        </fieldset> 
+                         <fieldset className="checkbox">
+                            <div className="form-group">
+                                <label htmlFor="reserveCrossports">Crossports:</label>
+                                <input type="checkbox" id="reserveCrossports" onChange={handleCheckboxChange} required className="form-control" placeholder="Crossports" checked={inspection.reserveCrossports}/>
+                            </div>
+                        </fieldset> 
+                        <fieldset className="checkbox">
+                            <div className="form-group">
+                                <label htmlFor="reserveSeamFabric">Seams and Fabric:</label>
+                                <input type="checkbox" id="reserveSeamFabric" onChange={handleCheckboxChange} required className="form-control" placeholder="Seams and Fabric" checked={inspection.reserveSeamFabric}/>
+                            </div>
+                         </fieldset> 
+                        <fieldset className="checkbox">
+                            <div className="form-group">
+                                <label htmlFor="reserveSlider">Slider:</label>
+                                <input type="checkbox" id="reserveSlider" onChange={handleCheckboxChange} required className="form-control" placeholder="Slider" checked={inspection.reserveSlider}/>
+                            </div>
+                        </fieldset>                             
                         </div>
-                        <div className="componentBoxInspectionList">
-                            <fieldset className="checkbox">
-                                <div className="form-group">
-                                    <label htmlFor="reserveDBag">D-Bag:</label>
-                                    <input type="checkbox" id="reserveDBag" onChange={handleCheckboxChange} required className="form-control" placeholder="D-Bag" checked={inspection.reserve}/>
-                                </div>
-                            </fieldset> 
-
-                            <fieldset className="checkbox">
-                                <div className="form-group">
-                                    <label htmlFor="reserveLinks">Links:</label>
-                                    <input type="checkbox" id="reserveLinks" onChange={handleCheckboxChange} required className="form-control" placeholder="Links" checked={inspection.reserve}/>
-                                </div>
-                            </fieldset> 
-
-                            <fieldset className="checkbox">
-                                <div className="form-group">
-                                    <label htmlFor="reserveSuspensionLines">Suspension Lines:</label>
-                                    <input type="checkbox" id="reserveSuspensionLines" onChange={handleCheckboxChange} required className="form-control" placeholder="Suspension Lines" checked={inspection.reserveSuspensionLines}/>
-                                </div>
-                            </fieldset> 
-
-                            <fieldset className="checkbox">
-                                <div className="form-group">
-                                    <label htmlFor="reserveBridlePilotchute">Bridle and Pilotchute:</label>
-                                    <input type="checkbox" id="reserveBridlePilotchute" onChange={handleCheckboxChange} required className="form-control" placeholder="Bridle and Pilotchute" checked={inspection.reserveBridlePilotchute}/>
-                                </div>
-                            </fieldset> 
-
-                            <fieldset className="checkbox">
-                                <div className="form-group">
-                                    <label htmlFor="reserveCrossports">Crossports:</label>
-                                    <input type="checkbox" id="reserveCrossports" onChange={handleCheckboxChange} required className="form-control" placeholder="Crossports" checked={inspection.reserveCrossports}/>
-                                </div>
-                            </fieldset> 
-
-                            <fieldset className="checkbox">
-                                <div className="form-group">
-                                    <label htmlFor="reserveSeamFabric">Seams and Fabric:</label>
-                                    <input type="checkbox" id="reserveSeamFabric" onChange={handleCheckboxChange} required className="form-control" placeholder="Seams and Fabric" checked={inspection.reserveSeamFabric}/>
-                                </div>
-                            </fieldset> 
-
-                            <fieldset className="checkbox">
-                                <div className="form-group">
-                                    <label htmlFor="reserveSlider">Slider:</label>
-                                    <input type="checkbox" id="reserveSlider" onChange={handleCheckboxChange} required className="form-control" placeholder="Slider" checked={inspection.reserveSlider}/>
-                                </div>
-                            </fieldset> 
-                            
-                        </div>
-                            <fieldset className="checkbox">
-                                <div className="form-group">
-                                    <label htmlFor="reserveNotes">Notes:</label>
-                                    <input type="text" id="reserveNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.reserveNotes}/>
-                                </div>
-                            </fieldset>
+                        <fieldset className="checkbox">
+                            <div className="form-group">
+                                <label htmlFor="reserveNotes">Notes:</label>
+                                <input type="text" id="reserveNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.reserveNotes}/>
+                            </div>
+                        </fieldset>
                     </article>
-                    <article className="inspectionBox">
+
 
                     {/* aad portion */}
+                    <article className="inspectionBox">
                     <h3>AAD</h3>
                     <div className="componentDetails">
                         <p> {components.aad?.manufacturer} {components.aad?.model} </p>
@@ -454,9 +453,10 @@ export const InspectionForm = () => {
                         </div>
                     </fieldset>
                     </article>
+                    
+                    
+                    {/* reserve portion */}
                     <article className="inspectionBox">
-
-                        {/* reserve portion */}
                         <h3>Main Parachute</h3>
                         <div className="componentDetails">
                             <p> {components.mainParachute?.manufacturer} {components.mainParachute?.model} </p>
@@ -468,7 +468,7 @@ export const InspectionForm = () => {
                             {inspectionId ? <button className="btn btn-primary"
                             disabled={isLoading}
                             onClick={handleClickEditMainParachute}>
-                        Edit</button> : ""}
+                            Edit</button> : ""}
                         </div>
                         <div className="componentBoxInspectionList">
                             <fieldset className="checkbox">
