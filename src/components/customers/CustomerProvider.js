@@ -9,6 +9,7 @@ export const CustomerProvider = (props) => {
     const [searchTerms, setSearchTerms] = useState("")
     const [customerId, setCustomerId] = useState(0)
 
+    //function to get all customers
     const getCustomers = () => {
         return fetch("http://localhost:8088/customers")
         .then(res => res.json())
@@ -63,7 +64,7 @@ export const CustomerProvider = (props) => {
 
     
     
-    //make all of the functions available through InspectionContext
+    //return all of the functions available through InspectionContext
     return (
         <CustomerContext.Provider value={{
             customers, getCustomers, addCustomer, getCustomerById, deleteCustomer, editCustomer, searchTerms, setSearchTerms, customerId

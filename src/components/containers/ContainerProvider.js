@@ -15,6 +15,7 @@ export const ContainerProvider = (props) => {
         .then(setContainers)
     }
 
+    //function to add container and return the object of the new container with ID
     const addContainer = containerObj => {
         return fetch("http://localhost:8088/containers", {
             method: "POST",
@@ -23,9 +24,12 @@ export const ContainerProvider = (props) => {
             },
             body: JSON.stringify(containerObj)
         })
+        //get the new object back
         .then(res => res.json())
+        //set useState variable to new object
         .then(containerObject => {
             setContainerId(containerObject.id)
+            //put the item id in session storage
             sessionStorage.setItem("containerId", containerObject.id)
         })
         .then(getContainers)
@@ -45,6 +49,7 @@ export const ContainerProvider = (props) => {
             .then(getContainers)
     }
 
+    //function to edit an container
     const editContainer = container => {
         return fetch(`http://localhost:8088/containers/${container.id}`, {
           method: "PUT",
@@ -56,12 +61,7 @@ export const ContainerProvider = (props) => {
           .then(getContainers)
       }
 
-    /*
-        You return a context provider which has the
-        `containers` state, `getContainers` function,
-        and the `addContainer` function as keys. This
-        allows any child elements to access them.
-    */
+    //make all of the functions available through ContainerContext
     return (
         <ContainerContext.Provider value={{
             containers, getContainers, addContainer, getContainerById, deleteContainer, editContainer, containerId
