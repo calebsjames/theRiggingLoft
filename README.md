@@ -12,23 +12,18 @@ A tool for FAA riggers to record information about customers, their equipment an
 5. From theRiggingLoft directory, `npm start`
 
 ### users
-{
     "email": "franky@gmail.com",
     "name": "Franky Frankerson",
     "id": 1
- }
  
 ### customers
- {
     "name": "Bobo",
     "phone": "123-456-7899",
     "customerNotes": "Notes about Bobo",
     "userId": 1,
     "id": 1
-  }
   
  ### containers
- {
     "manufacturer": "Sunpath",
     "model": "Javelin",
     "size": "TJNK",
@@ -38,10 +33,8 @@ A tool for FAA riggers to record information about customers, their equipment an
     "notes": "Notes about container",
     "userId": 1,
     "id": 1
-  }
   
   ### aads 
-  {
     "manufacturer": "Vigil USA",
     "model": "Quatro",
     "serialNumber": "67890",
@@ -50,10 +43,8 @@ A tool for FAA riggers to record information about customers, their equipment an
     "notes": "Notes on AAD",
     "userId": 1,
     "id": 1
-  }
   
   ### Reserves
-  {
     "manufacturer": "Performance Designs",
     "model": "PDR",
     "size": "124",
@@ -63,10 +54,8 @@ A tool for FAA riggers to record information about customers, their equipment an
     "userId": 1,
     "notes": "Notes on reserve",
     "id": 1
-  }
   
   ### mainParachutes
-  {
     "manufacturer": "Performance Designs",
     "model": "Sabre 3",
     "size": "150",
@@ -76,9 +65,9 @@ A tool for FAA riggers to record information about customers, their equipment an
     "userId": 1,
     "notes": "Notes on Main",
     "id": 1
-  }
   
-### {
+  
+### inspections
     "userId": 1,
     "customerId": 14,
     "date": "2021-03-24T16:14:20.727Z",
@@ -118,4 +107,4 @@ A tool for FAA riggers to record information about customers, their equipment an
     "aadInService": false,
     "aadNotes": "Notes",
     "aadId": 33,
-    "id": 39,
+    "id": 39
