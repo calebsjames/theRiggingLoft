@@ -6,9 +6,9 @@ export const AADContext = createContext()
 // This component establishes what data can be used.
 export const AADProvider = (props) => {
     const [aads, setAADs] = useState([])
-
     const [aadId, setAADId] = useState(0)
 
+    //get all aads
     const getAADs = () => {
         return fetch("http://localhost:8088/aads")
         .then(res => res.json())

@@ -9,7 +9,7 @@ import { InspectionContext } from "../Inspections/InspectionProvider"
 import { useHistory, useParams } from "react-router-dom"
 
 
-
+//displays all inspections for a specific customer
 export const CustomerInspections = () => {
     
     const history = useHistory()
@@ -20,7 +20,6 @@ export const CustomerInspections = () => {
     const { aads, getAADs } = useContext(AADContext)
     const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
     const { inspections, getInspections } = useContext(InspectionContext)
-
     const { customerId } = useParams();
 
     useEffect(() => {
@@ -31,19 +30,24 @@ export const CustomerInspections = () => {
         .then(getMainParachutes)
         .then(getInspections)
     }, [])
-  
+    
+    //filter inpsections down to the chosen customer
     const filteredInspections = inspections.filter(insp => 
         parseInt(insp.customerId) === parseInt(customerId))
   
+    //logic for button to add new gear for a chosen customer
     const handleNewGear = (event) => {
         event.preventDefault();
+        //BOOOOO!!!!!!
         sessionStorage.setItem("customerId", customerId);
         history.push("/newreserve")
     }
     
+    //find and return the customer object found in params
     const customerObject = customers.find(c => parseInt(c.id) === parseInt(customerId))
-    console.log(customerObject)
-  return (
+  
+    //return this HTML
+    return (
     <>
     <div className="inspections">
         <h2>{customerObject ? customerObject.name : "No Name"}</h2>

@@ -10,10 +10,9 @@ export const AADForm = () => {
     const { addAAD, getAADById, editAAD, getAADs } = useContext(AADContext)
     const { aadId } = useParams()
     const [ isLoading, setIsLoading ] = useState(true);
+    const history = useHistory();
     
-   
-
-    //Define the intial state of the form inputs with useState()
+    //Define the intial state of the AAD with useState()
     const [aad, setAAD] = useState({
         manufacturer: "",
         model: "",
@@ -26,52 +25,53 @@ export const AADForm = () => {
 
 
 
-    const history = useHistory();
 
     //when something changes, save it with setAAD
     const handleControlledInputChange = (event) => {
-        /* When changing a state object or array,
-        always create a copy, make changes, and then set state.*/
+        //make a new copy of aad
         const newAAD = { ...aad }
+        //the value of the event
         let selectedVal = event.target.value
 
-
-
-
-        /* AAD is an object with properties.
-        Set the property to the new value
+        /* Set the property to the new value
         using object bracket notation. */
         newAAD[event.target.id] = selectedVal
+        
         // update state
-       
         setAAD(newAAD)   
     }
 
-
+    //handle save function
     const handleClickSaveAAD = (event) => {
-       event.preventDefault() //Prevents the browser from submitting the form
-       
+        //Prevents the browser from submitting the form
+        event.preventDefault() 
+        
+       //if in the edit page, editAAD() then navigate to inspections 
        if (aadId) {
         editAAD(aad)
         .then(history.push("/inspections/"))
+        
         } else {
        
-    
-        //invoke addAAD passing aad as an argument.
-        //once complete, change the url and display the aad list
+        //create a new AAD then move to newMainParachute()
         addAAD(aad)
         .then(() => history.push("/newmainparachute"))
       
     }}
 
+
     useEffect(() => {
+        //get all AADs
         getAADs().then(() => {
 
-            // if there is data
+        // if aadID exists
         if (aadId) {
+            //get that aad
             getAADById(aadId)
+            //then setAAD to that found AAD
             .then(AAD => {
                 setAAD(AAD)
+                
                 setIsLoading(false)
             })
         } else {
@@ -82,6 +82,7 @@ export const AADForm = () => {
     }, [])
 
 
+    //Return this HTML
     return (
         <>
         <section className="main">

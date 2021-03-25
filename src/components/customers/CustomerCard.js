@@ -4,7 +4,7 @@ import "./Customer.css"
 
 
 
-
+//Called in CutomerList.js
 export const CustomerCard = ({ customerInstance }) => {
     
     return(<section className="customer">
