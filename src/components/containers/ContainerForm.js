@@ -31,35 +31,32 @@ export const ContainerForm = () => {
 
     //when something changes, save it with setContainer
     const handleControlledInputChange = (event) => {
-        /* When changing a state object or array,
-        always create a copy, make changes, and then set state.*/
+        //make a new copy of container
         const newContainer = { ...container }
+        //the value of the event
         let selectedVal = event.target.value
 
-
-
-
-        /* Container is an object with properties.
-        Set the property to the new value
+        /* Set the property to the new value
         using object bracket notation. */
         newContainer[event.target.id] = selectedVal
+        
         // update state
-       
         setContainer(newContainer)   
     }
 
-
+    //handle save function
     const handleClickSaveContainer = (event) => {
-       event.preventDefault() //Prevents the browser from submitting the form
-       
+       //Prevents the browser from submitting the form
+        event.preventDefault() 
+        
+       //if in the edit page, editcontainerId() then navigate to inspections 
        if (containerId) {
         editContainer(container)
         .then(history.push("/inspections/"))
+        
         } else {
        
-       
-        //invoke addContainer passing container as an argument.
-        //once complete, change the url and display the container list
+        //create a new container then move to newReserve()
         addContainer(container)
         .then(() => history.push("/newreserve"))
       
@@ -67,14 +64,18 @@ export const ContainerForm = () => {
 
 
      // Get Containers. If CustomerId is in the URL, getContainerById
-    useEffect(() => {
+     useEffect(() => {
+        //get all Containers
         getContainers().then(() => {
 
-            // if there is data
+        // if containerID exists
         if (containerId) {
+            //get that container
             getContainerById(containerId)
+            //then setContainer to that found Container
             .then(Container => {
                 setContainer(Container)
+                
                 setIsLoading(false)
             })
         } else {
@@ -84,6 +85,7 @@ export const ContainerForm = () => {
         })
     }, [])
 
+    //Return this HTML
     return (
         <>
         <section className="main">

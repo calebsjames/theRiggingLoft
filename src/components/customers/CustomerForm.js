@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from "react"
 import { useHistory, useParams } from 'react-router-dom';
 import { CustomerContext } from "./CustomerProvider";
 
-
+//function for taking in and editing customers
 export const CustomerForm = () => {
     const { addCustomer, getCustomerById, editCustomer, getCustomers, deleteCustomer } = useContext(CustomerContext)    
     const { customerId } = useParams()
     const [ isLoading, setIsLoading ] = useState(true);
+    const history = useHistory();
     
     //Define the intial state of the customer form with useState()
     const [customer, setCustomer] = useState({
@@ -17,22 +18,18 @@ export const CustomerForm = () => {
       
     });
     
-    const history = useHistory();
 
     //when some changes, save it
     const handleControlledInputChange = (event) => {
-        /* When changing a state object or array,
-        always create a copy, make changes, and then set state.*/
+        //make a new copy of newCustomer
         const newCustomer = { ...customer }
+        //the value of the event
         let selectedVal = event.target.value
 
-
-
-
-        /* Customer is an object with properties.
-        Set the property to the new value
+        /* Set the property to the new value
         using object bracket notation. */
         newCustomer[event.target.id] = selectedVal
+       
         // update state
         setCustomer(newCustomer)   
     }
@@ -46,6 +43,7 @@ export const CustomerForm = () => {
           })
       }
 
+    //handle save customer
     const handleClickSaveCustomer = (event) => {
         //if customerId is Param, edit the customer
         if (customerId) {
@@ -59,13 +57,14 @@ export const CustomerForm = () => {
         }
     }
 
-    // Get Customers. If CustomerId is in the URL, getCustomerById
+    // Get Customers
     useEffect(() => {
         getCustomers().then(() => {
 
-        // if there is data
+        //If CustomerId is in the URL, getCustomerById
         if (customerId) {
             getCustomerById(customerId)
+            //then setAAD to that found AAD
             .then(Customer => {
                 setCustomer(Customer)
                 setIsLoading(false)
@@ -77,6 +76,7 @@ export const CustomerForm = () => {
         })
     }, [])
 
+    //return this HTML
     return (
         <>
         <section className="main">
@@ -106,26 +106,26 @@ export const CustomerForm = () => {
 
 
 
-
+            //save
             <button className="btn btn-primary"
-          disabled={isLoading}
-          onClick={event => {
+            disabled={isLoading}
+            onClick={event => {
             // Prevent browser from submitting the form and refreshing the page
             event.preventDefault() 
             handleClickSaveCustomer()
           }}>
 
         
-        {/* "Save" or "Add" button depending on edit or input   */}
+            {/* "Save" or "Add" button depending on edit or input   */}
             {customerId ? "Save" : "Add"}</button>
             
 
 
 
-            {/* button to delete customer */}
-            <button className="deleteButton" onClick={(handleDelete)}>
+            {/* button to delete customer if in customer edit*/}
+            {customerId ? <button className="deleteButton" onClick={(handleDelete)}>
                 Delete
-            </button>
+            </button> : "" }
         
         </form>
         </article>
