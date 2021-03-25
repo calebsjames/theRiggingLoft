@@ -7,6 +7,7 @@ export const CustomerContext = createContext()
 export const CustomerProvider = (props) => {
     const [customers, setCustomers] = useState([])
     const [searchTerms, setSearchTerms] = useState("")
+   //Possibly remove.
     const [customerId, setCustomerId] = useState(0)
 
     //function to get all customers
