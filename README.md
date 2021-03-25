@@ -7,10 +7,13 @@
 
 ## Setup & install
 1. Clone file (git@github.com:calebsjames/theRiggingLoft.git)
-2. cd into "theRiggingLoft" directory
-3. From API directory, `json-server -p 8088 -w database.json`
-4. From theRiggingLoft directory, `npm install`
-5. From theRiggingLoft directory, `npm start`
+2. `mkdir theRiggingLoftAPI`
+3. `cd theRiggingLoftAPI`
+4. `touch database.json`
+5. `json-server -p 8088 -w database.json`
+6. cd into "theRiggingLoft" directory
+7. From theRiggingLoft directory, `npm install`
+8. From theRiggingLoft directory, `npm start`
 
 ## Testing
 1. From the landing page, create a new user account and log in.
@@ -24,6 +27,9 @@
 
 ### ERD:
 https://dbdiagram.io/d/60243d7b80d742080a3a0cdb
+
+## created with 
+React, Javascript
 
 ### users
     "email": "franky@gmail.com",
