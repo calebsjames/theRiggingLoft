@@ -21,7 +21,7 @@ export const CustomerList = () => {
     
     const history = useHistory()
 
-  
+    //useEffect for search terms
     useEffect(() => {
         if (searchTerms !== undefined) {
          
@@ -34,7 +34,7 @@ export const CustomerList = () => {
         }
       }, [searchTerms, customers])
 
-
+      //return this HTML
       return (
         <>
             <h2>Customers</h2>

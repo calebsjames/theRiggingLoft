@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { useHistory, useParams } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { InspectionContext } from "./InspectionProvider"
 import "./Inspection.css"
 
@@ -8,7 +8,6 @@ import "./Inspection.css"
 export const InspectionCard = ({ inspectionInstance, customerInstance, containerInstance, reserveInstance, mainParachuteInstance, aadInstance }) => {
 
     const { getInspections, deleteInspection } = useContext(InspectionContext)
-    
     const history = useHistory()
 
     //if user presses "details" button, they will be taken to details page
@@ -37,7 +36,7 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
     }
 
     
-
+    //return this HTML
     return(
     <>
     <h3 className="inspection">
