@@ -7,7 +7,10 @@ export const InspectionProvider = (props) => {
     const inspectionObject = {}
     const [inspections, setInspections] = useState([])
     const [inspectionId, setInspectionId] = useState(0)
-
+    let inspId = 0
+    const currentId = (id) => {
+        inspId = inspectionObject.id
+    }
     //function to get all inspections
     const getInspections = () => {
         return fetch("http://localhost:8088/inspections")
@@ -26,14 +29,15 @@ export const InspectionProvider = (props) => {
         })
     .then(response => response.json())
 
-        // .then(inspectionObject => {
-        //     setInspectionId(inspectionObject.id)
-        //     //put the item id in session storage
+        .then(inspectionObject => {
+            currentId(inspectionObject.id)
+
+            //put the item id in session storage
         //     // sessionStorage.setItem("customerId", customerObject.id)
         // })
-        .then(getInspections)
-    }
-    debugger
+        // .then(getInspections)
+    })}
+    
 
     //function to get inspection by ID
     const getInspectionById = (id) => {
@@ -65,7 +69,7 @@ export const InspectionProvider = (props) => {
     //make all of the functions available through InspectionContext
     return (
         <InspectionContext.Provider value={{
-            inspections, getInspections, inspectionId, addInspection, getInspectionById, deleteInspection, editInspection
+            inspections, getInspections, currentId, inspectionId, addInspection, getInspectionById, deleteInspection, editInspection
         }}>
             {props.children}
         </InspectionContext.Provider>

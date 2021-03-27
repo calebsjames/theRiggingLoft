@@ -19,7 +19,7 @@ export const CustomerInspections = () => {
     const { containers, getContainers } = useContext(ContainerContext)
     const { aads, getAADs } = useContext(AADContext)
     const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
-    const { inspections, getInspections, addInspection } = useContext(InspectionContext)
+    const { currentId, inspections, getInspections, addInspection } = useContext(InspectionContext)
     const { customerId } = useParams();
 
     useEffect(() => {
@@ -114,7 +114,7 @@ export const CustomerInspections = () => {
         debugger
         // console.log(inspectionObject)
         
-        history.push(`/newinspection/${inspectionId}`)
+        history.push(`/newinspection/${currentId}`)
     }
     
     
