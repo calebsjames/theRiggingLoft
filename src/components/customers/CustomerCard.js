@@ -13,7 +13,7 @@ export const CustomerCard = ({ customerInstance }) => {
             { customerInstance?.name }
           </Link>
         </h3>
-        <p>{ customerInstance?.phone }</p>
+        <p className="phone">{ customerInstance?.phone }</p>
     </section>
     )
 }

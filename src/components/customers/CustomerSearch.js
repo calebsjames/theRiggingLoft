@@ -1,15 +1,15 @@
 import React, { useContext } from "react"
 import { CustomerContext } from "../customers/CustomerProvider"
+import "./Customer.css"
 
 
 export const CustomerSearch = () => {
   const { setSearchTerms } = useContext(CustomerContext)
 
   return (
-    <>
-      Customer search: 
+    <> 
       <input type="text"
-        className="input--wide"
+        className="input--wide search"
         onKeyUp={(event) => setSearchTerms(event.target.value)}
         placeholder="Customers... " />
     </>
