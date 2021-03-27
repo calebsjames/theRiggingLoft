@@ -19,46 +19,9 @@ export const CustomerInspections = () => {
     const { containers, getContainers } = useContext(ContainerContext)
     const { aads, getAADs } = useContext(AADContext)
     const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
-    const { currentId, inspections, getInspections, addInspection } = useContext(InspectionContext)
+    const { inspectionId, inspections, getInspections, addInspection } = useContext(InspectionContext)
     const { customerId } = useParams();
 
-    useEffect(() => {
-        getContainers()
-        .then(getCustomers)
-        .then(getReserves)
-        .then(getAADs)
-        .then(getMainParachutes)
-        .then(getInspections)
-    }, [])
-    
-    //filter inpsections down to the chosen customer
-    const filteredInspections = inspections.filter(insp => 
-        parseInt(insp.customerId) === parseInt(customerId))
-  
-    //logic for button to add new gear for a chosen customer
-    const handleNewGear = (event) => {
-        event.preventDefault();
-        //BOOOOO!!!!!!
-        sessionStorage.setItem("customerId", customerId);
-        history.push("/newreserve")
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     const [inspection, setInspection] = useState({
     
         userId: parseInt(sessionStorage.getItem("app_user_id")),
@@ -102,19 +65,43 @@ export const CustomerInspections = () => {
         aadId: parseInt(sessionStorage.getItem("aadId")),
         
     });
+
+    useEffect(() => {
+        getContainers()
+        .then(getCustomers)
+        .then(getReserves)
+        .then(getAADs)
+        .then(getMainParachutes)
+        .then(getInspections)
+    }, [])
     
-    let inspectionId = []
+    //filter inpsections down to the chosen customer
+    const filteredInspections = inspections.filter(insp => 
+        parseInt(insp.customerId) === parseInt(customerId))
+  
+    //logic for button to add new gear for a chosen customer
+    const handleNewGear = (event) => {
+        event.preventDefault();
+        //BOOOOO!!!!!!
+        sessionStorage.setItem("customerId", customerId);
+        history.push("/newreserve")
+    }
+
+    
+    
     
     const handlePlus = (event) => {
+        
         event.preventDefault();
-        const newInspection = { ...inspection }
-        setInspection(newInspection) 
+        setInspection(inspection)
         addInspection(inspection)
-        .then(inspection => inspectionId = inspection)
-        debugger
+        
+        // .then((inspection => inspectionId = inspection))
+        console.log(inspectionId)
+        
         // console.log(inspectionObject)
         
-        history.push(`/newinspection/${currentId}`)
+        history.push(`/newinspection/`)
     }
     
     
