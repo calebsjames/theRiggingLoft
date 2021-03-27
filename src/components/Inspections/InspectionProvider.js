@@ -2,10 +2,11 @@ import React, { useState, createContext } from "react"
 
 // The context is imported and used by individual components that need data
 export const InspectionContext = createContext()
-
 // This component establishes what data can be used.
 export const InspectionProvider = (props) => {
+    const inspectionObject = {}
     const [inspections, setInspections] = useState([])
+    const [inspectionId, setInspectionId] = useState(0)
 
     //function to get all inspections
     const getInspections = () => {
@@ -23,8 +24,16 @@ export const InspectionProvider = (props) => {
             },
             body: JSON.stringify(inspectionObj)
         })
+    .then(response => response.json())
+
+        // .then(inspectionObject => {
+        //     setInspectionId(inspectionObject.id)
+        //     //put the item id in session storage
+        //     // sessionStorage.setItem("customerId", customerObject.id)
+        // })
         .then(getInspections)
     }
+    debugger
 
     //function to get inspection by ID
     const getInspectionById = (id) => {
@@ -56,7 +65,7 @@ export const InspectionProvider = (props) => {
     //make all of the functions available through InspectionContext
     return (
         <InspectionContext.Provider value={{
-            inspections, getInspections, addInspection, getInspectionById, deleteInspection, editInspection
+            inspections, getInspections, inspectionId, addInspection, getInspectionById, deleteInspection, editInspection
         }}>
             {props.children}
         </InspectionContext.Provider>

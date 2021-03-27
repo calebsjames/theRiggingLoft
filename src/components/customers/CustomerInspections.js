@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { AADContext } from "../aads/AADProvider"
 import { ContainerContext } from "../containers/ContainerProvider"
 import { CustomerContext } from "../customers/CustomerProvider"
 import { MainParachuteContext } from "../mainparachutes/MainParachuteProvider"
 import { ReserveContext } from "../reserves/ReserveProvider"
 import { InspectionCard } from "../Inspections/InspectionCard.js"
-import { InspectionContext } from "../Inspections/InspectionProvider"
+import { InspectionContext, InspectionProvider } from "../Inspections/InspectionProvider"
 import { useHistory, useParams } from "react-router-dom"
 
 
@@ -19,7 +19,7 @@ export const CustomerInspections = () => {
     const { containers, getContainers } = useContext(ContainerContext)
     const { aads, getAADs } = useContext(AADContext)
     const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
-    const { inspections, getInspections } = useContext(InspectionContext)
+    const { inspections, getInspections, addInspection } = useContext(InspectionContext)
     const { customerId } = useParams();
 
     useEffect(() => {
@@ -43,6 +43,106 @@ export const CustomerInspections = () => {
         history.push("/newreserve")
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    const [inspection, setInspection] = useState({
+    
+        userId: parseInt(sessionStorage.getItem("app_user_id")),
+        customerId: customerId,
+        date: new Date,
+        containerId: parseInt(sessionStorage.getItem("containerId")),
+        containerMainTray: false,
+        containerReserveTray: false,
+        containerHardware: false,
+        containerChestStrap: false,
+        containerLegStraps: false,
+        containerRisers: false,
+        containerStitching: false,
+        containerGrommets: false,
+        containerReserveHandle: false,
+        containerCutawayHandle: false,
+        containerWebbing: false,
+        containerNotes: "",
+        reserveDBag: false,
+        reserveLinks: false,
+        reserveSuspensionLines: false,
+        reserveBridlePilotchute: false,
+        reserveCrossports: false,
+        reserveSeamFabric: false,
+        reserveSlider: false,
+        reserveNotes: "",
+        reserveId: parseInt(sessionStorage.getItem("reserveId")),
+        mainDBag: false,
+        mainLinks: false,
+        mainSuspensionLines: false,
+        mainBridlePilotchute: false,
+        mainCrossports: false,
+        mainSeamFabric: false,
+        mainSlider: false,
+        mainNotes: "",
+        mainParachuteId: parseInt(sessionStorage.getItem("mainParachuteId")),
+        aadInstallation: false,
+        aadCables: false,
+        aadInService: false,
+        aadNotes: "",
+        aadId: parseInt(sessionStorage.getItem("aadId")),
+        
+    });
+    
+    let inspectionId = []
+    
+    const handlePlus = (event) => {
+        event.preventDefault();
+        const newInspection = { ...inspection }
+        setInspection(newInspection) 
+        addInspection(inspection)
+        .then(inspection => inspectionId = inspection)
+        debugger
+        // console.log(inspectionObject)
+        
+        history.push(`/newinspection/${inspectionId}`)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //find and return the customer object found in params
     const customerObject = customers.find(c => parseInt(c.id) === parseInt(customerId))
   
@@ -54,6 +154,7 @@ export const CustomerInspections = () => {
         <button onClick={() => {history.push(`/customers/edit/${customerObject.id}`)}}>Edit</button>
         
         <button onClick={handleNewGear}>New gear and inspection</button>
+        <button onClick={handlePlus}>+</button>
         <h3>Inspections</h3>
       {filteredInspections.map(inspectionObject => {
           const customer = customers.find(c => parseInt(c.id) === parseInt(inspectionObject.customerId))
