@@ -15,19 +15,29 @@ export const CustomerInspections = () => {
     const history = useHistory()
 
     const { customers, getCustomers, getCustomerById } = useContext(CustomerContext)
-    const { reserves, getReserves } = useContext(ReserveContext)
-    const { containers, getContainers } = useContext(ContainerContext)
-    const { aads, getAADs } = useContext(AADContext)
-    const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
-    const { inspectionId, inspections, getInspections, addInspection } = useContext(InspectionContext)
+    const { reserves, getReserves, addReserve } = useContext(ReserveContext)
+    const { containers, getContainers, addContainer } = useContext(ContainerContext)
+    const { aads, getAADs, addAAD } = useContext(AADContext)
+    const { mainParachutes, getMainParachutes, addMainParachute } = useContext(MainParachuteContext)
+    const { inspections, getInspections, addInspection } = useContext(InspectionContext)
     const { customerId } = useParams();
+    
+    const [ids, setIds] = useState({
+        reserveId: 0,
+        aadId: 0,
+        containerId: 0,
+        mainParachuteId: 0
+
+    })
+    // const containerIndex = parseInt(containers.length)
+    // const containerId = containers[containerIndex-1].id
 
     const [inspection, setInspection] = useState({
     
         userId: parseInt(sessionStorage.getItem("app_user_id")),
         customerId: customerId,
         date: new Date,
-        containerId: parseInt(sessionStorage.getItem("containerId")),
+        containerId: containers.length,
         containerMainTray: false,
         containerReserveTray: false,
         containerHardware: false,
@@ -48,7 +58,7 @@ export const CustomerInspections = () => {
         reserveSeamFabric: false,
         reserveSlider: false,
         reserveNotes: "",
-        reserveId: parseInt(sessionStorage.getItem("reserveId")),
+        reserveId: 0,
         mainDBag: false,
         mainLinks: false,
         mainSuspensionLines: false,
@@ -57,14 +67,63 @@ export const CustomerInspections = () => {
         mainSeamFabric: false,
         mainSlider: false,
         mainNotes: "",
-        mainParachuteId: parseInt(sessionStorage.getItem("mainParachuteId")),
+        mainParachuteId: 0,
         aadInstallation: false,
         aadCables: false,
         aadInService: false,
         aadNotes: "",
-        aadId: parseInt(sessionStorage.getItem("aadId")),
+        aadId: 0,
         
     });
+
+    const [container, setContainer] = useState({
+        manufacturer: "",
+        model: "",
+        size: "",
+        serialNumber: "",
+        color: "",
+        dom: "",
+        notes: "",
+        userId: parseInt(sessionStorage.getItem("app_user_id"))      
+      });
+  
+   
+
+      const [reserve, setReserve] = useState({
+      
+        manufacturer: "",
+        model: "",
+        size: "",
+        serialNumber: "",
+        color: "",
+        dom: "",
+        userId: parseInt(sessionStorage.getItem("app_user_id"))
+        
+      });
+
+      const [aad, setAAD] = useState({
+        manufacturer: "",
+        model: "",
+        serialNumber: "",
+        dom: "",
+        nextServiceDate: "",
+        notes: "",
+        userId: parseInt(sessionStorage.getItem("app_user_id"))      
+    });
+
+    const [mainParachute, setMainParachute] = useState({
+      
+        manufacturer: "",
+        model: "",
+        size: "",
+        serialNumber: "",
+        color: "",
+        dom: "",
+        userId: parseInt(sessionStorage.getItem("app_user_id"))
+  
+  
+        
+      });
 
     useEffect(() => {
         getContainers()
@@ -73,7 +132,7 @@ export const CustomerInspections = () => {
         .then(getAADs)
         .then(getMainParachutes)
         .then(getInspections)
-    }, [])
+    }, [customers])
     
     //filter inpsections down to the chosen customer
     const filteredInspections = inspections.filter(insp => 
@@ -88,21 +147,64 @@ export const CustomerInspections = () => {
     }
 
     
-    
+    // useEffect(() => {
+
+    //     const newIds = {...ids}
+    //     debugger
+    //     // const containerIndex = parseInt(containers.length)
+    //     // const containerId = containers[containerIndex-1].id
+    //     // const reserveIndex = parseInt(reserves.length)
+    //     // const reserveId = reserves[reserveIndex-1].id
+    //     // const mainParachuteIndex = parseInt(mainParachutes.length)
+    //     // const mainParachuteId = mainParachutes[mainParachuteIndex-1].id
+    //     // const aadIndex = parseInt(aads.length)
+    //     // const aadId = aads[aadIndex-1].id
+
+    //     newIds.containerId = containerId
+    //     newIds.reserveId = reserveId
+    //     newIds.aadId = aadId
+    //     newIds.mainParachuteId = mainParachuteId
+    // }, [getContainers])
     
     const handlePlus = (event) => {
-        
+    debugger
         event.preventDefault();
-        setInspection(inspection)
+        // addContainer(container)
+        // addReserve(reserve)
+        // addMainParachute(mainParachute)
+        // addAAD(aad)
         addInspection(inspection)
         
-        // .then((inspection => inspectionId = inspection))
-        console.log(inspectionId)
         
-        // console.log(inspectionObject)
+
+        // const containerIndex = parseInt(containers.length)
+        // const containerId = containers[containerIndex-1].id
+        // const reserveIndex = parseInt(reserves.length)
+        // const reserveId = reserves[reserveIndex-1].id
+        // const mainParachuteIndex = parseInt(mainParachutes.length)
+        // const mainParachuteId = mainParachutes[mainParachuteIndex-1].id
+        // const aadIndex = parseInt(aads.length)
+        // const aadId = aads[aadIndex-1].id
+        const inspectionIndex = parseInt(inspections.length)
+        const inspectionId = inspections[inspectionIndex-1].id
         
-        history.push(`/newinspection/`)
+        history.push(`/inspections/detail/${inspectionId+1}`)
+        
+            
+            // .then(inspectionObject => {
+                //     setNewId(inspectionObject)
+                //     console.log(inspectionObject)
+                // .then(inspection => {inspectionId = inspection})
+                // console.log("!", inspectionId)
+                
+                // console.log(inspectionObject)
+                
     }
+    
+    const handleNav = () => {
+
+    }
+
     
     
     

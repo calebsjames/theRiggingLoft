@@ -57,7 +57,7 @@ export const MainParachuteForm = () => {
        
        if (mainParachuteId) {
         editMainParachute(mainParachute)
-        .then(history.push("/inspections/"))
+        .then(history.goBack)
         } else {
        
         //invoke addMainParachute passing mainParachute as an argument.

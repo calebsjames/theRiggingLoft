@@ -5,7 +5,7 @@ export const InspectionContext = createContext()
 // This component establishes what data can be used.
 export const InspectionProvider = (props) => {
     const [inspections, setInspections] = useState([])
-    const [inspectionId, setInspectionId] = useState(0)
+    const [newInspectionId, setNewInspectionId] = useState(0)
     
     //function to get all inspections
     const getInspections = () => {
@@ -23,17 +23,21 @@ export const InspectionProvider = (props) => {
             },
             body: JSON.stringify(inspectionObj)
         })
-    .then(response => response.json())
+        .then(response => response.json())
 
-        .then(inspectionObject => {
-            setInspectionId(inspectionObject.id)
+        // .then(inspectionObject => {
+        //     setNewInspectionId(inspectionObject.id)
+        //     console.log(inspectionObject.id)})
 
             //put the item id in session storage
         //     // sessionStorage.setItem("customerId", customerObject.id)
         // })
-        .then(getInspections)
-    })}
-    
+        // .then(getInspections)
+    }
+  
+
+
+
 
     //function to get inspection by ID
     const getInspectionById = (id) => {
@@ -60,12 +64,23 @@ export const InspectionProvider = (props) => {
         })
           .then(getInspections)
       }
+    //function to edit an inspection
+    const patchInspection = inspection => {
+        return fetch(`http://localhost:8088/inspections/${inspection.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(inspection)
+        })
+          .then(getInspections)
+      }
 
     
     //make all of the functions available through InspectionContext
     return (
         <InspectionContext.Provider value={{
-            inspections, getInspections, inspectionId, addInspection, getInspectionById, deleteInspection, editInspection
+            inspections, patchInspection, getInspections, newInspectionId, addInspection, getInspectionById, deleteInspection, editInspection
         }}>
             {props.children}
         </InspectionContext.Provider>

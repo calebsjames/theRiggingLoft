@@ -49,7 +49,7 @@ export const AADForm = () => {
        //if in the edit page, editAAD() then navigate to inspections 
        if (aadId) {
         editAAD(aad)
-        .then(history.push("/inspections/"))
+        .then(history.goBack)
         
         } else {
        

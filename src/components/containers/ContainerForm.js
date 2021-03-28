@@ -52,7 +52,7 @@ export const ContainerForm = () => {
        //if in the edit page, editcontainerId() then navigate to inspections 
        if (containerId) {
         editContainer(container)
-        .then(history.push("/inspections/"))
+        .then(history.goBack)
         
         } else {
        
