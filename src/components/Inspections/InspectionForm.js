@@ -83,13 +83,13 @@ export const InspectionForm = () => {
         //runs after getContainers updates containers
     }, [containers])
     
-    
+    let date = new Date 
     //Define the intial state of the form inputs with useState()
     const [inspection, setInspection] = useState({
         
         userId: parseInt(sessionStorage.getItem("app_user_id")),
-        customerId: 0,
-        date: new Date,
+        customerId: parseInt(sessionStorage.getItem("customerId")),
+        date: date.toLocaleDateString(),
         containerId: 0,
         containerMainTray: false,
         containerReserveTray: false,
@@ -215,7 +215,7 @@ export const InspectionForm = () => {
     
     //logic for edit buttons that show up on inpsection review
     const handleClickNewContainer = () => {
-        debugger
+        
         const container = {
             manufacturer: "",
             model: "",
