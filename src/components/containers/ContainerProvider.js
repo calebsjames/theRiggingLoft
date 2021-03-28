@@ -30,7 +30,6 @@ export const ContainerProvider = (props) => {
         .then(containerObject => {
             setContainerId(containerObject.id)
             //put the item id in session storage
-            sessionStorage.setItem("containerId", containerObject.id)
         })
         .then(getContainers)
     }

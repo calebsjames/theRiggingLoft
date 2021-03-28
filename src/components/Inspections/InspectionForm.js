@@ -11,12 +11,12 @@ import { MainParachuteContext } from "../mainparachutes/MainParachuteProvider";
 
 //InspectionForm called to make a new inspection or edit an existing one
 export const InspectionForm = () => {
-    const { addInspection, inspections, getInspections, getInspectionById, editInspection, deleteInspection } = useContext(InspectionContext)
+    const { addInspection, patchInspection, inspections, getInspections, getInspectionById, editInspection, deleteInspection } = useContext(InspectionContext)
     const { customers, getCustomers } = useContext(CustomerContext)
-    const { reserves, getReserves } = useContext(ReserveContext)
-    const { containers, getContainers } = useContext(ContainerContext)
-    const { aads, getAADs } = useContext(AADContext)
-    const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
+    const { reserves, getReserves, addReserve } = useContext(ReserveContext)
+    const { containers, getContainers, addContainer } = useContext(ContainerContext)
+    const { aads, getAADs, addAAD } = useContext(AADContext)
+    const { mainParachutes, getMainParachutes, addMainParachute } = useContext(MainParachuteContext)
     const { inspectionId } = useParams()
     const [ isLoading, setIsLoading ] = useState(true);
     const history = useHistory()
@@ -43,7 +43,8 @@ export const InspectionForm = () => {
     //useEffect to house if() statement that sets components object based on URL    
     useEffect(() => {
         
-        if(inspectionId) {
+        // if(inspectionId) 
+        // {
             const newComponents = { ...components }
             
             //logic that runs if it's an edit
@@ -61,24 +62,24 @@ export const InspectionForm = () => {
             newComponents.customer = customer
             setComponents(newComponents)    
             
-        } else {
-            const newComponents = { ...components }
+        // } else {
+        //     const newComponents = { ...components }
             
-            //logic that runs if it's a new form
-            const customer = customers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("customerId")))
-            const container = containers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("containerId")))
-            const reserve = reserves.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("reserveId")))
-            const aad = aads.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("aadId")))
-            const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("mainParachuteId")))
+        //     //logic that runs if it's a new form
+        //     const customer = customers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("customerId")))
+        //     const container = containers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("containerId")))
+        //     const reserve = reserves.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("reserveId")))
+        //     const aad = aads.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("aadId")))
+        //     const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("mainParachuteId")))
             
-            newComponents.container = container
-            newComponents.reserve = reserve
-            newComponents.aad = aad
-            newComponents.mainParachute = mainParachute
-            newComponents.customer = customer
+        //     newComponents.container = container
+        //     newComponents.reserve = reserve
+        //     newComponents.aad = aad
+        //     newComponents.mainParachute = mainParachute
+        //     newComponents.customer = customer
             
-            setComponents(newComponents)  
-        }  
+        //     setComponents(newComponents)  
+        // }  
         //runs after getContainers updates containers
     }, [containers])
     
@@ -89,7 +90,7 @@ export const InspectionForm = () => {
         userId: parseInt(sessionStorage.getItem("app_user_id")),
         customerId: parseInt(sessionStorage.getItem("customerId")),
         date: date.toLocaleDateString(),
-        containerId: parseInt(sessionStorage.getItem("containerId")),
+        containerId: 0,
         containerMainTray: false,
         containerReserveTray: false,
         containerHardware: false,
@@ -110,7 +111,7 @@ export const InspectionForm = () => {
         reserveSeamFabric: false,
         reserveSlider: false,
         reserveNotes: "",
-        reserveId: parseInt(sessionStorage.getItem("reserveId")),
+        reserveId: 0,
         mainDBag: false,
         mainLinks: false,
         mainSuspensionLines: false,
@@ -119,12 +120,12 @@ export const InspectionForm = () => {
         mainSeamFabric: false,
         mainSlider: false,
         mainNotes: "",
-        mainParachuteId: parseInt(sessionStorage.getItem("mainParachuteId")),
+        mainParachuteId: 0,
         aadInstallation: false,
         aadCables: false,
         aadInService: false,
         aadNotes: "",
-        aadId: parseInt(sessionStorage.getItem("aadId")),
+        aadId: 0,
         
     });
     
@@ -196,11 +197,7 @@ export const InspectionForm = () => {
         //if inspectionId does not exists, clear session storage and save inspection
         addInspection(inspection)
         .then(() => history.push("/home"))
-        sessionStorage.removeItem("mainParachuteId")
-        sessionStorage.removeItem("aadId")
-        sessionStorage.removeItem("reserveId")
-        sessionStorage.removeItem("containerId")
-        sessionStorage.removeItem("customerId")
+        
        }
     }
     
@@ -213,10 +210,93 @@ export const InspectionForm = () => {
             })
     } 
 
+
+    
+    
     //logic for edit buttons that show up on inpsection review
-    const handleClickEditContainer = () => {
-        history.push(`/container/edit/${components.container?.id}`)
+    const handleClickNewContainer = () => {
+        
+        const container = {
+            manufacturer: "",
+            model: "",
+            size: "",
+            serialNumber: "",
+            color: "",
+            dom: "",
+            notes: "",
+            userId: parseInt(sessionStorage.getItem("app_user_id"))      
+          };
+        addContainer(container)
+        
+        const containerIndex = parseInt(containers.length)
+        const currentContainer = containers[containerIndex-1]
+        const newInspection = { ...inspection }
+        let id = currentContainer.id
+        newInspection.containerId = id+1
+        patchInspection(newInspection)
+        history.push(`/container/edit/${id+1}`)
     }
+    
+    const handleClickNewReserve = () => {
+        const reserve = {
+            manufacturer: "",
+            model: "",
+            size: "",
+            serialNumber: "",
+            color: "",
+            dom: "",
+            userId: parseInt(sessionStorage.getItem("app_user_id"))      
+          };
+        addReserve(reserve)
+        const reserveIndex = parseInt(reserves.length)
+        const currentReserve = reserves[reserveIndex-1]
+        const newInspection = { ...inspection }
+        let id = currentReserve.id
+        newInspection.reserveId = id+1 
+        patchInspection(newInspection)
+        history.push(`/reserve/edit/${id+1}`)
+    }
+
+
+    const handleClickNewMainParachute = () => {
+        const mainParachute = {
+            manufacturer: "",
+            model: "",
+            size: "",
+            serialNumber: "",
+            color: "",
+            dom: "",
+            userId: parseInt(sessionStorage.getItem("app_user_id"))      
+          };
+        addMainParachute(mainParachute)
+        const mainParachuteIndex = parseInt(mainParachutes.length)
+        const currentMainParachute = mainParachutes[mainParachuteIndex-1]
+        const newInspection = { ...inspection }
+        newInspection.mainParachuteId = currentMainParachute.id
+        patchInspection(newInspection)
+        history.push(`/mainParachute/edit/${currentMainParachute?.id}`)
+    }
+
+    const handleClickNewAAD = () => {
+        const aad = {
+            manufacturer: "",
+            model: "",
+            serialNumber: "",
+            dom: "",
+            nextServiceDate: "",
+            notes: "",
+            userId: parseInt(sessionStorage.getItem("app_user_id")) 
+          };
+        addAAD(aad)
+        
+        const aadIndex = parseInt(aads.length)
+        const currentAAD = aads[aadIndex-1]
+        const newInspection = { ...inspection }
+        newInspection.aadId = currentAAD.id
+        patchInspection(newInspection)
+        history.push(`/aad/edit/${currentAAD?.id}`)
+    }
+    
     const handleClickEditReserve = () => {
         history.push(`/reserve/edit/${components.reserve?.id}`)
     }
@@ -225,6 +305,9 @@ export const InspectionForm = () => {
     }
     const handleClickEditMainParachute = () => {
         history.push(`/mainParachute/edit/${components.mainParachute?.id}`)
+    }
+    const handleClickEditContainer = () => {
+        history.push(`/container/edit/${components.container?.id}`)
     }
 
 
@@ -249,10 +332,15 @@ export const InspectionForm = () => {
                     <p>Color: {components.container?.color} </p>
                     <p>DOM: {components.container?.dom} </p>
                     <p>Notes: {components.container?.notes} </p>
-                    {inspectionId ? <button className="btn btn-primary"
+                    {components.container ? <button className="btn btn-primary"
                         disabled={isLoading}
                         onClick={handleClickEditContainer}>
                         Edit</button> : ""}
+                    {components.container ? "" : <button className="btn btn-primary"
+                        disabled={isLoading}
+                        onClick={handleClickNewContainer}>
+                        New</button> }
+        
                 </div>
 
                 <div className="componentBoxInspectionList">
@@ -350,22 +438,26 @@ export const InspectionForm = () => {
                         <p>Color: {components.reserve?.color} </p>
                         <p>DOM: {components.reserve?.dom} </p>
                         <p>Notes: {components.reserve?.notes} </p>
-                        {inspectionId ? <button className="btn btn-primary"
-                            disabled={isLoading}
-                            onClick={handleClickEditReserve}>
-                            Edit</button> : ""}
+                        {components.reserve ? <button className="btn btn-primary"
+                        disabled={isLoading}
+                        onClick={handleClickEditReserve}>
+                        Edit</button> : ""}
+                        {components.reserve ? "" : <button className="btn btn-primary"
+                        disabled={isLoading}
+                        onClick={handleClickNewReserve}>
+                        New</button> }
                     </div>
                     <div className="componentBoxInspectionList">
                         <fieldset className="checkbox">
                             <div className="form-group">
                                 <label htmlFor="reserveDBag">D-Bag:</label>
-                                <input type="checkbox" id="reserveDBag" onChange={handleCheckboxChange} required className="form-control" placeholder="D-Bag" checked={inspection.reserve}/>
+                                <input type="checkbox" id="reserveDBag" onChange={handleCheckboxChange} required className="form-control" placeholder="D-Bag" checked={inspection.reserveDBag}/>
                             </div>
                         </fieldset> 
                         <fieldset className="checkbox">
                             <div className="form-group">
                                 <label htmlFor="reserveLinks">Links:</label>
-                                <input type="checkbox" id="reserveLinks" onChange={handleCheckboxChange} required className="form-control" placeholder="Links" checked={inspection.reserve}/>
+                                <input type="checkbox" id="reserveLinks" onChange={handleCheckboxChange} required className="form-control" placeholder="Links" checked={inspection.reserveLinks}/>
                             </div>
                         </fieldset> 
                         <fieldset className="checkbox">
@@ -417,10 +509,14 @@ export const InspectionForm = () => {
                         <p>Next Service Date: {components.aad?.nextServiceDate} </p>
                         <p>DOM: {components.aad?.dom} </p>
                         <p>Notes: {components.aad?.notes} </p>
-                        {inspectionId ? <button className="btn btn-primary"
+                        {components.aad ? <button className="btn btn-primary"
                         disabled={isLoading}
                         onClick={handleClickEditAAD}>
                         Edit</button> : ""}
+                        {components.aad ? "" : <button className="btn btn-primary"
+                        disabled={isLoading}
+                        onClick={handleClickNewAAD}>
+                        New</button> }
                     </div>
 
                     <div className="componentBoxInspectionList">
@@ -465,10 +561,14 @@ export const InspectionForm = () => {
                             <p>Color: {components.mainParachute?.color} </p>
                             <p>DOM: {components.mainParachute?.dom} </p>
                             <p>Notes: {components.mainParachute?.notes} </p>
-                            {inspectionId ? <button className="btn btn-primary"
+                            {components.mainParachute ? <button className="btn btn-primary"
                             disabled={isLoading}
                             onClick={handleClickEditMainParachute}>
                             Edit</button> : ""}
+                            {components.mainParachute ? "" : <button className="btn btn-primary"
+                            disabled={isLoading}
+                            onClick={handleClickNewMainParachute}>
+                            New</button> }
                         </div>
                         <div className="componentBoxInspectionList">
                             <fieldset className="checkbox">

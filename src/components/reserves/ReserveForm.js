@@ -55,7 +55,7 @@ export const ReserveForm = () => {
        
        if (reserveId) {
         editReserve(reserve)
-        .then(history.push("/inspections/"))
+        .then(history.goBack)
         } else {
        
         //invoke addReserve passing reserve as an argument.
