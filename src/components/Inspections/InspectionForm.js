@@ -88,9 +88,9 @@ export const InspectionForm = () => {
     const [inspection, setInspection] = useState({
         
         userId: parseInt(sessionStorage.getItem("app_user_id")),
-        customerId: parseInt(sessionStorage.getItem("customerId")),
+        customerId: 0,
         date: new Date,
-        containerId: parseInt(sessionStorage.getItem("containerId")),
+        containerId: 0,
         containerMainTray: false,
         containerReserveTray: false,
         containerHardware: false,
@@ -111,7 +111,7 @@ export const InspectionForm = () => {
         reserveSeamFabric: false,
         reserveSlider: false,
         reserveNotes: "",
-        reserveId: parseInt(sessionStorage.getItem("reserveId")),
+        reserveId: 0,
         mainDBag: false,
         mainLinks: false,
         mainSuspensionLines: false,
@@ -120,12 +120,12 @@ export const InspectionForm = () => {
         mainSeamFabric: false,
         mainSlider: false,
         mainNotes: "",
-        mainParachuteId: parseInt(sessionStorage.getItem("mainParachuteId")),
+        mainParachuteId: 0,
         aadInstallation: false,
         aadCables: false,
         aadInService: false,
         aadNotes: "",
-        aadId: parseInt(sessionStorage.getItem("aadId")),
+        aadId: 0,
         
     });
     
@@ -197,11 +197,7 @@ export const InspectionForm = () => {
         //if inspectionId does not exists, clear session storage and save inspection
         addInspection(inspection)
         .then(() => history.push("/home"))
-        sessionStorage.removeItem("mainParachuteId")
-        sessionStorage.removeItem("aadId")
-        sessionStorage.removeItem("reserveId")
-        sessionStorage.removeItem("containerId")
-        sessionStorage.removeItem("customerId")
+        
        }
     }
     
@@ -219,6 +215,7 @@ export const InspectionForm = () => {
     
     //logic for edit buttons that show up on inpsection review
     const handleClickNewContainer = () => {
+        debugger
         const container = {
             manufacturer: "",
             model: "",
@@ -233,11 +230,11 @@ export const InspectionForm = () => {
         
         const containerIndex = parseInt(containers.length)
         const currentContainer = containers[containerIndex-1]
-        console.log(currentContainer)
         const newInspection = { ...inspection }
-        newInspection.containerId = currentContainer.id
+        let id = currentContainer.id
+        newInspection.containerId = id+1
         patchInspection(newInspection)
-        history.push(`/container/edit/${currentContainer?.id}`)
+        history.push(`/container/edit/${id+1}`)
     }
     
     const handleClickNewReserve = () => {
@@ -251,14 +248,13 @@ export const InspectionForm = () => {
             userId: parseInt(sessionStorage.getItem("app_user_id"))      
           };
         addReserve(reserve)
-        
         const reserveIndex = parseInt(reserves.length)
         const currentReserve = reserves[reserveIndex-1]
-        console.log(currentReserve)
         const newInspection = { ...inspection }
-        newInspection.reserveId = currentReserve.id
+        let id = currentReserve.id
+        newInspection.reserveId = id+1 
         patchInspection(newInspection)
-        history.push(`/reserve/edit/${currentReserve?.id}`)
+        history.push(`/reserve/edit/${id+1}`)
     }
 
 
@@ -273,10 +269,8 @@ export const InspectionForm = () => {
             userId: parseInt(sessionStorage.getItem("app_user_id"))      
           };
         addMainParachute(mainParachute)
-        
         const mainParachuteIndex = parseInt(mainParachutes.length)
         const currentMainParachute = mainParachutes[mainParachuteIndex-1]
-        console.log(currentMainParachute)
         const newInspection = { ...inspection }
         newInspection.mainParachuteId = currentMainParachute.id
         patchInspection(newInspection)
@@ -297,7 +291,6 @@ export const InspectionForm = () => {
         
         const aadIndex = parseInt(aads.length)
         const currentAAD = aads[aadIndex-1]
-        console.log(currentAAD)
         const newInspection = { ...inspection }
         newInspection.aadId = currentAAD.id
         patchInspection(newInspection)
@@ -458,13 +451,13 @@ export const InspectionForm = () => {
                         <fieldset className="checkbox">
                             <div className="form-group">
                                 <label htmlFor="reserveDBag">D-Bag:</label>
-                                <input type="checkbox" id="reserveDBag" onChange={handleCheckboxChange} required className="form-control" placeholder="D-Bag" checked={inspection.reserve}/>
+                                <input type="checkbox" id="reserveDBag" onChange={handleCheckboxChange} required className="form-control" placeholder="D-Bag" checked={inspection.reserveDBag}/>
                             </div>
                         </fieldset> 
                         <fieldset className="checkbox">
                             <div className="form-group">
                                 <label htmlFor="reserveLinks">Links:</label>
-                                <input type="checkbox" id="reserveLinks" onChange={handleCheckboxChange} required className="form-control" placeholder="Links" checked={inspection.reserve}/>
+                                <input type="checkbox" id="reserveLinks" onChange={handleCheckboxChange} required className="form-control" placeholder="Links" checked={inspection.reserveLinks}/>
                             </div>
                         </fieldset> 
                         <fieldset className="checkbox">

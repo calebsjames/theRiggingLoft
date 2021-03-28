@@ -30,7 +30,7 @@ export const ReserveProvider = (props) => {
         .then(reserveObject => {
             setReserveId(reserveObject.id)
             //put the item id in session storage
-            sessionStorage.setItem("reserveId", reserveObject.id)
+            
         })
         .then(getReserves)
     }

@@ -7,7 +7,7 @@ import "./Inspection.css"
 //This displays basic information about the inspection
 export const InspectionCard = ({ inspectionInstance, customerInstance, containerInstance, reserveInstance, mainParachuteInstance, aadInstance }) => {
 
-    const { getInspections, deleteInspection } = useContext(InspectionContext)
+    const { inspections, getInspections, deleteInspection, addInspection } = useContext(InspectionContext)
     
     const history = useHistory()
 
@@ -28,16 +28,66 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
     /*if user presses "New Inspection" button, the IDs of the referenced 
     inspection are captured and held in sessionStorage until inspection is saved*/
     const handleNewInspection = () => {
-        sessionStorage.setItem("customerId", customerInstance.id)
-        sessionStorage.setItem("containerId", containerInstance.id)
-        sessionStorage.setItem("reserveId", reserveInstance.id)
-        sessionStorage.setItem("mainParachuteId", mainParachuteInstance.id)
-        sessionStorage.setItem("aadId", aadInstance.id)
-        history.push("/newinspection")
+        // sessionStorage.setItem("customerId", customerInstance.id)
+        // sessionStorage.setItem("containerId", containerInstance.id)
+        // sessionStorage.setItem("reserveId", reserveInstance.id)
+        // sessionStorage.setItem("mainParachuteId", mainParachuteInstance.id)
+        // sessionStorage.setItem("aadId", aadInstance.id)
+        
+        const inspection = {
+            
+            userId: parseInt(sessionStorage.getItem("app_user_id")),
+            customerId: customerInstance.id,
+            date: new Date,
+            containerId: containerInstance.id,
+            containerMainTray: false,
+            containerReserveTray: false,
+            containerHardware: false,
+            containerChestStrap: false,
+            containerLegStraps: false,
+            containerRisers: false,
+            containerStitching: false,
+            containerGrommets: false,
+            containerReserveHandle: false,
+            containerCutawayHandle: false,
+            containerWebbing: false,
+            containerNotes: "",
+            reserveDBag: false,
+            reserveLinks: false,
+            reserveSuspensionLines: false,
+            reserveBridlePilotchute: false,
+            reserveCrossports: false,
+            reserveSeamFabric: false,
+            reserveSlider: false,
+            reserveNotes: "",
+            reserveId: reserveInstance.id,
+            mainDBag: false,
+            mainLinks: false,
+            mainSuspensionLines: false,
+            mainBridlePilotchute: false,
+            mainCrossports: false,
+            mainSeamFabric: false,
+            mainSlider: false,
+            mainNotes: "",
+            mainParachuteId: mainParachuteInstance.id,
+            aadInstallation: false,
+            aadCables: false,
+            aadInService: false,
+            aadNotes: "",
+            aadId: aadInstance.id,
+            
+        }
+        addInspection(inspection)
+        const inspectionIndex = parseInt(inspections.length)
+        const inspectionId = inspections[inspectionIndex-1].id
+        
+        history.push(`/inspections/detail/${inspectionId+1}`)
+        
+        
     }
-
     
-
+    
+    
     return(
     <>
     <h3 className="inspection">

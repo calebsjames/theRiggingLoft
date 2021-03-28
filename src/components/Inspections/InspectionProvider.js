@@ -24,15 +24,6 @@ export const InspectionProvider = (props) => {
             body: JSON.stringify(inspectionObj)
         })
         .then(response => response.json())
-
-        // .then(inspectionObject => {
-        //     setNewInspectionId(inspectionObject.id)
-        //     console.log(inspectionObject.id)})
-
-            //put the item id in session storage
-        //     // sessionStorage.setItem("customerId", customerObject.id)
-        // })
-        // .then(getInspections)
     }
   
 
