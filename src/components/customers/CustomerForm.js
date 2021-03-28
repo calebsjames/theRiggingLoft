@@ -53,7 +53,7 @@ export const CustomerForm = () => {
         //save the customer
         addCustomer(customer)
         //change the url and display the customer list
-        .then(() => history.push("/newcontainer"))
+        .then(() => history.push("/customers"))
         }
     }
 

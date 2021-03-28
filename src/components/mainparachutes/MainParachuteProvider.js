@@ -27,11 +27,9 @@ export const MainParachuteProvider = (props) => {
         })
         //get the new object back
         .then(res => res.json())
-        //set useState variable to new object
+        
         .then(mainParachuteObject => {
             setMainParachuteId(mainParachuteObject.id)
-            //put the item id in session storage
-            sessionStorage.setItem("mainParachuteId", mainParachuteObject.id)
         })
         .then(getMainParachutes)
     }

@@ -29,8 +29,7 @@ export const AADProvider = (props) => {
         //set useState variable to new object
         .then(aadObject => {
             setAADId(aadObject.id)
-            //put the item id in session storage
-            sessionStorage.setItem("aadId", aadObject.id)
+
         })
         .then(getAADs)
     }
