@@ -29,6 +29,9 @@ export const CustomerInspections = () => {
         mainParachuteId: 0
 
     })
+
+    let date = new Date 
+
     // const containerIndex = parseInt(containers.length)
     // const containerId = containers[containerIndex-1].id
 
@@ -37,7 +40,8 @@ export const CustomerInspections = () => {
         userId: parseInt(sessionStorage.getItem("app_user_id")),
         customerId: customerId,
         date: new Date,
-        // containerId: "",
+
+        date: date.toLocaleDateString(),
         containerMainTray: false,
         containerReserveTray: false,
         containerHardware: false,

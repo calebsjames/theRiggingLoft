@@ -5,3 +5,17 @@
 .deleteButton {
     max-height: 30px;
 }
+
+.phone {
+    align-self: center;
+    margin: 10px;
+}
+
+.search{
+    align-self: flex-end;
+}
+
+.customerNav {
+    justify-content: space-between;
+    display: flex;
+}
