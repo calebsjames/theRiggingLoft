@@ -39,7 +39,7 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
             userId: parseInt(sessionStorage.getItem("app_user_id")),
             customerId: customerInstance.id,
             date: new Date,
-            containerId: containerInstance.id,
+            containerId: containerInstance?.id ? containerInstance?.id : 0,
             containerMainTray: false,
             containerReserveTray: false,
             containerHardware: false,
@@ -60,7 +60,7 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
             reserveSeamFabric: false,
             reserveSlider: false,
             reserveNotes: "",
-            reserveId: reserveInstance.id,
+            reserveId: reserveInstance?.id ? reserveInstance?.id : 0,
             mainDBag: false,
             mainLinks: false,
             mainSuspensionLines: false,
@@ -69,12 +69,12 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
             mainSeamFabric: false,
             mainSlider: false,
             mainNotes: "",
-            mainParachuteId: mainParachuteInstance.id,
+            mainParachuteId: mainParachuteInstance?.id ? mainParachuteInstance?.id : 0,
             aadInstallation: false,
             aadCables: false,
             aadInService: false,
             aadNotes: "",
-            aadId: aadInstance.id,
+            aadId: aadInstance?.id ? aadInstance?.id : 0
             
         }
         addInspection(inspection)
@@ -117,9 +117,9 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
         <button className="inspectionButton" onClick={(handleDetails)}>
                 Details
             </button>
-        <button className="inspectionButton" onClick={(handleDelete)}>
+        {/* <button className="inspectionButton" onClick={(handleDelete)}>
                 Delete
-            </button>
+            </button> */}
         <button className="inspectionButton" onClick={(handleNewInspection)}>
                 New Inpection
             </button>

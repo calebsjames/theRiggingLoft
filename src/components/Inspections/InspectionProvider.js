@@ -32,7 +32,7 @@ export const InspectionProvider = (props) => {
 
     //function to get inspection by ID
     const getInspectionById = (id) => {
-        return fetch(`http://localhost:8088/inspections/${id}/?_expand=aad&_expand=reserve&_expand=container&_expand=mainParachute`)
+        return fetch(`http://localhost:8088/inspections/${id}`)
             .then(res => res.json())
     }
 
