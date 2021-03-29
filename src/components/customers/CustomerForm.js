@@ -102,11 +102,6 @@ export const CustomerForm = () => {
                 </div>
             </fieldset>
             
-
-
-
-
-            //save
             <button className="btn btn-primary"
             disabled={isLoading}
             onClick={event => {

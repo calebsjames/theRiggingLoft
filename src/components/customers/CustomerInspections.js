@@ -39,7 +39,7 @@ export const CustomerInspections = () => {
     
         userId: parseInt(sessionStorage.getItem("app_user_id")),
         customerId: customerId,
-        date: new Date,
+        
 
         date: date.toLocaleDateString(),
         containerMainTray: false,
@@ -62,7 +62,6 @@ export const CustomerInspections = () => {
         reserveSeamFabric: false,
         reserveSlider: false,
         reserveNotes: "",
-        // reserveId: "",
         mainDBag: false,
         mainLinks: false,
         mainSuspensionLines: false,
@@ -71,12 +70,10 @@ export const CustomerInspections = () => {
         mainSeamFabric: false,
         mainSlider: false,
         mainNotes: "",
-        // mainParachuteId: "",
         aadInstallation: false,
         aadCables: false,
         aadInService: false,
-        aadNotes: "",
-        // aadId: "",
+        aadNotes: ""
         
     });
 

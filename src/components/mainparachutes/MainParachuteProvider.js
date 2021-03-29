@@ -27,13 +27,7 @@ export const MainParachuteProvider = (props) => {
         })
         //get the new object back
         .then(res => res.json())
-        
-        // .then(mainParachuteObject => {
-        //     setMainParachuteId(mainParachuteObject.id)
-        // })
-        // .then(getMainParachutes)
         .then(main => {
-            console.log(main.id)
             return main.id})
     }
 

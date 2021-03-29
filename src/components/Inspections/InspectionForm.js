@@ -42,18 +42,14 @@ export const InspectionForm = () => {
     
     //useEffect to house if() statement that sets components object based on URL    
     useEffect(() => {
-        
-        // if(inspectionId) 
-        // {
+
             const newComponents = { ...components }
-            
-            //logic that runs if it's an edit
             const currentInspection = inspections.find(insp => parseInt(insp.id) === parseInt(inspectionId))
             const customer = customers.find(c => parseInt(c.id) === parseInt(currentInspection?.customerId))
-            const container = containers.find(cont => parseInt(cont.id) === parseInt(currentInspection.containerId))
-            const reserve = reserves.find(c => parseInt(c.id) === parseInt(currentInspection.reserveId))
-            const aad = aads.find(c => parseInt(c.id) === parseInt(currentInspection.aadId))
-            const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(currentInspection.mainParachuteId))
+            const container = containers.find(cont => parseInt(cont.id) === parseInt(currentInspection?.containerId))
+            const reserve = reserves.find(c => parseInt(c.id) === parseInt(currentInspection?.reserveId))
+            const aad = aads.find(c => parseInt(c.id) === parseInt(currentInspection?.aadId))
+            const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(currentInspection?.mainParachuteId))
             
             newComponents.container = container
             newComponents.reserve = reserve
@@ -62,37 +58,15 @@ export const InspectionForm = () => {
             newComponents.customer = customer
             setComponents(newComponents)    
             
-        // } else {
-        //     const newComponents = { ...components }
-            
-        //     //logic that runs if it's a new form
-        //     const customer = customers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("customerId")))
-        //     const container = containers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("containerId")))
-        //     const reserve = reserves.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("reserveId")))
-        //     const aad = aads.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("aadId")))
-        //     const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("mainParachuteId")))
-            
-        //     newComponents.container = container
-        //     newComponents.reserve = reserve
-        //     newComponents.aad = aad
-        //     newComponents.mainParachute = mainParachute
-        //     newComponents.customer = customer
-            
-        //     setComponents(newComponents)  
-        // }  
-        //runs after getContainers updates containers
     }, [containers])
     
-    let date = new Date 
+    
+    const date = new Date
     //Define the intial state of the form inputs with useState()
     const [inspection, setInspection] = useState({
-        
-        userId: parseInt(sessionStorage.getItem("app_user_id")),
-   
-        date: new Date,
- 
 
-        customerId: parseInt(sessionStorage.getItem("customerId")),
+        userId: parseInt(sessionStorage.getItem("app_user_id")),
+        customerId: 0,
         date: date.toLocaleDateString(),
         containerMainTray: false,
         containerReserveTray: false,
@@ -105,7 +79,7 @@ export const InspectionForm = () => {
         containerReserveHandle: false,
         containerCutawayHandle: false,
         containerWebbing: false,
-        containerNotes: null,
+        containerNotes: "",
         reserveDBag: false,
         reserveLinks: false,
         reserveSuspensionLines: false,
@@ -114,7 +88,6 @@ export const InspectionForm = () => {
         reserveSeamFabric: false,
         reserveSlider: false,
         reserveNotes: "",
-        reserveId: "",
         mainDBag: false,
         mainLinks: false,
         mainSuspensionLines: false,
@@ -123,12 +96,10 @@ export const InspectionForm = () => {
         mainSeamFabric: false,
         mainSlider: false,
         mainNotes: "",
-        mainParachuteId: null,
         aadInstallation: false,
         aadCables: false,
         aadInService: false,
-        aadNotes: "",
-        aadId: null,
+        aadNotes: ""
         
     });
     
@@ -234,14 +205,11 @@ export const InspectionForm = () => {
         addContainer(container)
         .then( cont => {
             container.id = cont
-            console.log("!", container.id)
-            
             const newInspection = { ...inspection }
             newInspection.containerId = container.id
             patchInspection(newInspection)
             history.push(`/container/edit/${container.id}`)
-        })
-        
+        })   
     }
     
     const handleClickNewReserve = () => {
@@ -257,8 +225,6 @@ export const InspectionForm = () => {
         addReserve(reserve)
         .then( res => {
             reserve.id = res
-            console.log("!", reserve.id)
-            
             const newInspection = { ...inspection }
             newInspection.reserveId = reserve.id
             patchInspection(newInspection)
@@ -280,8 +246,6 @@ export const InspectionForm = () => {
         addMainParachute(mainParachute)
         .then( main => {
             mainParachute.id = main
-            console.log("!", mainParachute.id)
-            
             const newInspection = { ...inspection }
             newInspection.mainParachuteId = mainParachute.id
             patchInspection(newInspection)
@@ -303,8 +267,6 @@ export const InspectionForm = () => {
         
         .then( a => {
             aad.id = a
-            console.log("!", aad.id)
-            
             const newInspection = { ...inspection }
             newInspection.aadId = aad.id
             patchInspection(newInspection)

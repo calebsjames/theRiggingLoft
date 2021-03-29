@@ -131,6 +131,7 @@ export const AADForm = () => {
             
             
             <button className="btn btn-primary"
+                disabled={isLoading}
                 onClick={handleClickSaveAAD}>
                 Save AAD
             </button>
