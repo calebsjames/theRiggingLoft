@@ -1,0 +1,37 @@
+#homeMain {
+    display: flex;
+}
+
+
+#rightAside {
+    display: flex; 
+    flex: 78%;
+    margin-top: 20px;
+    padding: 10px;
+
+}
+
+#leftAside {
+    flex: 20%;
+    margin-top: 20px;
+    padding: 10px;
+
+}
+
+#slogan {
+    text-align: center;
+  }
+  
+  .containerLeft {
+    display: flex;
+    flex-direction: column;
+    flex: 20%;
+    /* border: #404040 2px solid; */
+    padding: 10px;
+    margin: 10px;
+    max-width: 300px;
+  }
+
+  .inspection {
+      padding: 10px;
+  }

@@ -39,7 +39,7 @@ export const CustomerForm = () => {
         deleteCustomer(customerId)
           .then(getCustomers)
           .then(() => {
-            history.push("/customers")
+            history.push("/home")
           })
       }
 
@@ -53,7 +53,7 @@ export const CustomerForm = () => {
         //save the customer
         addCustomer(customer)
         //change the url and display the customer list
-        .then(() => history.push("/customers"))
+        .then(() => history.push("/home"))
         }
     }
 

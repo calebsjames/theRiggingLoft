@@ -38,7 +38,7 @@ export const CustomerInspections = () => {
     const [inspection, setInspection] = useState({
     
         userId: parseInt(sessionStorage.getItem("app_user_id")),
-        customerId: customerId,
+        customerId: parseInt(customerId),
         
 
         date: date.toLocaleDateString(),
@@ -96,6 +96,11 @@ export const CustomerInspections = () => {
     
         event.preventDefault();
         addInspection(inspection)
+        // .then( insp => {
+        //     insp.id = insp
+        
+        //     history.push(`/inspection/detail/${insp.id}`)
+        // })
 
         const inspectionIndex = parseInt(inspections.length)
         const inspectionId = inspections[inspectionIndex-1].id

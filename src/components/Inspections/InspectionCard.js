@@ -21,10 +21,9 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
     
     const handleNewInspection = () => {
         
-        
         const inspection = {    
             userId: parseInt(sessionStorage.getItem("app_user_id")),
-            customerId: customerInstance.id,
+            customerId: parseInt(customerInstance.id),
             date: date.toLocaleDateString(),
             containerMainTray: false,
             containerReserveTray: false,
@@ -62,17 +61,17 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
         }
         
         addInspection(inspection)
-        // .then(getInspections)
+        // Must check if instance.id exists. Anything with a zero gets deleted.
         .then( insp => {
             let currentInspection = insp
             if (containerInstance?.id)  {
-                currentInspection.containerId = containerInstance?.id}
+                currentInspection.containerId = parseInt(containerInstance?.id)}
             if (reserveInstance?.id)  {
-                currentInspection.reserveId = reserveInstance?.id}
+                currentInspection.reserveId = parseInt(reserveInstance?.id)}
             if (mainParachuteInstance?.id)  {
-                currentInspection.mainParachuteId = mainParachuteInstance?.id}
+                currentInspection.mainParachuteId = parseInt(mainParachuteInstance?.id)}
             if (aadInstance?.id)  {
-                currentInspection.aadId = aadInstance?.id}
+                currentInspection.aadId = parseInt(aadInstance?.id)}
             patchInspection(currentInspection) 
             console.log(currentInspection?.id)
             history.push(`/inspections/detail/${currentInspection?.id}`)

@@ -167,7 +167,7 @@ export const InspectionForm = () => {
        //if inspectionId exists, edit
        if (inspectionId) {
            editInspection(inspection)
-           .then(history.push("/inspections"))
+           .then(history.goBack())
        } else {
         //if inspectionId does not exists, clear session storage and save inspection
         addInspection(inspection)
@@ -287,14 +287,22 @@ export const InspectionForm = () => {
         history.push(`/container/edit/${components.container?.id}`)
     }
 
-
+    
 
 
     //return statement
+    const currentInspection = inspections.find(insp => parseInt(insp.id) === parseInt(inspectionId))
+    const customer = customers.find(c => parseInt(c.id) === parseInt(currentInspection?.customerId))
+    
+
     return<>
         <h2 id="inspectionTitle">
-            {inspectionId ? "Inspection Details" : "New Inspection"}
+            {inspectionId ? `Inspection Details ` : "New Inspection"}
         </h2>
+        <h3 id="inspectionNameDate">
+            {inspectionId ? customer?.name + " " : ""}    
+            { currentInspection?.date} 
+        </h3>
         <section id="inspectionPage">    
             <article className="inspectionBox">
                 <form className="containerInspectionForm">
@@ -302,24 +310,23 @@ export const InspectionForm = () => {
                 
                 {/* container portion */}
                 <h3>Container</h3>
-                <div className="componentDetails">
-                    <p> {components.container?.manufacturer} {components.container?.model}</p>
-                    <p><b>Size: </b>{components.container?.size} </p>
-                    <p>Serial #: {components.container?.serialNumber} </p>
-                    <p>Color: {components.container?.color} </p>
-                    <p>DOM: {components.container?.dom} </p>
-                    <p>Notes: {components.container?.notes} </p>
-                    {components.container ? <button className="btn btn-primary"
-                        disabled={isLoading}
-                        onClick={handleClickEditContainer}>
-                        Edit</button> : ""}
-                    {components.container ? "" : <button className="btn btn-primary"
-                        disabled={isLoading}
-                        onClick={handleClickNewContainer}>
-                        New</button> }
-        
-                </div>
-
+                {/* <div className="componentInspection"> */}
+                    <div className="componentDetails">
+                        <p> {components.container?.manufacturer} {components.container?.model}</p>
+                        <p>Size: {components.container?.size} </p>
+                        <p>Serial #: {components.container?.serialNumber} </p>
+                        <p>Color: {components.container?.color} </p>
+                        <p>DOM: {components.container?.dom} </p>
+                        <p>Notes: {components.container?.notes} </p>
+                        {components.container ? <button className="btn btn-primary"
+                            disabled={isLoading}
+                            onClick={handleClickEditContainer}>
+                            Edit</button> : ""}
+                        {components.container ? "" : <button className="btn btn-primary"
+                            disabled={isLoading}
+                            onClick={handleClickNewContainer}>
+                            New</button> }
+                    </div>
                 <div className="componentBoxInspectionList">
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
@@ -396,13 +403,14 @@ export const InspectionForm = () => {
                         </div>
                     </fieldset>
                 </div>
+                {/* </div> */}
 
-                    <fieldset className="checkbox">
+                    {/* <fieldset className="checkbox">
                         <div className="form-group">
                             <label htmlFor="containerNotes">Notes:</label>
                             <input type="text" id="containerNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.containerNotes}/>
                         </div>
-                    </fieldset> 
+                    </fieldset>  */}
                     </article>
                     <article className="inspectionBox">
 
@@ -410,7 +418,7 @@ export const InspectionForm = () => {
                     <h3>Reserve</h3>
                     <div className="componentDetails">
                         <p> {components.reserve?.manufacturer} {components.reserve?.model} </p>
-                        <p><b>Size: </b> {components.reserve?.size} </p>
+                        <p>Size: {components.reserve?.size} </p>
                         <p>Serial #: {components.reserve?.serialNumber} </p>
                         <p>Color: {components.reserve?.color} </p>
                         <p>DOM: {components.reserve?.dom} </p>
@@ -468,12 +476,12 @@ export const InspectionForm = () => {
                             </div>
                         </fieldset>                             
                         </div>
-                        <fieldset className="checkbox">
+                        {/* <fieldset className="checkbox">
                             <div className="form-group">
                                 <label htmlFor="reserveNotes">Notes:</label>
                                 <input type="text" id="reserveNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.reserveNotes}/>
                             </div>
-                        </fieldset>
+                        </fieldset> */}
                     </article>
 
 
@@ -519,12 +527,12 @@ export const InspectionForm = () => {
                     </fieldset> 
                     </div>
 
-                    <fieldset className="checkbox">
+                    {/* <fieldset className="checkbox">
                         <div className="form-group">
                             <label htmlFor="aadNotes">Notes:</label>
                             <input type="text" id="aadNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.aadNotes}/>
                         </div>
-                    </fieldset>
+                    </fieldset> */}
                     </article>
                     
                     
@@ -533,7 +541,7 @@ export const InspectionForm = () => {
                         <h3>Main Parachute</h3>
                         <div className="componentDetails">
                             <p> {components.mainParachute?.manufacturer} {components.mainParachute?.model} </p>
-                            <p><b>Size: </b> {components.mainParachute?.size} </p>
+                            <p>Size: {components.mainParachute?.size} </p>
                             <p>Serial #: {components.mainParachute?.serialNumber} </p>
                             <p>Color: {components.mainParachute?.color} </p>
                             <p>DOM: {components.mainParachute?.dom} </p>
@@ -598,13 +606,13 @@ export const InspectionForm = () => {
                             </fieldset> 
                         </div>
                             
+                    </article>
                             <fieldset className="checkbox">
                                 <div className="form-group">
-                                    <label htmlFor="mainNotes">Notes:</label>
+                                    <label htmlFor="mainNotes">Notes:</label><br></br>
                                     <input type="text" id="mainNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.mainNotes}/>
                                 </div>
                             </fieldset>
-                    </article>
                 </form>   
         </article>
         </section>
