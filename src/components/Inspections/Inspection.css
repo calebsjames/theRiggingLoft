@@ -6,6 +6,7 @@
 
 .inspectionBox {
     flex: 48%;
+    margin: 0px 10px;
 }
 
 .inspectionDetails{
@@ -18,7 +19,12 @@
     display: flex;
 }
 
+.componentInspection {
+    display: flex;
+}
+
 .componentDetails {
+    flex: 70%;
 }
 
 .checkbox {
@@ -50,4 +56,5 @@
     justify-content: space-between;
     margin: 10px;
     display: flex;
+    width: 750;
 }

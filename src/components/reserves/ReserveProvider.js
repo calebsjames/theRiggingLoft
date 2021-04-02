@@ -26,15 +26,7 @@ export const ReserveProvider = (props) => {
         })
         //get the new object back
         .then(res => res.json())
-        //set useState variable to new object
-        // .then(reserveObject => {
-        //     setReserveId(reserveObject.id)
-        //     //put the item id in session storage
-            
-        // })
-        // .then(getReserves)
         .then(res => {
-            console.log(res.id)
             return res.id})
     }
 

@@ -30,11 +30,19 @@ export const InspectionList = () => {
     
     //gets inspections that are specific to the logged in user
     const userInspections = inspections.filter(insp => parseInt(insp.userId) === parseInt(sessionStorage.getItem("app_user_id")))
-  
+    //returns inspection entries sorted by date
+    
+      const inspectionsSorted = userInspections.sort(
+          (nextInspection, currentInspection) =>
+              Date.parse(currentInspection.date) - Date.parse(nextInspection.date)
+      )
+      
+    
+
     return (
     <>
     <div className="inspections">
-      {userInspections.map(inspectionObject => {
+      {inspectionsSorted.map(inspectionObject => {
           const customer = customers.find(c => parseInt(c.id) === parseInt(inspectionObject.customerId))
           const container = containers.find(cont => parseInt(cont.id) === parseInt(inspectionObject.containerId))
           const reserve = reserves.find(r => parseInt(r.id) === parseInt(inspectionObject.reserveId))

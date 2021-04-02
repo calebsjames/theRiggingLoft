@@ -17,7 +17,9 @@ import { MainParachuteForm } from "./components/mainparachutes/MainParachuteForm
 import { MainParachuteProvider } from "./components/mainparachutes/MainParachuteProvider"
 import { ReserveForm } from "./components/reserves/ReserveForm"
 import { ReserveProvider } from "./components/reserves/ReserveProvider"
-
+import { InspectionAsideList } from "./components/aside/InspectionAsideList"
+import { CustomerAside } from "./components/aside/CustomerAside"
+import { CustomerAsideList } from "./components/aside/CustomerAsideList"
 
 
 
@@ -40,7 +42,7 @@ export const ApplicationViews = () => {
                                 <ReserveProvider>
                                     <MainParachuteProvider>
                                         <InspectionProvider>
-                                            <InspectionList />
+                                            <Home />
                                         </InspectionProvider>
                                     </MainParachuteProvider>
                                 </ReserveProvider>

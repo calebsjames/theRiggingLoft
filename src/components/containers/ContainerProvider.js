@@ -26,14 +26,7 @@ export const ContainerProvider = (props) => {
         })
         //get the new object back
         .then(res => res.json())
-        //set useState variable to new object
-        // .then(containerObject => {
-        //     setContainerId(containerObject.id)
-        //     //put the item id in session storage
-        // })
-        // .then(getContainers)
         .then(cont => {
-            console.log(cont.id)
             return cont.id})
         
     }

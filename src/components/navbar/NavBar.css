@@ -1,10 +1,13 @@
 .navbar {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: flex-end;
+    margin: 20px;
 }
 
 .navbar__item {
     flex-basis: 20%;
     list-style-type: none;
+    text-align: center;
+    max-width: fit-content;
 }

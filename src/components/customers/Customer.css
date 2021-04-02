@@ -16,6 +16,7 @@
 }
 
 .customerNav {
-    justify-content: space-between;
+    justify-content: end;
     display: flex;
+
 }

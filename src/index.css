@@ -23,4 +23,22 @@ code {
     monospace;
 }
 
-/* header {} */
+#slogan {
+  text-align: center;
+}
+
+#pageHeader {
+  text-align: center;
+  
+}
+
+a {
+  color: #404040;
+}
+a:visited {
+  color: #404040;
+}
+a:hover, a:active, a:focus {
+  color:rgb(157, 49, 49);
+}
+

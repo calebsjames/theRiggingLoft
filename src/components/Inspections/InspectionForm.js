@@ -42,18 +42,14 @@ export const InspectionForm = () => {
     
     //useEffect to house if() statement that sets components object based on URL    
     useEffect(() => {
-        
-        // if(inspectionId) 
-        // {
+
             const newComponents = { ...components }
-            
-            //logic that runs if it's an edit
             const currentInspection = inspections.find(insp => parseInt(insp.id) === parseInt(inspectionId))
             const customer = customers.find(c => parseInt(c.id) === parseInt(currentInspection?.customerId))
-            const container = containers.find(cont => parseInt(cont.id) === parseInt(currentInspection.containerId))
-            const reserve = reserves.find(c => parseInt(c.id) === parseInt(currentInspection.reserveId))
-            const aad = aads.find(c => parseInt(c.id) === parseInt(currentInspection.aadId))
-            const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(currentInspection.mainParachuteId))
+            const container = containers.find(cont => parseInt(cont.id) === parseInt(currentInspection?.containerId))
+            const reserve = reserves.find(c => parseInt(c.id) === parseInt(currentInspection?.reserveId))
+            const aad = aads.find(c => parseInt(c.id) === parseInt(currentInspection?.aadId))
+            const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(currentInspection?.mainParachuteId))
             
             newComponents.container = container
             newComponents.reserve = reserve
@@ -62,37 +58,15 @@ export const InspectionForm = () => {
             newComponents.customer = customer
             setComponents(newComponents)    
             
-        // } else {
-        //     const newComponents = { ...components }
-            
-        //     //logic that runs if it's a new form
-        //     const customer = customers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("customerId")))
-        //     const container = containers.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("containerId")))
-        //     const reserve = reserves.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("reserveId")))
-        //     const aad = aads.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("aadId")))
-        //     const mainParachute = mainParachutes.find(c => parseInt(c.id) === parseInt(sessionStorage.getItem("mainParachuteId")))
-            
-        //     newComponents.container = container
-        //     newComponents.reserve = reserve
-        //     newComponents.aad = aad
-        //     newComponents.mainParachute = mainParachute
-        //     newComponents.customer = customer
-            
-        //     setComponents(newComponents)  
-        // }  
-        //runs after getContainers updates containers
     }, [containers])
     
-    let date = new Date 
+    
+    const date = new Date
     //Define the intial state of the form inputs with useState()
     const [inspection, setInspection] = useState({
-        
-        userId: parseInt(sessionStorage.getItem("app_user_id")),
-   
-        date: new Date,
- 
 
-        customerId: parseInt(sessionStorage.getItem("customerId")),
+        userId: parseInt(sessionStorage.getItem("app_user_id")),
+        customerId: 0,
         date: date.toLocaleDateString(),
         containerMainTray: false,
         containerReserveTray: false,
@@ -105,7 +79,7 @@ export const InspectionForm = () => {
         containerReserveHandle: false,
         containerCutawayHandle: false,
         containerWebbing: false,
-        containerNotes: null,
+        containerNotes: "",
         reserveDBag: false,
         reserveLinks: false,
         reserveSuspensionLines: false,
@@ -114,7 +88,6 @@ export const InspectionForm = () => {
         reserveSeamFabric: false,
         reserveSlider: false,
         reserveNotes: "",
-        reserveId: "",
         mainDBag: false,
         mainLinks: false,
         mainSuspensionLines: false,
@@ -123,17 +96,16 @@ export const InspectionForm = () => {
         mainSeamFabric: false,
         mainSlider: false,
         mainNotes: "",
-        mainParachuteId: null,
         aadInstallation: false,
         aadCables: false,
         aadInService: false,
-        aadNotes: "",
-        aadId: null,
+        aadNotes: ""
         
     });
     
     
     // Get Inspections. If InspectionId is in the URL, getInspectionById and display edit info
+    // prevents users from clicking button twice and sending again
     useEffect(() => {        
         getInspections().then(() => {
     
@@ -196,7 +168,7 @@ export const InspectionForm = () => {
        //if inspectionId exists, edit
        if (inspectionId) {
            editInspection(inspection)
-           .then(history.push("/inspections"))
+           .then(history.goBack())
        } else {
         //if inspectionId does not exists, clear session storage and save inspection
         addInspection(inspection)
@@ -234,14 +206,11 @@ export const InspectionForm = () => {
         addContainer(container)
         .then( cont => {
             container.id = cont
-            console.log("!", container.id)
-            
             const newInspection = { ...inspection }
             newInspection.containerId = container.id
             patchInspection(newInspection)
             history.push(`/container/edit/${container.id}`)
-        })
-        
+        })   
     }
     
     const handleClickNewReserve = () => {
@@ -257,8 +226,6 @@ export const InspectionForm = () => {
         addReserve(reserve)
         .then( res => {
             reserve.id = res
-            console.log("!", reserve.id)
-            
             const newInspection = { ...inspection }
             newInspection.reserveId = reserve.id
             patchInspection(newInspection)
@@ -280,8 +247,6 @@ export const InspectionForm = () => {
         addMainParachute(mainParachute)
         .then( main => {
             mainParachute.id = main
-            console.log("!", mainParachute.id)
-            
             const newInspection = { ...inspection }
             newInspection.mainParachuteId = mainParachute.id
             patchInspection(newInspection)
@@ -303,8 +268,6 @@ export const InspectionForm = () => {
         
         .then( a => {
             aad.id = a
-            console.log("!", aad.id)
-            
             const newInspection = { ...inspection }
             newInspection.aadId = aad.id
             patchInspection(newInspection)
@@ -325,14 +288,22 @@ export const InspectionForm = () => {
         history.push(`/container/edit/${components.container?.id}`)
     }
 
-
+    
 
 
     //return statement
+    const currentInspection = inspections.find(insp => parseInt(insp.id) === parseInt(inspectionId))
+    const customer = customers.find(c => parseInt(c.id) === parseInt(currentInspection?.customerId))
+    
+
     return<>
         <h2 id="inspectionTitle">
-            {inspectionId ? "Inspection Details" : "New Inspection"}
+            {inspectionId ? `Inspection Details ` : "New Inspection"}
         </h2>
+        <h3 id="inspectionNameDate">
+            {inspectionId ? customer?.name + " " : ""}    
+            { currentInspection?.date} 
+        </h3>
         <section id="inspectionPage">    
             <article className="inspectionBox">
                 <form className="containerInspectionForm">
@@ -340,24 +311,23 @@ export const InspectionForm = () => {
                 
                 {/* container portion */}
                 <h3>Container</h3>
-                <div className="componentDetails">
-                    <p> {components.container?.manufacturer} {components.container?.model}</p>
-                    <p><b>Size: </b>{components.container?.size} </p>
-                    <p>Serial #: {components.container?.serialNumber} </p>
-                    <p>Color: {components.container?.color} </p>
-                    <p>DOM: {components.container?.dom} </p>
-                    <p>Notes: {components.container?.notes} </p>
-                    {components.container ? <button className="btn btn-primary"
-                        disabled={isLoading}
-                        onClick={handleClickEditContainer}>
-                        Edit</button> : ""}
-                    {components.container ? "" : <button className="btn btn-primary"
-                        disabled={isLoading}
-                        onClick={handleClickNewContainer}>
-                        New</button> }
-        
-                </div>
-
+                {/* <div className="componentInspection"> */}
+                    <div className="componentDetails">
+                        <p> {components.container?.manufacturer} {components.container?.model}</p>
+                        <p>Size: {components.container?.size} </p>
+                        <p>Serial #: {components.container?.serialNumber} </p>
+                        <p>Color: {components.container?.color} </p>
+                        <p>DOM: {components.container?.dom} </p>
+                        <p>Notes: {components.container?.notes} </p>
+                        {components.container ? <button className="btn btn-primary"
+                            disabled={isLoading}
+                            onClick={handleClickEditContainer}>
+                            Edit</button> : ""}
+                        {components.container ? "" : <button className="btn btn-primary"
+                            disabled={isLoading}
+                            onClick={handleClickNewContainer}>
+                            New</button> }
+                    </div>
                 <div className="componentBoxInspectionList">
                     <fieldset className="checkbox">
                         <div className="inspection-form-group">
@@ -434,13 +404,14 @@ export const InspectionForm = () => {
                         </div>
                     </fieldset>
                 </div>
+                {/* </div> */}
 
-                    <fieldset className="checkbox">
+                    {/* <fieldset className="checkbox">
                         <div className="form-group">
                             <label htmlFor="containerNotes">Notes:</label>
                             <input type="text" id="containerNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.containerNotes}/>
                         </div>
-                    </fieldset> 
+                    </fieldset>  */}
                     </article>
                     <article className="inspectionBox">
 
@@ -448,7 +419,7 @@ export const InspectionForm = () => {
                     <h3>Reserve</h3>
                     <div className="componentDetails">
                         <p> {components.reserve?.manufacturer} {components.reserve?.model} </p>
-                        <p><b>Size: </b> {components.reserve?.size} </p>
+                        <p>Size: {components.reserve?.size} </p>
                         <p>Serial #: {components.reserve?.serialNumber} </p>
                         <p>Color: {components.reserve?.color} </p>
                         <p>DOM: {components.reserve?.dom} </p>
@@ -506,12 +477,12 @@ export const InspectionForm = () => {
                             </div>
                         </fieldset>                             
                         </div>
-                        <fieldset className="checkbox">
+                        {/* <fieldset className="checkbox">
                             <div className="form-group">
                                 <label htmlFor="reserveNotes">Notes:</label>
                                 <input type="text" id="reserveNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.reserveNotes}/>
                             </div>
-                        </fieldset>
+                        </fieldset> */}
                     </article>
 
 
@@ -557,12 +528,12 @@ export const InspectionForm = () => {
                     </fieldset> 
                     </div>
 
-                    <fieldset className="checkbox">
+                    {/* <fieldset className="checkbox">
                         <div className="form-group">
                             <label htmlFor="aadNotes">Notes:</label>
                             <input type="text" id="aadNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.aadNotes}/>
                         </div>
-                    </fieldset>
+                    </fieldset> */}
                     </article>
                     
                     
@@ -571,7 +542,7 @@ export const InspectionForm = () => {
                         <h3>Main Parachute</h3>
                         <div className="componentDetails">
                             <p> {components.mainParachute?.manufacturer} {components.mainParachute?.model} </p>
-                            <p><b>Size: </b> {components.mainParachute?.size} </p>
+                            <p>Size: {components.mainParachute?.size} </p>
                             <p>Serial #: {components.mainParachute?.serialNumber} </p>
                             <p>Color: {components.mainParachute?.color} </p>
                             <p>DOM: {components.mainParachute?.dom} </p>
@@ -636,13 +607,13 @@ export const InspectionForm = () => {
                             </fieldset> 
                         </div>
                             
+                    </article>
                             <fieldset className="checkbox">
                                 <div className="form-group">
-                                    <label htmlFor="mainNotes">Notes:</label>
+                                    <label htmlFor="mainNotes">Notes:</label><br></br>
                                     <input type="text" id="mainNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.mainNotes}/>
                                 </div>
                             </fieldset>
-                    </article>
                 </form>   
         </article>
         </section>

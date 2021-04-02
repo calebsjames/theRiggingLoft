@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { useHistory, useParams } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { InspectionContext } from "./InspectionProvider"
 import "./Inspection.css"
 
@@ -7,7 +7,7 @@ import "./Inspection.css"
 //This displays basic information about the inspection
 export const InspectionCard = ({ inspectionInstance, customerInstance, containerInstance, reserveInstance, mainParachuteInstance, aadInstance }) => {
 
-    const { inspections, getInspections, deleteInspection, addInspection } = useContext(InspectionContext)
+    const { inspections, getInspections, deleteInspection, patchInspection, addInspection } = useContext(InspectionContext)
     
     const history = useHistory()
 
@@ -16,30 +16,15 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
         history.push(`/inspections/detail/${inspectionInstance.id}`) 
     }
 
-    //delete button functionality
-    const handleDelete = () => {
-        deleteInspection(inspectionInstance.id)
-          .then(getInspections)
-          .then(() => {
-            history.push("/inspections")
-          })
-      }
 
-    /*if user presses "New Inspection" button, the IDs of the referenced 
-    inspection are captured and held in sessionStorage until inspection is saved*/
+    const date = new Date
+    
     const handleNewInspection = () => {
-        // sessionStorage.setItem("customerId", customerInstance.id)
-        // sessionStorage.setItem("containerId", containerInstance.id)
-        // sessionStorage.setItem("reserveId", reserveInstance.id)
-        // sessionStorage.setItem("mainParachuteId", mainParachuteInstance.id)
-        // sessionStorage.setItem("aadId", aadInstance.id)
         
-        const inspection = {
-            
+        const inspection = {    
             userId: parseInt(sessionStorage.getItem("app_user_id")),
-            customerId: customerInstance.id,
-            date: new Date,
-            containerId: containerInstance?.id ? containerInstance?.id : 0,
+            customerId: parseInt(customerInstance.id),
+            date: date.toLocaleDateString(),
             containerMainTray: false,
             containerReserveTray: false,
             containerHardware: false,
@@ -60,7 +45,6 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
             reserveSeamFabric: false,
             reserveSlider: false,
             reserveNotes: "",
-            reserveId: reserveInstance?.id ? reserveInstance?.id : 0,
             mainDBag: false,
             mainLinks: false,
             mainSuspensionLines: false,
@@ -69,21 +53,29 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
             mainSeamFabric: false,
             mainSlider: false,
             mainNotes: "",
-            mainParachuteId: mainParachuteInstance?.id ? mainParachuteInstance?.id : 0,
             aadInstallation: false,
             aadCables: false,
             aadInService: false,
             aadNotes: "",
-            aadId: aadInstance?.id ? aadInstance?.id : 0
             
         }
+        
         addInspection(inspection)
-        const inspectionIndex = parseInt(inspections.length)
-        const inspectionId = inspections[inspectionIndex-1].id
-        
-        history.push(`/inspections/detail/${inspectionId+1}`)
-        
-        
+        // Must check if instance.id exists. Anything with a zero gets deleted.
+        .then( insp => {
+            let currentInspection = insp
+            if (containerInstance?.id)  {
+                currentInspection.containerId = parseInt(containerInstance?.id)}
+            if (reserveInstance?.id)  {
+                currentInspection.reserveId = parseInt(reserveInstance?.id)}
+            if (mainParachuteInstance?.id)  {
+                currentInspection.mainParachuteId = parseInt(mainParachuteInstance?.id)}
+            if (aadInstance?.id)  {
+                currentInspection.aadId = parseInt(aadInstance?.id)}
+            patchInspection(currentInspection) 
+            console.log(currentInspection?.id)
+            history.push(`/inspections/detail/${currentInspection?.id}`)
+        })
     }
     
     
@@ -117,9 +109,6 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
         <button className="inspectionButton" onClick={(handleDetails)}>
                 Details
             </button>
-        {/* <button className="inspectionButton" onClick={(handleDelete)}>
-                Delete
-            </button> */}
         <button className="inspectionButton" onClick={(handleNewInspection)}>
                 New Inpection
             </button>

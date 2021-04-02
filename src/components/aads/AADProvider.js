@@ -26,14 +26,7 @@ export const AADProvider = (props) => {
         })
         //get the new object back
         .then(res => res.json())
-        //set useState variable to new object
-        // .then(aadObject => {
-        //     setAADId(aadObject.id)
-
-        // })
-        // .then(getAADs)
         .then(aad => {
-            console.log(aad.id)
             return aad.id})
     }
 
