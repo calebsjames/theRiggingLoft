@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { useHistory, useParams } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { InspectionContext } from "./InspectionProvider"
 import "./Inspection.css"
 

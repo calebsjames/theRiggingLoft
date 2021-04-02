@@ -105,6 +105,7 @@ export const InspectionForm = () => {
     
     
     // Get Inspections. If InspectionId is in the URL, getInspectionById and display edit info
+    // prevents users from clicking button twice and sending again
     useEffect(() => {        
         getInspections().then(() => {
     
