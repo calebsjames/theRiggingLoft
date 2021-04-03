@@ -11,9 +11,9 @@ export const CustomerAsideList = () => {
     const { getCustomers, customers, searchTerms } = useContext(CustomerContext)
     // Since you are no longer ALWAYS displaying all of the customers
     const [ filteredCustomers, setFiltered ] = useState([])
-  
-    
     const userCustomers = customers.filter(cust => parseInt(cust.userId) === parseInt(sessionStorage.getItem("app_user_id")))
+    const sortedCustomers  = userCustomers.sort()
+    console.log("SORTED", customers.sort())
     // Initialization effect hook -> Go get customer data 
      useEffect(() => {
        getCustomers()
@@ -26,7 +26,7 @@ export const CustomerAsideList = () => {
         if (searchTerms !== undefined) {
          
           // If the search field is not blank, display matching customers
-          const subset = userCustomers.filter(customer => customer.name.toLowerCase().includes(searchTerms.toLowerCase()))
+          const subset = sortedCustomers.filter(customer => customer.name.toLowerCase().includes(searchTerms.toLowerCase()))
           setFiltered(subset)
         } else {
           // If the search field is blank, display all customers

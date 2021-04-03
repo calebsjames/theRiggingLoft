@@ -611,7 +611,7 @@ export const InspectionForm = () => {
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="mainNotes">Notes:</label><br></br>
-                                    <input type="text" id="mainNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.mainNotes}/>
+                                    <input type="text" width="3000px" id="mainNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.mainNotes}/>
                                 </div>
                             </fieldset>
                 </form>   

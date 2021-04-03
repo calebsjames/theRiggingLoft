@@ -14,33 +14,20 @@ export const CustomerInspections = () => {
     
     const history = useHistory()
 
-    const { customers, getCustomers, getCustomerById } = useContext(CustomerContext)
-    const { reserves, getReserves, addReserve } = useContext(ReserveContext)
-    const { containers, getContainers, addContainer } = useContext(ContainerContext)
-    const { aads, getAADs, addAAD } = useContext(AADContext)
-    const { mainParachutes, getMainParachutes, addMainParachute } = useContext(MainParachuteContext)
+    const { customers, getCustomers } = useContext(CustomerContext)
+    const { reserves, getReserves } = useContext(ReserveContext)
+    const { containers, getContainers } = useContext(ContainerContext)
+    const { aads, getAADs } = useContext(AADContext)
+    const { mainParachutes, getMainParachutes } = useContext(MainParachuteContext)
     const { inspections, getInspections, addInspection } = useContext(InspectionContext)
     const { customerId } = useParams();
     
-    const [ids, setIds] = useState({
-        reserveId: 0,
-        aadId: 0,
-        containerId: 0,
-        mainParachuteId: 0
-
-    })
-
     let date = new Date 
-
-    // const containerIndex = parseInt(containers.length)
-    // const containerId = containers[containerIndex-1].id
 
     const [inspection, setInspection] = useState({
     
         userId: parseInt(sessionStorage.getItem("app_user_id")),
         customerId: parseInt(customerId),
-        
-
         date: date.toLocaleDateString(),
         containerMainTray: false,
         containerReserveTray: false,

@@ -11,9 +11,10 @@ export const CustomerList = () => {
     const { getCustomers, customers, searchTerms } = useContext(CustomerContext)
     // Since you are no longer ALWAYS displaying all of the customers
     const [ filteredCustomers, setFiltered ] = useState([])
-  
+  debugger
     const userCustomers = customers.filter(cust => parseInt(cust.userId) === parseInt(sessionStorage.getItem("app_user_id")))
     const sortedCustomers  = userCustomers.sort()
+    console.log("sorted", sortedCustomers)
     
     // Initialization effect hook -> Go get customer data 
     useEffect(() => {
@@ -35,8 +36,7 @@ export const CustomerList = () => {
       }
     }, [searchTerms, customers])
     
-    
-    debugger
+  
     return (
         <>
             <h2>Customers</h2>
