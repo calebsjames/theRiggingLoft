@@ -15,9 +15,9 @@ export const ContainerForm = () => {
 
     //Define the intial state of the form inputs with useState()
     const [container, setContainer] = useState({
-      manufacturer: "",
-      model: "",
-      size: "",
+      manufacturer: "Sunpath",
+      model: "Javelin",
+      size: "TJNK",
       serialNumber: "",
       color: "",
       dom: "",

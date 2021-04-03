@@ -1,6 +1,8 @@
 import React, { useContext } from "react"
 import { useHistory } from "react-router-dom"
 import { InspectionContext } from "./InspectionProvider"
+import { Accordion, Card } from "react-bootstrap"
+import Button from "react-bootstrap/Button"
 import "./Inspection.css"
 
 //InspectionCard is called in InspectionList.js and CustomerInspections.js
@@ -114,6 +116,14 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
             </button>
       
     </section>
+    {/* <Card>
+        <Accordion.Toggle as={Card.Header} eventKey={customerInstance?.id}>
+          <div className="customer__name">{customerInstance?.name}</div>
+        </Accordion.Toggle>
+        <Accordion.Collapse eventKey={customerInstance?.name}>
+          <Card.Body><Button variant="danger" className="friend__removeFriend friends__btn" id={`btn--${customerInstance?.name}`} onClick={handleNewInspection} >New Inspection</Button></Card.Body>
+        </Accordion.Collapse>
+      </Card> */}
     </>
     )
 }

@@ -7,6 +7,7 @@ import { CustomerContext } from "../customers/CustomerProvider"
 import { MainParachuteContext } from "../mainparachutes/MainParachuteProvider"
 import { ReserveContext } from "../reserves/ReserveProvider"
 import "./Inspection.css"
+import Accordion from "react-bootstrap/Accordion"
 
 
 
@@ -32,9 +33,10 @@ export const InspectionList = () => {
     const userInspections = inspections.filter(insp => parseInt(insp.userId) === parseInt(sessionStorage.getItem("app_user_id")))
     //returns inspection entries sorted by date
     
-      const inspectionsSorted = userInspections.sort(
-          (nextInspection, currentInspection) =>
-              Date.parse(currentInspection.date) - Date.parse(nextInspection.date)
+    //sort inspections by date
+    const inspectionsSorted = userInspections.sort(
+        (nextInspection, currentInspection) =>
+            Date.parse(currentInspection.date) - Date.parse(nextInspection.date)
       )
       
     
@@ -42,6 +44,7 @@ export const InspectionList = () => {
     return (
     <>
     <div className="inspections">
+    <Accordion defaultActiveKey="0">
       {inspectionsSorted.map(inspectionObject => {
           const customer = customers.find(c => parseInt(c.id) === parseInt(inspectionObject.customerId))
           const container = containers.find(cont => parseInt(cont.id) === parseInt(inspectionObject.containerId))
@@ -59,6 +62,7 @@ export const InspectionList = () => {
           />
         })
     }
+     </Accordion>
     </div>
     </>
   )
