@@ -12,8 +12,10 @@ export const CustomerAsideList = () => {
     // Since you are no longer ALWAYS displaying all of the customers
     const [ filteredCustomers, setFiltered ] = useState([])
     const userCustomers = customers.filter(cust => parseInt(cust.userId) === parseInt(sessionStorage.getItem("app_user_id")))
-    const sortedCustomers  = userCustomers.sort()
-    console.log("SORTED", customers.sort())
+    const sortedCustomers  = userCustomers.sort((a, b) => a.name.localeCompare(b.name))
+    // users.sort((a, b) => a.firstname.localeCompare(b.firstname))
+
+    console.log("SORTED!", sortedCustomers)
     // Initialization effect hook -> Go get customer data 
      useEffect(() => {
        getCustomers()
