@@ -13,7 +13,6 @@ export const CustomerAsideList = () => {
     const [ filteredCustomers, setFiltered ] = useState([])
     const userCustomers = customers.filter(cust => parseInt(cust.userId) === parseInt(sessionStorage.getItem("app_user_id")))
     const sortedCustomers  = userCustomers.sort((a, b) => a.name.localeCompare(b.name))
-    // users.sort((a, b) => a.firstname.localeCompare(b.firstname))
 
     console.log("SORTED!", sortedCustomers)
     // Initialization effect hook -> Go get customer data 
