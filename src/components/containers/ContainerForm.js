@@ -88,51 +88,49 @@ export const ContainerForm = () => {
     //Return this HTML
     return (
         <>
-        <section className="main">
-        <form className="containerForm">
-            <h2 className="rigForm__title">New Rig</h2>
-            <h3>Container</h3>
+        <section className="main modal--parent">
+        <form className="containerForm modal--content">
+            <h2 className="formTitle">Container</h2>
             <div className="intakeBox" id="container">
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="containerManufacturer">Manufacturer:</label>
-                    <input type="text" id="manufacturer" onChange={handleControlledInputChange} autoFocus className="form-control" placeholder="Manufacturer" value={container.manufacturer}/>
+                    <label htmlFor="containerManufacturer">Manufacturer: </label>
+                    <input type="text" id="manufacturer" onChange={handleControlledInputChange} autoFocus className="form-control" placeholder="Manufacturer" value={container?.manufacturer}/>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="containerModel">Model:</label>
+                    <label htmlFor="containerModel">Model: </label>
                     <input type="text" id="model" onChange={handleControlledInputChange} className="form-control" placeholder="Model" value={container.model}/>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="containerSize">Size:</label>
+                    <label htmlFor="containerSize">Size: </label>
                     <input type="text" id="size" onChange={handleControlledInputChange} className="form-control" placeholder="Size" value={container.size}/>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="containerSerial">Serial:</label>
+                    <label htmlFor="containerSerial">Serial: </label>
                     <input type="text" id="serialNumber" onChange={handleControlledInputChange} className="form-control" placeholder="Serial #" value={container.serialNumber}/>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="containerColor">Color:</label>
+                    <label htmlFor="containerColor">Color: </label>
                     <input type="text" id="color" onChange={handleControlledInputChange} className="form-control" placeholder="Color" value={container.color}/>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="containerColor">DOM:</label>
+                    <label htmlFor="containerColor">DOM: </label>
                     <input type="text" id="dom" onChange={handleControlledInputChange} className="form-control" placeholder="DOM" value={container.Dom}/>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="containerNotes">Notes:</label>
-                    <input type="text" id="notes" onChange={handleControlledInputChange} className="form-control" placeholder="Notes" value={container.notes}/>
+                    <textarea cols="50" rows="10" id="notes" onChange={handleControlledInputChange} className="form-control" placeholder="Notes" value={container.notes}/>
                 </div>
             </fieldset>
             </div>

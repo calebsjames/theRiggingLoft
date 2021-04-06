@@ -18,6 +18,14 @@ h1,h2,h3,h4,h5,h6 {
   letter-spacing: 2px;
 }
 
+.form {
+border: white solid 0px;
+}
+
+.formTitle {
+  margin: 10px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -42,3 +50,32 @@ a:hover, a:active, a:focus {
   color:rgb(157, 49, 49);
 }
 
+.btn{ 
+  margin: 10px;
+}
+
+.modal--parent {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.521);
+  z-index: 999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow-y: initial;
+}
+
+.modal--content {
+  background-color: white;
+  border: 1px solid black;
+  width: 80%;
+  max-width: 700px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 1em;
+  box-shadow: 0px 0px 10px 0px black;
+  transform: translate(-50%, -50%);
+  max-height: 80vh;
+  overflow-y: auto;
+}

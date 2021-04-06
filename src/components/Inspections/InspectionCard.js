@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import { InspectionContext } from "./InspectionProvider"
 import { Accordion, Card } from "react-bootstrap"
 import Button from "react-bootstrap/Button"
@@ -9,8 +9,8 @@ import "./Inspection.css"
 //This displays basic information about the inspection
 export const InspectionCard = ({ inspectionInstance, customerInstance, containerInstance, reserveInstance, mainParachuteInstance, aadInstance }) => {
 
-    const { inspections, getInspections, deleteInspection, patchInspection, addInspection } = useContext(InspectionContext)
-    
+    const { patchInspection, addInspection } = useContext(InspectionContext)
+    const { customerId } = useParams()
     const history = useHistory()
 
     //if user presses "details" button, they will be taken to details page
@@ -84,34 +84,34 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
     
     return(
     <>
-    <h3 className="inspection">
-        { customerInstance?.name } { inspectionInstance?.date }
+    <h3 className="formTitle">
+    {customerId ? "" : customerInstance?.name} { inspectionInstance?.date }
     </h3>
     <section className="inspectionCard" id={`inspectionId--${inspectionInstance.id}`}>
         <div className="componentBox">
             <h3>{ containerInstance?.manufacturer } </h3> 
             <p>{ containerInstance?.model }</p>
-            <p>Serial #: { containerInstance?.serialNumber }</p>
+            <p>{ containerInstance ? "Serial #: " + containerInstance?.serialNumber : "" }</p>
         </div>
         <div className="componentBox">
             <h3>{ reserveInstance?.manufacturer }</h3>
             <p>{ reserveInstance?.model }</p>
-            <p>Serial #: { reserveInstance?.serialNumber }</p>
+            <p>{ reserveInstance ? "Serial #: " + reserveInstance?.serialNumber : "" }</p>
         </div>
         <div className="componentBox">
             <h3>{ aadInstance?.manufacturer } </h3>
             <p>{ aadInstance?.model }</p>
-            <p>Serial #: { aadInstance?.serialNumber }</p>
+            <p>{ aadInstance ? "Serial #: " + aadInstance?.serialNumber : "" }</p>
         </div>
         <div className="componentBox">
             <h3>{ mainParachuteInstance?.manufacturer } </h3>
             <p>{ mainParachuteInstance?.model }</p>
-            <p>Serial #: { mainParachuteInstance?.serialNumber }</p>
+            <p>{ mainParachuteInstance ? "Serial #: " + mainParachuteInstance?.serialNumber : "" }</p>
         </div>
-        <button className="inspectionButton" onClick={(handleDetails)}>
+        <button className="btn inspectionButton" onClick={(handleDetails)}>
                 Details
             </button>
-        <button className="inspectionButton" onClick={(handleNewInspection)}>
+        <button className="btn inspectionButton" onClick={(handleNewInspection)}>
                 New Inpection
             </button>
       
@@ -124,6 +124,7 @@ export const InspectionCard = ({ inspectionInstance, customerInstance, container
           <Card.Body><Button variant="danger" className="friend__removeFriend friends__btn" id={`btn--${customerInstance?.name}`} onClick={handleNewInspection} >New Inspection</Button></Card.Body>
         </Accordion.Collapse>
       </Card> */}
+      
     </>
     )
 }

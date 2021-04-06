@@ -86,52 +86,51 @@ export const ReserveForm = () => {
 
     return (
         <>
-        <section className="main">
-        <article className="containerRight">
+        <section className="main modal--parent">
+        <article className="containerRight modal--content">
         <form className="reserveForm">
-            <h2 className="rigForm__title">New Rig</h2>
-            <h3>Reserve</h3>
+            
+            <h2 className="formTitle">Reserve</h2>
             <div className="intakeBox" id="reserve">
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="Manufacturer">Manufacturer:</label>
+                    <label htmlFor="Manufacturer">Manufacturer: </label>
                     <input type="text" id="manufacturer" onChange={handleControlledInputChange} autoFocus className="form-control" placeholder="Manufacturer" value={reserve.manufacturer}/>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="Model">Model:</label>
+                    <label htmlFor="Model">Model: </label>
                     <input type="text" id="model" onChange={handleControlledInputChange} className="form-control" placeholder="Model" value={reserve.model}/>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="Size">Size:</label>
+                    <label htmlFor="Size">Size: </label>
                     <input type="text" id="size" onChange={handleControlledInputChange} className="form-control" placeholder="Size" value={reserve.size}/>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="Serial">Serial:</label>
+                    <label htmlFor="Serial">Serial: </label>
                     <input type="text" id="serialNumber" onChange={handleControlledInputChange} className="form-control" placeholder="Serial #" value={reserve.serial}/>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="Color">Color:</label>
+                    <label htmlFor="Color">Color: </label>
                     <input type="text" id="color" onChange={handleControlledInputChange} className="form-control" placeholder="Color" value={reserve.color}/>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="dom">DOM:</label>
+                    <label htmlFor="dom">DOM: </label>
                     <input type="text" id="dom" onChange={handleControlledInputChange} className="form-control" placeholder="dom" value={reserve.dom}/>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="notes">Notes:</label>
-                    <input type="text" id="notes" onChange={handleControlledInputChange} className="form-control" placeholder="Notes" value={reserve.notes}/>
+                    <textarea cols="50" rows="10" id="notes" onChange={handleControlledInputChange} className="form-control" placeholder="Notes" value={reserve.notes}/>
                 </div>
             </fieldset>
             </div>
