@@ -20,6 +20,9 @@ import { ReserveProvider } from "./components/reserves/ReserveProvider"
 import { InspectionAsideList } from "./components/aside/InspectionAsideList"
 import { CustomerAside } from "./components/aside/CustomerAside"
 import { CustomerAsideList } from "./components/aside/CustomerAsideList"
+import { ServiceBulletinAsideList } from "./components/seviceBulletins/sbList"
+import { ServiceBulletinAside } from "./components/seviceBulletins/sbAside"
+import { ServiceBulletinProvider } from "./components/seviceBulletins/sbProvider"
 
 
 
@@ -36,6 +39,7 @@ export const ApplicationViews = () => {
                 </Route>
                 
                 <Route exact path="/home">
+                    <ServiceBulletinProvider>
                     <CustomerProvider>
                         <ContainerProvider>
                             <AADProvider>
@@ -49,6 +53,7 @@ export const ApplicationViews = () => {
                             </AADProvider>
                         </ContainerProvider>
                     </CustomerProvider>
+                    </ServiceBulletinProvider>
                 </Route>
             
 

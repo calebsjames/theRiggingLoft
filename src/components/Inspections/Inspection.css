@@ -35,13 +35,23 @@
 .componentBox {
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 10px;
+    margin: 0px 10px 0px 0px;
+   
+}
+.componentBox > h3 {
+    margin: 0px;
    
 }
 
 .inspectionCard {
     display: flex;
-    margin: 0px 10px 10px 10px;
+    margin: 0px 10px 40px 10px;
+    line-height: 1;
+}
+
+.inspectionCard > h3 {
+    display: flex;
+    margin: 0px 10px;
     line-height: 1;
 }
 

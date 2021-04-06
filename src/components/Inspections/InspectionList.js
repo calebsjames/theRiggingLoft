@@ -44,6 +44,7 @@ export const InspectionList = () => {
     return (
     <>
     <div className="inspections">
+    <h2>Inspections</h2>
     <Accordion defaultActiveKey="0">
       {inspectionsSorted.map(inspectionObject => {
           const customer = customers.find(c => parseInt(c.id) === parseInt(inspectionObject.customerId))

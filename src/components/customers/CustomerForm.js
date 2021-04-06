@@ -79,26 +79,26 @@ export const CustomerForm = () => {
     //return this HTML
     return (
         <>
-        <section className="main">
-        <article className="containerRight">
-        <form className="customerForm">
-            <h2 className="customerForm__title">{customerId ? "Edit Customer" : "New Customer"}</h2>
-            <fieldset>
+        <section className="main modal--parent">
+        <article className="containerRight modal--content">
+        <h2 className="formTitle">{customerId ? "Edit Customer" : "New Customer"}</h2>
+            <form className="customerForm">
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="name">Customer name:</label>
+                    <label htmlFor="name">Name: </label>
                     <input type="text" id="name" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Customer name" value={customer.name}/>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="phone">Phone #:</label>
+                    <label htmlFor="phone">Phone #: </label>
                     <input type="text" id="phone" onChange={handleControlledInputChange} required className="form-control" placeholder="Phone #" value={customer.phone}/>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset className="form">
                 <div className="form-group">
-                    <label htmlFor="customerNotes">Notes:</label>
-                    <input type="text" id="customerNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={customer.customerNotes}/>
+                    
+                    <textarea cols="50" rows="10" id="customerNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={customer.customerNotes}/>
                 </div>
             </fieldset>
             
@@ -118,7 +118,7 @@ export const CustomerForm = () => {
 
 
             {/* button to delete customer if in customer edit*/}
-            {customerId ? <button className="deleteButton" onClick={(handleDelete)}>
+            {customerId ? <button className="btn" onClick={(handleDelete)}>
                 Delete
             </button> : "" }
         

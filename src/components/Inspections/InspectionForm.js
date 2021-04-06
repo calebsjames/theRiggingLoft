@@ -183,7 +183,7 @@ export const InspectionForm = () => {
         deleteInspection(inspectionId)
             .then(getInspections)
             .then(() => {
-            history.push("/inspections")
+            history.goBack()
             })
     } 
 
@@ -297,10 +297,10 @@ export const InspectionForm = () => {
     
 
     return<>
-        <h2 id="inspectionTitle">
+        <h2 className="formTitle">
             {inspectionId ? `Inspection Details ` : "New Inspection"}
         </h2>
-        <h3 id="inspectionNameDate">
+        <h3 className="formTitle">
             {inspectionId ? customer?.name + " " : ""}    
             { currentInspection?.date} 
         </h3>
@@ -319,11 +319,11 @@ export const InspectionForm = () => {
                         <p>Color: {components.container?.color} </p>
                         <p>DOM: {components.container?.dom} </p>
                         <p>Notes: {components.container?.notes} </p>
-                        {components.container ? <button className="btn btn-primary"
+                        {components.container ? <button 
                             disabled={isLoading}
                             onClick={handleClickEditContainer}>
                             Edit</button> : ""}
-                        {components.container ? "" : <button className="btn btn-primary"
+                        {components.container ? "" : <button 
                             disabled={isLoading}
                             onClick={handleClickNewContainer}>
                             New</button> }
@@ -424,11 +424,11 @@ export const InspectionForm = () => {
                         <p>Color: {components.reserve?.color} </p>
                         <p>DOM: {components.reserve?.dom} </p>
                         <p>Notes: {components.reserve?.notes} </p>
-                        {components.reserve ? <button className="btn btn-primary"
+                        {components.reserve ? <button 
                         disabled={isLoading}
                         onClick={handleClickEditReserve}>
                         Edit</button> : ""}
-                        {components.reserve ? "" : <button className="btn btn-primary"
+                        {components.reserve ? "" : <button 
                         disabled={isLoading}
                         onClick={handleClickNewReserve}>
                         New</button> }
@@ -495,11 +495,11 @@ export const InspectionForm = () => {
                         <p>Next Service Date: {components.aad?.nextServiceDate} </p>
                         <p>DOM: {components.aad?.dom} </p>
                         <p>Notes: {components.aad?.notes} </p>
-                        {components.aad ? <button className="btn btn-primary"
+                        {components.aad ? <button
                         disabled={isLoading}
                         onClick={handleClickEditAAD}>
                         Edit</button> : ""}
-                        {components.aad ? "" : <button className="btn btn-primary"
+                        {components.aad ? "" : <button 
                         disabled={isLoading}
                         onClick={handleClickNewAAD}>
                         New</button> }
@@ -547,11 +547,11 @@ export const InspectionForm = () => {
                             <p>Color: {components.mainParachute?.color} </p>
                             <p>DOM: {components.mainParachute?.dom} </p>
                             <p>Notes: {components.mainParachute?.notes} </p>
-                            {components.mainParachute ? <button className="btn btn-primary"
+                            {components.mainParachute ? <button 
                             disabled={isLoading}
                             onClick={handleClickEditMainParachute}>
                             Edit</button> : ""}
-                            {components.mainParachute ? "" : <button className="btn btn-primary"
+                            {components.mainParachute ? "" : <button 
                             disabled={isLoading}
                             onClick={handleClickNewMainParachute}>
                             New</button> }
@@ -611,7 +611,8 @@ export const InspectionForm = () => {
                             <fieldset className="checkbox">
                                 <div className="form-group">
                                     <label htmlFor="mainNotes">Notes:</label><br></br>
-                                    <input type="text" id="mainNotes" onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.mainNotes}/>
+                                    <textarea id="mainNotes" cols="125" rows="6" 
+                                    onChange={handleControlledInputChange} required className="form-control" placeholder="Notes" value={inspection.mainNotes}/>
                                 </div>
                             </fieldset>
                 </form>   

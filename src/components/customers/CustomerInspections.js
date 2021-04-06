@@ -104,11 +104,11 @@ export const CustomerInspections = () => {
     return (
     <>
     <div className="inspections">
-        <h2>{customerObject ? customerObject.name : "No Name"}</h2>
-        <button onClick={() => {history.push(`/customers/edit/${customerObject.id}`)}}>Edit</button>
+        <h2 className="formTitle" >{customerObject ? customerObject.name : "No Name"}</h2>
+        <button className="btn" onClick={() => {history.push(`/customers/edit/${customerObject.id}`)}}>Edit</button>
         
-        <button onClick={handleNewInspection}>New inspection</button>
-        <h3>Inspections</h3>
+        <button className="btn" onClick={handleNewInspection}>New inspection</button>
+        {/* <h3 className="formTitle">Inspections</h3> */}
       {filteredInspections.map(inspectionObject => {
           const customer = customers.find(c => parseInt(c.id) === parseInt(inspectionObject.customerId))
           const container = containers.find(cont => parseInt(cont.id) === parseInt(inspectionObject.containerId))

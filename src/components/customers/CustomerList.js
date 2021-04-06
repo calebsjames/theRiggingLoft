@@ -41,7 +41,7 @@ export const CustomerList = () => {
         <>
             <h2>Customers</h2>
             <div className="customerNav">
-            <button onClick={() => history.push("/newcustomer")}>
+            <button className="btn" onClick={() => history.push("/newcustomer")}>
                 New Customer
             </button>
             <CustomerSearch />
