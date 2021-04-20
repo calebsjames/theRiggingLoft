@@ -27,8 +27,7 @@ export const InspectionAsideList = () => {
 )
 
   return (
-    <>
-                
+    <>         
         <article className="containerLeft">
             <h2>Previous Repacks</h2>
             {
