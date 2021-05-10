@@ -59,6 +59,7 @@
     height: 30px;
     margin: 5px;
     align-self: center;
+    min-width: fit-content;
 }
 
 .componentBoxInspectionList {
