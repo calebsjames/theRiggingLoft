@@ -12,14 +12,14 @@ export const CustomerProvider = (props) => {
 
     //function to get all customers
     const getCustomers = () => {
-        return fetch("http://localhost:8088/customers")
+        return fetch("https://theriggingloft-api.herokuapp.com/customers")
         .then(res => res.json())
         .then(setCustomers)
     }
 
     //function to add customer and return the object of the new customer with ID
     const addCustomer = customerObj => {
-        return fetch("http://localhost:8088/customers", {
+        return fetch("https://theriggingloft-api.herokuapp.com/customers", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -38,13 +38,13 @@ export const CustomerProvider = (props) => {
 
     //function to get customer by ID
     const getCustomerById = (id) => {
-        return fetch(`http://localhost:8088/customers/${id}`)
+        return fetch(`https://theriggingloft-api.herokuapp.com/customers/${id}`)
             .then(res => res.json())
     }
 
     //function to delete an customer
     const deleteCustomer = customerId => {
-        return fetch(`http://localhost:8088/customers/${customerId}`, {
+        return fetch(`https://theriggingloft-api.herokuapp.com/customers/${customerId}`, {
             method: "DELETE"
         })
         .then(getCustomers)
@@ -52,7 +52,7 @@ export const CustomerProvider = (props) => {
     
     //function to edit an customer
     const editCustomer = (customer) => {
-        return fetch(`http://localhost:8088/customers/${customer.id}`, {
+        return fetch(`https://theriggingloft-api.herokuapp.com/customers/${customer.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"

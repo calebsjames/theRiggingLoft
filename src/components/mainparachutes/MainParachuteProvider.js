@@ -11,14 +11,14 @@ export const MainParachuteProvider = (props) => {
 
     //function to get all main parachutes
     const getMainParachutes = () => {
-        return fetch("http://localhost:8088/mainParachutes")
+        return fetch("https://theriggingloft-api.herokuapp.com/mainParachutes")
         .then(res => res.json())
         .then(setMainParachutes)
     }
     
     //function to add a main parachutesand return the object of the new main parachute with ID
     const addMainParachute = mainParachuteObj => {
-        return fetch("http://localhost:8088/mainParachutes", {
+        return fetch("https://theriggingloft-api.herokuapp.com/mainParachutes", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -33,13 +33,13 @@ export const MainParachuteProvider = (props) => {
 
     //function to get mainParachute by ID
     const getMainParachuteById = (id) => {
-        return fetch(`http://localhost:8088/mainParachutes/${id}`)
+        return fetch(`https://theriggingloft-api.herokuapp.com/mainParachutes/${id}`)
             .then(res => res.json())
     }
 
     //function to delete an mainParachute
     const deleteMainParachute = mainParachuteId => {
-        return fetch(`http://localhost:8088/mainParachutes/${mainParachuteId}`, {
+        return fetch(`https://theriggingloft-api.herokuapp.com/mainParachutes/${mainParachuteId}`, {
             method: "DELETE"
         })
         .then(getMainParachutes)
@@ -47,7 +47,7 @@ export const MainParachuteProvider = (props) => {
     
     //function to edit a mainParachute
     const editMainParachute = mainParachute => {
-        return fetch(`http://localhost:8088/mainParachutes/${mainParachute.id}`, {
+        return fetch(`https://theriggingloft-api.herokuapp.com/mainParachutes/${mainParachute.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"

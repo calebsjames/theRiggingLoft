@@ -10,14 +10,14 @@ export const ReserveProvider = (props) => {
 
     //function to get all reserves
     const getReserves = () => {
-        return fetch("http://localhost:8088/reserves")
+        return fetch("https://theriggingloft-api.herokuapp.com/reserves")
         .then(res => res.json())
         .then(setReserves)
     }
     
     //function to add a reserve
     const addReserve = reserveObj => {
-        return fetch("http://localhost:8088/reserves", {
+        return fetch("https://theriggingloft-api.herokuapp.com/reserves", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -32,13 +32,13 @@ export const ReserveProvider = (props) => {
 
     //function to get reserve by ID
     const getReserveById = (id) => {
-        return fetch(`http://localhost:8088/reserves/${id}`)
+        return fetch(`https://theriggingloft-api.herokuapp.com/reserves/${id}`)
             .then(res => res.json())
     }
 
     //function to delete an reserve
     const deleteReserve = reserveId => {
-        return fetch(`http://localhost:8088/reserves/${reserveId}`, {
+        return fetch(`https://theriggingloft-api.herokuapp.com/reserves/${reserveId}`, {
             method: "DELETE"
         })
         .then(getReserves)
@@ -46,7 +46,7 @@ export const ReserveProvider = (props) => {
     
     //function to edit an reserve
     const editReserve = reserve => {
-        return fetch(`http://localhost:8088/reserves/${reserve.id}`, {
+        return fetch(`https://theriggingloft-api.herokuapp.com/reserves/${reserve.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"

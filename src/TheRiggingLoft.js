@@ -10,7 +10,7 @@ import { NavBar } from "./components/navbar/NavBar"
 export const TheRiggingLoft = () => (
 <>
 <Route render={() => {
-    if (sessionStorage.getItem(userStorageKey)) {
+    
       return (
         <>
           <Header />
@@ -18,9 +18,7 @@ export const TheRiggingLoft = () => (
           <ApplicationViews />
         </>
       )
-    } else {
-      return <Redirect to="/login" />;
-    }
+    
 }} />
 
 <Route path="/login">

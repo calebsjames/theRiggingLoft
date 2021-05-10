@@ -10,14 +10,14 @@ export const ContainerProvider = (props) => {
     const [containerId, setContainerId] = useState(0)
 
     const getContainers = () => {
-        return fetch("http://localhost:8088/containers")
+        return fetch("https://theriggingloft-api.herokuapp.com/containers")
         .then(res => res.json())
         .then(setContainers)
     }
 
     //function to add container and return the object of the new container with ID
     const addContainer = containerObj => {
-        return fetch("http://localhost:8088/containers", {
+        return fetch("https://theriggingloft-api.herokuapp.com/containers", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -33,13 +33,13 @@ export const ContainerProvider = (props) => {
 
     //function to get container by ID
     const getContainerById = (id) => {
-        return fetch(`http://localhost:8088/containers/${id}`)
+        return fetch(`https://theriggingloft-api.herokuapp.com/containers/${id}`)
             .then(res => res.json())
     }
 
     //function to delete an container
     const deleteContainer = containerId => {
-        return fetch(`http://localhost:8088/containers/${containerId}`, {
+        return fetch(`https://theriggingloft-api.herokuapp.com/containers/${containerId}`, {
             method: "DELETE"
         })
             .then(getContainers)
@@ -47,7 +47,7 @@ export const ContainerProvider = (props) => {
 
     //function to edit an container
     const editContainer = container => {
-        return fetch(`http://localhost:8088/containers/${container.id}`, {
+        return fetch(`https://theriggingloft-api.herokuapp.com/containers/${container.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"

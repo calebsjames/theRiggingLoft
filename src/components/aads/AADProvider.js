@@ -10,14 +10,14 @@ export const AADProvider = (props) => {
 
     //get all aads
     const getAADs = () => {
-        return fetch("http://localhost:8088/aads")
+        return fetch("https://theriggingloft-api.herokuapp.com/aads")
         .then(res => res.json())
         .then(setAADs)
     }
 
     //function to add aad and return the object of the new aad with ID
     const addAAD = aadObj => {
-        return fetch("http://localhost:8088/aads", {
+        return fetch("https://theriggingloft-api.herokuapp.com/aads", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -32,13 +32,13 @@ export const AADProvider = (props) => {
 
     //function to get aad by ID
     const getAADById = (id) => {
-        return fetch(`http://localhost:8088/aads/${id}`)
+        return fetch(`https://theriggingloft-api.herokuapp.com/aads/${id}`)
             .then(res => res.json())
     }
 
     //function to delete an aad
     const deleteAAD = aadId => {
-        return fetch(`http://localhost:8088/aads/${aadId}`, {
+        return fetch(`https://theriggingloft-api.herokuapp.com/aads/${aadId}`, {
             method: "DELETE"
         })
         .then(getAADs)
@@ -46,7 +46,7 @@ export const AADProvider = (props) => {
     
     //function to edit an aad
     const editAAD = aad => {
-        return fetch(`http://localhost:8088/aads/${aad.id}`, {
+        return fetch(`https://theriggingloft-api.herokuapp.com/aads/${aad.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"

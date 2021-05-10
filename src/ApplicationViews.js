@@ -31,11 +31,22 @@ export const ApplicationViews = () => {
         <>
             {/* Render the home page */}
             
-                <Route path="/">
-                    <InspectionProvider>
-                        
-
-                    </InspectionProvider>
+                <Route exact path="/">
+                <ServiceBulletinProvider>
+                    <CustomerProvider>
+                        <ContainerProvider>
+                            <AADProvider>
+                                <ReserveProvider>
+                                    <MainParachuteProvider>
+                                        <InspectionProvider>
+                                            <Home />
+                                        </InspectionProvider>
+                                    </MainParachuteProvider>
+                                </ReserveProvider>
+                            </AADProvider>
+                        </ContainerProvider>
+                    </CustomerProvider>
+                    </ServiceBulletinProvider>
                 </Route>
                 
                 <Route exact path="/home">

@@ -5,6 +5,8 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from "react-router-dom"
 import { TheRiggingLoft } from './TheRiggingLoft';
 
+sessionStorage.setItem("app_user_id", 1)
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>

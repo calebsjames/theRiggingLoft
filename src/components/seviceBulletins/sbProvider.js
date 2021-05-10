@@ -11,14 +11,14 @@ export const ServiceBulletinProvider = (props) => {
 
     //function to get all main parachutes
     const getServiceBulletins = () => {
-        return fetch("http://localhost:8088/serviceBulletins")
+        return fetch("https://theriggingloft-api.herokuapp.com/serviceBulletins")
         .then(res => res.json())
         .then(setServiceBulletins)
     }
     
     //function to add a main parachutesand return the object of the new main parachute with ID
     const addServiceBulletin = serviceBulletinObj => {
-        return fetch("http://localhost:8088/serviceBulletins", {
+        return fetch("https://theriggingloft-api.herokuapp.com/serviceBulletins", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -33,13 +33,13 @@ export const ServiceBulletinProvider = (props) => {
 
     //function to get serviceBulletin by ID
     const getServiceBulletinById = (id) => {
-        return fetch(`http://localhost:8088/serviceBulletins/${id}`)
+        return fetch(`https://theriggingloft-api.herokuapp.com/serviceBulletins/${id}`)
             .then(res => res.json())
     }
 
     //function to delete an serviceBulletin
     const deleteServiceBulletin = serviceBulletinId => {
-        return fetch(`http://localhost:8088/serviceBulletins/${serviceBulletinId}`, {
+        return fetch(`https://theriggingloft-api.herokuapp.com/serviceBulletins/${serviceBulletinId}`, {
             method: "DELETE"
         })
         .then(getServiceBulletins)
@@ -47,7 +47,7 @@ export const ServiceBulletinProvider = (props) => {
     
     //function to edit a serviceBulletin
     const editServiceBulletin = serviceBulletin => {
-        return fetch(`http://localhost:8088/serviceBulletins/${serviceBulletin.id}`, {
+        return fetch(`https://theriggingloft-api.herokuapp.com/serviceBulletins/${serviceBulletin.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
