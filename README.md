@@ -25,6 +25,11 @@
 7. If you would like to edit or delete the customer or inspection you can click on the customer's name to see and edit details.
 8. If you would like to begin a new inspection on the same gear, you can click "New Inspection" in the customer details page
 
+## Alternative Testing
+1. Navigate to https://theriggingloft.herokuapp.com/home
+2. Because it is hosted on Heroku it may take a minute to load. Refresh if it times out.
+3. The hosted application comes with a logged in user and pre-loaded data. It takes additional time for this to load as well and may need a refresh.
+
 ### ERD:
 https://dbdiagram.io/d/60243d7b80d742080a3a0cdb
 
