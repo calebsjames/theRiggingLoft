@@ -18,16 +18,16 @@
 ## Testing
 1. From the landing page, create a new user account and log in.
 2. No information will be available to you as all data is user-specific.
-3. Navigate to "customers" page and click the "New Customer" button.
-4. Follow the prompts to create a new customer and their equipment.
-5. After creating the new customer and equipment, you will be prompted to begin a new inspection on that equipment for that customer.
+3. Navigate to "customers" section and click the "+" button to create a new customer.
+4. After creating the new customer you will be brought back to the landing page where you will see your newly added customer.
+5. Click the customers name and you will be brought to a page to see all previous work for that customer. Click the "New Inspection" button to begin a new inspection.
 6. Upon saving the inspection, you will be brought back to the home page that displays all your previous work.
 7. If you would like to edit or delete the customer or inspection you can click on the customer's name to see and edit details.
-8. If you would like to begin a new inspection on the same gear, you can click "New Inspection" in the customer details page
+8. If you would like to begin a new inspection on the same gear, you can click "New Inspection" in the customer details page and it will automatically populate your new inspection fields with the related data.
 
 ## Alternative Testing
 1. Navigate to https://theriggingloft.herokuapp.com/home
-2. Because it is hosted on Heroku it may take a minute to load. Refresh if it times out.
+2. Because it is hosted on Heroku it may take a minute to load. Please refresh if it times out.
 3. The hosted application comes with a logged in user and pre-loaded data. It takes additional time for this to load as well and may need a refresh.
 
 ### ERD:
